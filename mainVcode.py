@@ -1,4 +1,4 @@
-from turtle import screensize
+from turtle import color, screensize
 from mainWindow import *
 from PyQt5 import QtCore, QtGui, QtWidgets
 from  pyqtgraph.flowchart import Flowchart
@@ -48,24 +48,26 @@ class extendWindow(Ui_MainWindow):
 
         x = np.arange(1000)
         y = np.random.normal(size=(3, 1000))
-        print(x)
-        print(y)
         #plotWidget = pg.plot(title="Three plot curves")
         
         
+        #self.graphWdiget = pg.PlotWidget(viewBox = pg.ViewBox(border = pg.mkPen(color='#000000'))
         self.graphWdiget = pg.PlotWidget()
-        #self.plot = self.graphWdiget.plot
         self.graphWdiget.setBackground(background= (33, 33, 33))
-        self.graphWdiget.setRange(None, (0,100), (0,100), 0.1, True, True)
-        self.graphWdiget.plot(x, y[2], pen=(4,3))
-        #pg.ViewBox.viewRect
+        self.graphWdiget.setRange(xRange=(0,100), yRange=(0,100))
+        #self.graphWdiget.plot(x, y[2], pen=(4,3))
         
         self.gridLayout_6.addWidget(self.graphWdiget, 1, 1, 1, 1)
+        
         
         #print(screensize())
         
         ###############################################
         #self.qView = pg.GraphicsView()
+
+    def stressGraphPlot(self):
+        self.graphWdiget.plot([1,2,3,4,5], [1,2,3,4,5], pen=(4,3))
+        print('hrrhrhrhrhrhrhrh')
         
     def writeUpdate(self):
         if self.motorRunning:
@@ -74,6 +76,7 @@ class extendWindow(Ui_MainWindow):
         
 
     def start_func(self):
+        self.stressGraphPlot()
         self.motorRunning = True
         tmp.run_motor(self.direction,self.RWtensileSpeed.value())
 
