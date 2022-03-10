@@ -9,7 +9,6 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-import Her_rc
 
 
 class Ui_MainWindow(object):
@@ -21,7 +20,7 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(MainWindow.sizePolicy().hasHeightForWidth())
         MainWindow.setSizePolicy(sizePolicy)
-        MainWindow.setMinimumSize(QtCore.QSize(0, 380))
+        MainWindow.setMinimumSize(QtCore.QSize(0, 600))
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setStyleSheet("#Backround{\n"
 "    background-color: rgb(40, 40, 40);\n"
@@ -212,6 +211,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.Backround)
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.frame = QtWidgets.QFrame(self.Backround)
+        self.frame.setMinimumSize(QtCore.QSize(0, 0))
         self.frame.setMaximumSize(QtCore.QSize(500, 16777215))
         self.frame.setStyleSheet("")
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
@@ -500,6 +500,7 @@ class Ui_MainWindow(object):
         self.startButton.raise_()
         self.gridLayout_8.addWidget(self.Sone1, 1, 0, 1, 1)
         self.TitleBox = QtWidgets.QWidget(self.frame)
+        self.TitleBox.setMinimumSize(QtCore.QSize(0, 100))
         self.TitleBox.setMaximumSize(QtCore.QSize(16777215, 100))
         self.TitleBox.setStyleSheet("")
         self.TitleBox.setObjectName("TitleBox")
@@ -561,7 +562,7 @@ class Ui_MainWindow(object):
         self.gridLayout_7 = QtWidgets.QGridLayout(self.forceGraph)
         self.gridLayout_7.setObjectName("gridLayout_7")
         self.forceWidget = QtWidgets.QWidget(self.forceGraph)
-        self.forceWidget.setMinimumSize(QtCore.QSize(0, 380))
+        self.forceWidget.setMinimumSize(QtCore.QSize(0, 0))
         self.forceWidget.setObjectName("forceWidget")
         self.gridLayout_10 = QtWidgets.QGridLayout(self.forceWidget)
         self.gridLayout_10.setObjectName("gridLayout_10")
@@ -638,7 +639,7 @@ class Ui_MainWindow(object):
         self.gridLayout_9 = QtWidgets.QGridLayout(self.stressWidget)
         self.gridLayout_9.setObjectName("gridLayout_9")
         self.graphicsView = QtWidgets.QGraphicsView(self.stressWidget)
-        self.graphicsView.setMinimumSize(QtCore.QSize(0, 380))
+        self.graphicsView.setMinimumSize(QtCore.QSize(0, 0))
         self.graphicsView.setObjectName("graphicsView")
         self.gridLayout_9.addWidget(self.graphicsView, 0, 0, 1, 1)
         self.gridLayout_6.addWidget(self.stressWidget, 1, 1, 1, 1)
@@ -742,6 +743,6 @@ class Ui_MainWindow(object):
         self.label_12.setText(_translate("MainWindow", "ɛ "))
         self.label_1.setText(_translate("MainWindow", "δ[MPa]"))
         self.label_13.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:20pt; font-weight:600;\">Stress</span></p></body></html>"))
-
+import Her_rc
 
 
