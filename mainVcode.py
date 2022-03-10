@@ -6,7 +6,17 @@ from pyqtgraph import PlotWidget
 import pyqtgraph as pg
 import numpy as np
 import tmp
-import threading
+from PyQt5.QtCore import QObject, QThread, pyqtSignal
+
+class stressWorker(QObject):
+    newData = pyqtSignal(float,float)
+
+    def run(self):
+        generator = tmp.plot_generator()
+        while True:
+            d = next(generator)
+            self.newData.emit(d[0],d[1])
+
 
 class extendWindow(Ui_MainWindow):
     direction = "l"
@@ -68,9 +78,16 @@ class extendWindow(Ui_MainWindow):
         ###############################################
         #self.qView = pg.GraphicsView()
 
-    def stressGraphPlot(self):
-        #self.stressData.append(data)
-        self.graphWdiget.
+        self.sThread = QThread()
+        self.generator = stressWorker()
+        self.generator.moveToThread(self.sThread)
+        self.sThread.started.connect(self.generator.run)
+        self.generator.newData.connect(self.stressGraphPlot)
+        self.sThread.start()
+
+    def stressGraphPlot(self, x,y):
+        self.stressDataX.append(x)
+        self.stressDataY.append(y)
         self.graphWdiget.plot(self.stressDataX, self.stressDataY, pen=(4,3))
         
     def writeUpdate(self):
@@ -80,9 +97,9 @@ class extendWindow(Ui_MainWindow):
         
 
     def start_func(self):
-        self.stressGraphPlot()
-        #self.motorRunning = True
-        #tmp.run_motor(self.direction,self.RWtensileSpeed.value())
+        self.motorRunning = True
+        tmp.run_motor(self.direction,self.RWtensileSpeed.value())
+        self.graphWdiget.plot(self.stressDataX, self.stressDataY, pen=(4,3))
 
     def stop_func(self):
         self.motorRunning = False
@@ -99,24 +116,10 @@ class extendWindow(Ui_MainWindow):
         if self.motorRunning:
             tmp.run_motor(self.direction,self.RWtensileSpeed.value())
 
-    def update_plot(self):
-        generator = tmp.plot_generator()
-        while True:
-            p = next(generator)
-            self.stressDataX.append(p[0])
-            self.stressDataY.append(p[1])
-            self.stressGraphPlot()
-            #print(self.stressDataY)
-            #print(next(generator))
-
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
     ui = extendWindow()
-
-    updater = threading.Thread(target=ui.update_plot)
-    updater.start()
-
     MainWindow.show()
     sys.exit(app.exec_())
