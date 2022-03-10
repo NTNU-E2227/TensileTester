@@ -6,6 +6,7 @@ from pyqtgraph import PlotWidget
 import pyqtgraph as pg
 import numpy as np
 import tmp
+import threading
 
 class extendWindow(Ui_MainWindow):
     direction = "l"
@@ -95,11 +96,19 @@ class extendWindow(Ui_MainWindow):
         if self.motorRunning:
             tmp.run_motor(self.direction,self.RWtensileSpeed.value())
 
+    def update_plot(self):
+        generator = tmp.plot_generator()
+        while True:
+            print(next(generator))
 
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
     ui = extendWindow()
+
+    updater = threading.Thread(target=ui.update_plot)
+    updater.start()
+
     MainWindow.show()
     sys.exit(app.exec_())
