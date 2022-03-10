@@ -2,7 +2,10 @@ import serial
 
 import mcu_com
 
-port = serial.Serial("COM8", baudrate=115200)
+try:
+    port = serial.Serial("COM8", baudrate=115200)
+except:
+    pass
 
 def run_motor(dir, speed):
     if dir == "l":
