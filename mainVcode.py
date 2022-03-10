@@ -4,8 +4,10 @@ from  pyqtgraph.flowchart import Flowchart
 from pyqtgraph import PlotWidget
 import pyqtgraph as pg
 import numpy as np
+import tmp
 
 class extendWindow(Ui_MainWindow):
+    direction = "l"
     def __init__(self):
         super().__init__()
         
@@ -13,9 +15,10 @@ class extendWindow(Ui_MainWindow):
         self.setupUi(MainWindow)
 
         ## ------ Buttonfunctions ------ ##
-        self.startButton.clicked.connect(self.func1)
-        self.forceRead.setValue(3)
-        self.forceRead.setMaximum(1000)
+        self.startButton.clicked.connect(self.start_func)
+        self.stopButton.clicked.connect(self.stop_func)
+        self.tensileButton.clicked.connect(self.tensile_func)
+        self.compressButton.clicked.connect(self.compress_func)
         
 
         #self.graphbutton = QtWidgets.QPushButton(self.stressWidget)
@@ -44,12 +47,17 @@ class extendWindow(Ui_MainWindow):
         #self.qView = pg.GraphicsView()
         
 
-    def func1(self):
-        i = self.forceRead.value() + 20
-        self.forceRead.setValue(i)
+    def start_func(self):
+        tmp.run_motor(self.direction,self.RWtensileSpeed.value())
 
-        print(i)
+    def stop_func(self):
+        tmp.stop_motor()
 
+    def tensile_func(self):
+        self.direction = "l"
+
+    def compress_func(self):
+        self.direction = "u"
 
 
 
