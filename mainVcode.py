@@ -1,3 +1,4 @@
+from turtle import screensize
 from mainWindow import *
 from PyQt5 import QtCore, QtGui, QtWidgets
 from  pyqtgraph.flowchart import Flowchart
@@ -43,6 +44,8 @@ class extendWindow(Ui_MainWindow):
         self.graphWdiget.setRange(None, (0,100), (0,100), 0.1, True, True)
         pg.ViewBox.viewRect
         self.gridLayout_6.addWidget(self.graphWdiget, 1, 1, 1, 1)
+        #print(screensize())
+        
         ###############################################
         #self.qView = pg.GraphicsView()
         
