@@ -22,5 +22,6 @@ def stop_motor():
 
 def plot_generator():
     while True:
-        yield math.sin(0.1*time.time())
+        t = time.time()
+        yield [t, math.sin(0.1*t)]
         time.sleep(1)
