@@ -11,7 +11,8 @@ import threading
 class extendWindow(Ui_MainWindow):
     direction = "l"
     motorRunning = False
-    stressData = [[],[]]
+    stressDataX = []
+    stressDataY = []
     def __init__(self):
         super().__init__()     
         self.setupUi(MainWindow)
@@ -57,7 +58,8 @@ class extendWindow(Ui_MainWindow):
         self.graphWdiget.setBackground(background= (33, 33, 33))
         self.graphWdiget.setRange(xRange=(0,100), yRange=(0,100))
         #self.graphWdiget.plot(x, y[2], pen=(4,3))
-        
+        l = pg.GraphicsLayout()
+        l.layout.setContentsMargins(0, 0, 0, 0)
         self.gridLayout_6.addWidget(self.graphWdiget, 1, 1, 1, 1)
         
         
@@ -66,9 +68,10 @@ class extendWindow(Ui_MainWindow):
         ###############################################
         #self.qView = pg.GraphicsView()
 
-    def stressGraphPlot(self,data):
-        self.stressData.append(data)
-        self.graphWdiget.plot(self.stressData[0], self.stressData[1], pen=(4,3))
+    def stressGraphPlot(self):
+        #self.stressData.append(data)
+        self.graphWdiget.
+        self.graphWdiget.plot(self.stressDataX, self.stressDataY, pen=(4,3))
         
     def writeUpdate(self):
         if self.motorRunning:
@@ -78,8 +81,8 @@ class extendWindow(Ui_MainWindow):
 
     def start_func(self):
         self.stressGraphPlot()
-        self.motorRunning = True
-        tmp.run_motor(self.direction,self.RWtensileSpeed.value())
+        #self.motorRunning = True
+        #tmp.run_motor(self.direction,self.RWtensileSpeed.value())
 
     def stop_func(self):
         self.motorRunning = False
@@ -99,7 +102,12 @@ class extendWindow(Ui_MainWindow):
     def update_plot(self):
         generator = tmp.plot_generator()
         while True:
-            print(next(generator))
+            p = next(generator)
+            self.stressDataX.append(p[0])
+            self.stressDataY.append(p[1])
+            self.stressGraphPlot()
+            #print(self.stressDataY)
+            #print(next(generator))
 
 if __name__ == "__main__":
     import sys
