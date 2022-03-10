@@ -11,10 +11,11 @@ import threading
 class extendWindow(Ui_MainWindow):
     direction = "l"
     motorRunning = False
+    stressData = [[],[]]
     def __init__(self):
         super().__init__()     
         self.setupUi(MainWindow)
-
+        
         ## ------ Buttonfunctions ------ ##
         self.startButton.clicked.connect(self.start_func)
         self.stopButton.clicked.connect(self.stop_func)
@@ -65,9 +66,9 @@ class extendWindow(Ui_MainWindow):
         ###############################################
         #self.qView = pg.GraphicsView()
 
-    def stressGraphPlot(self):
-        self.graphWdiget.plot([1,2,3,4,5], [1,2,3,4,5], pen=(4,3))
-        print('hrrhrhrhrhrhrhrh')
+    def stressGraphPlot(self,data):
+        self.stressData.append(data)
+        self.graphWdiget.plot(self.stressData[0], self.stressData[1], pen=(4,3))
         
     def writeUpdate(self):
         if self.motorRunning:
