@@ -9,7 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-import Her_rc
+
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -700,7 +700,20 @@ class Ui_MainWindow(object):
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 1917, 21))
         self.menubar.setObjectName("menubar")
+        self.menusssss = QtWidgets.QMenu(self.menubar)
+        self.menusssss.setObjectName("menusssss")
+        self.menuTools = QtWidgets.QMenu(self.menubar)
+        self.menuTools.setObjectName("menuTools")
         MainWindow.setMenuBar(self.menubar)
+        self.actionCOM_Port = QtWidgets.QAction(MainWindow)
+        self.actionCOM_Port.setObjectName("actionCOM_Port")
+        self.actionGeometry = QtWidgets.QAction(MainWindow)
+        self.actionGeometry.setObjectName("actionGeometry")
+        self.menuTools.addSeparator()
+        self.menuTools.addAction(self.actionCOM_Port)
+        self.menuTools.addAction(self.actionGeometry)
+        self.menubar.addAction(self.menusssss.menuAction())
+        self.menubar.addAction(self.menuTools.menuAction())
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -743,8 +756,18 @@ class Ui_MainWindow(object):
         self.label_12.setText(_translate("MainWindow", "ɛ "))
         self.label_1.setText(_translate("MainWindow", "δ[MPa]"))
         self.label_13.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:20pt; font-weight:600;\">Stress</span></p></body></html>"))
+        self.menusssss.setTitle(_translate("MainWindow", "File"))
+        self.menuTools.setTitle(_translate("MainWindow", "Tools"))
+        self.actionCOM_Port.setText(_translate("MainWindow", "COM Port"))
+        self.actionGeometry.setText(_translate("MainWindow", "Geometry"))
+import Her_rc
 
 
-
-
-
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    MainWindow = QtWidgets.QMainWindow()
+    ui = Ui_MainWindow()
+    ui.setupUi(MainWindow)
+    MainWindow.show()
+    sys.exit(app.exec_())
