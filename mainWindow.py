@@ -9,7 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-
+import Her_rc
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -743,6 +743,8 @@ class Ui_MainWindow(object):
         self.label_12.setText(_translate("MainWindow", "ɛ "))
         self.label_1.setText(_translate("MainWindow", "δ[MPa]"))
         self.label_13.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:20pt; font-weight:600;\">Stress</span></p></body></html>"))
-import Her_rc
+
+
+
 
 
