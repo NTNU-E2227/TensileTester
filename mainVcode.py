@@ -9,10 +9,9 @@ import tmp
 
 class extendWindow(Ui_MainWindow):
     direction = "l"
+    motorRunning = False
     def __init__(self):
-        super().__init__()
-        
-        
+        super().__init__()     
         self.setupUi(MainWindow)
 
         ## ------ Buttonfunctions ------ ##
@@ -20,6 +19,12 @@ class extendWindow(Ui_MainWindow):
         self.stopButton.clicked.connect(self.stop_func)
         self.tensileButton.clicked.connect(self.tensile_func)
         self.compressButton.clicked.connect(self.compress_func)
+
+        ## ------ Read/Write Data ------ ##
+        self.RWmaxForce.editingFinished.connect(self.writeUpdate)
+        self.RWtensileSpeed.editingFinished.connect(self.writeUpdate)
+        self.RWlengthRange.editingFinished.connect(self.writeUpdate)
+        self.RWinitialForce.editingFinished.connect(self.writeUpdate)
         
 
         #self.graphbutton = QtWidgets.QPushButton(self.stressWidget)
@@ -39,29 +44,52 @@ class extendWindow(Ui_MainWindow):
         #w = fc.widget()
         #self.gridLayout_6.addWidget(w, 1, 1, 1, 1)
         ################################################
+
+        x = np.arange(1000)
+        y = np.random.normal(size=(3, 1000))
+        print(x)
+        print(y)
+        #plotWidget = pg.plot(title="Three plot curves")
+        
+        
         self.graphWdiget = pg.PlotWidget()
+        #self.plot = self.graphWdiget.plot
         self.graphWdiget.setBackground(background= (33, 33, 33))
         self.graphWdiget.setRange(None, (0,100), (0,100), 0.1, True, True)
-        pg.ViewBox.viewRect
+        self.graphWdiget.plot(x, y[2], pen=(4,3))
+        #pg.ViewBox.viewRect
+        
         self.gridLayout_6.addWidget(self.graphWdiget, 1, 1, 1, 1)
+        
         #print(screensize())
         
         ###############################################
         #self.qView = pg.GraphicsView()
         
+    def writeUpdate(self):
+        if self.motorRunning:
+            tmp.run_motor(self.direction,self.RWtensileSpeed.value())
+
+        
 
     def start_func(self):
+        self.motorRunning = True
         tmp.run_motor(self.direction,self.RWtensileSpeed.value())
 
     def stop_func(self):
+        self.motorRunning = False
         tmp.stop_motor()
 
     def tensile_func(self):
         self.direction = "l"
+        if self.motorRunning:
+            tmp.run_motor(self.direction,self.RWtensileSpeed.value())
+
 
     def compress_func(self):
         self.direction = "u"
-
+        if self.motorRunning:
+            tmp.run_motor(self.direction,self.RWtensileSpeed.value())
 
 
 if __name__ == "__main__":
