@@ -18,7 +18,7 @@ class stressWorker(QObject):
             self.newData.emit(d[0],d[1])
 
 
-class extendWindow(Ui_MainWindow):
+class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
     direction = "l"
     motorRunning = False
     stressDataX = []
@@ -40,43 +40,66 @@ class extendWindow(Ui_MainWindow):
         self.RWinitialForce.editingFinished.connect(self.writeUpdate)
         
 
-        #self.graphbutton = QtWidgets.QPushButton(self.stressWidget)
-        #self.graphbutton.setObjectName('test')
-        #self.graphbutton.setMinimumSize(QtCore.QSize(0, 25))
-        #self.gridLayout_6.addWidget(self.graphbutton, 1, 1, 1, 1)
-        #self.gridLayout_3.addWidget(self.saveGraphButton, 9, 0, 1, 1)
-        #self.graphbutton.raise_()
-        #self.startButton.clicked.connect(self.startButtonclicked)
-
         ## -------- Add graph ---------- ##
-        ## Create flowchart, define input/output terminals
-        #fc = Flowchart(terminals={
-        #    'dataIn': {'io': 'in'},
-        #    'dataOut': {'io': 'out'}    
-        #})
-        #w = fc.widget()
-        #self.gridLayout_6.addWidget(w, 1, 1, 1, 1)
-        ################################################
+        #self.graphWdiget = pg.PlotWidget()
+        #self.graphWdiget.setBackground(background= (33, 33, 33))
+        #self.graphWdiget.setRange(xRange=(0,100), yRange=(0,100))
+        #self.gridLayout_6.addWidget(self.graphWdiget, 1, 1, 1, 1)
 
-        x = np.arange(1000)
-        y = np.random.normal(size=(3, 1000))
-        #plotWidget = pg.plot(title="Three plot curves")
+        #### --- Newest graph setup --- ####
+        self.stressPlothWidget = pg.PlotWidget()
+        self.stressPlothWidget.setBackground((33,33,33))
         
+        font=QtGui.QFont()
+        font.setPixelSize(12)
+        self.stressPlothWidget.getAxis("bottom").tickFont = font
+        self.stressPlothWidget.getAxis("bottom").setStyle(tickTextOffset = 8)
+        self.stressPlothWidget.setLabel('bottom', "<span style=\"color:#FFFFFF;font-size:20px\">"+"ɛ"+"</span>")
+              
+        self.stressPlothWidget.getAxis("left").tickFont = font
+        self.stressPlothWidget.getAxis("left").setStyle(tickTextOffset = 8)
+        self.stressPlothWidget.setLabel('left', "<span style=\"color:#FFFFFF;font-size:20px\">"+"δ [MPa]"+"</span>")
         
-        #self.graphWdiget = pg.PlotWidget(viewBox = pg.ViewBox(border = pg.mkPen(color='#000000'))
-        self.graphWdiget = pg.PlotWidget()
-        self.graphWdiget.setBackground(background= (33, 33, 33))
-        self.graphWdiget.setRange(xRange=(0,100), yRange=(0,100))
-        #self.graphWdiget.plot(x, y[2], pen=(4,3))
-        l = pg.GraphicsLayout()
-        l.layout.setContentsMargins(0, 0, 0, 0)
-        self.gridLayout_6.addWidget(self.graphWdiget, 1, 1, 1, 1)
-        
-        
-        #print(screensize())
-        
+        self.stressPlothWidget.showGrid(x=1,y=1,alpha=0.8)
+        self.stressPlothWidget.setTitle("<span style=\"color:#FFFFFF;font-size:20px\">"+"Stress Graph"+"</span>")
+        # --------------------------------------------------------------------- #
+        self.stressPlotWidgetCurve = pg.PlotCurveItem(pen=pg.mkPen(color="#03818a", width=2))
+        self.stressPlothWidget.addItem(self.stressPlotWidgetCurve)
+        self.gridLayout_6.addWidget(self.stressPlothWidget,0,0,1,1)
+        #self.gridLayout_10.addWidget(self.stressPlothWidget,0,0,1,1)  <--- gridlayout til Forcegraf
         ###############################################
-        #self.qView = pg.GraphicsView()
+        self.forcePlothWidget = pg.PlotWidget()
+        self.forcePlothWidget.setBackground((33,33,33))
+        
+        font=QtGui.QFont()
+        font.setPixelSize(12)
+        self.forcePlothWidget.getAxis("bottom").tickFont = font
+        self.forcePlothWidget.getAxis("bottom").setStyle(tickTextOffset = 8)
+        self.forcePlothWidget.setLabel('bottom', "<span style=\"color:#FFFFFF;font-size:20px\">"+"L [μm]"+"</span>")
+              
+        self.forcePlothWidget.getAxis("left").tickFont = font
+        self.forcePlothWidget.getAxis("left").setStyle(tickTextOffset = 8)
+        self.forcePlothWidget.setLabel('left', "<span style=\"color:#FFFFFF;font-size:20px\">"+"F [N]"+"</span>")
+        
+        self.forcePlothWidget.showGrid(x=1,y=1,alpha=0.8)
+        self.forcePlothWidget.setTitle("<span style=\"color:#FFFFFF;font-size:20px\">"+"Force Graph"+"</span>")
+        # --------------------------------------------------------------------- #
+        self.forcePlotWidgetCurve = pg.PlotCurveItem(pen=pg.mkPen(color="#03818a", width=2))
+        self.forcePlothWidget.addItem(self.forcePlotWidgetCurve)
+        self.gridLayout_7.addWidget(self.forcePlothWidget,0,0,1,1)
+        #self.gridLayout_10.addWidget(self.stressPlothWidget,0,0,1,1)  <--- gridlayout til Forcegraf
+        
+        ## --- Autoadjust minimum size widgets -- ##
+        screen_resolution = app.desktop().screenGeometry()
+        height, width = screen_resolution.height(), screen_resolution.width()
+        print(height)
+        print(width)
+        MainWindow.setMinimumSize(((0.6)*width), ((0.6)*height))
+        #self.TitleBox.setMinimumWidth() 
+
+        ## --- Set program icon --- ##
+        MainWindow.setWindowIcon(QtGui.QIcon("icon.png"))
+        MainWindow.setWindowTitle("Hovedvindu - Strekktest")    
 
         self.sThread = QThread()
         self.generator = stressWorker()
@@ -85,11 +108,13 @@ class extendWindow(Ui_MainWindow):
         self.generator.newData.connect(self.stressGraphPlot)
         self.sThread.start()
 
-    def stressGraphPlot(self, x,y):
+    def stressGraphPlot(self, x, y):
         self.stressDataX.append(x)
         self.stressDataY.append(y)
-        self.graphWdiget.plot(self.stressDataX, self.stressDataY, pen=(4,3))
-        
+        self.stressPlotWidgetCurve.setData(self.stressDataX,self.stressDataY)
+        self.forcePlotWidgetCurve.setData(self.stressDataX,self.stressDataY)
+        #self.graphWdiget.plot(self.stressDataX, self.stressDataY, pen=(4,3))
+
     def writeUpdate(self):
         if self.motorRunning:
             tmp.run_motor(self.direction,self.RWtensileSpeed.value())
