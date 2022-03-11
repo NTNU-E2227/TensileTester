@@ -715,7 +715,11 @@ class Ui_MainWindow(object):
         self.stopButton.setText(_translate("MainWindow", "Stop"))
         self.tensileButton.setText(_translate("MainWindow", "Tensile"))
         self.label_4.setText(_translate("MainWindow", "Initial force:"))
-        self.label_3.setText(_translate("MainWindow", "Set length range:"))
+        self.label_3.setText(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'Dubai\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Set length range:</p></body></html>"))
         self.label.setText(_translate("MainWindow", "Tensile-speed:"))
         self.label_2.setText(_translate("MainWindow", "Max force:"))
         self.RWtensileSpeed.setSuffix(_translate("MainWindow", " μm/s"))
@@ -730,7 +734,6 @@ class Ui_MainWindow(object):
         self.menuTools.setTitle(_translate("MainWindow", "Tools"))
         self.actionCOM_Port.setText(_translate("MainWindow", "COM Port"))
         self.actionGeometry.setText(_translate("MainWindow", "Geometry"))
-
 
 
 if __name__ == "__main__":
