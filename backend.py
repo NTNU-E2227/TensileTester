@@ -1,15 +1,12 @@
 import serial
-
 import mcu_com
-
 import time
-
 import math
 
 try:
     port = serial.Serial("COM8", baudrate=115200)
 except:
-    pass
+    port = None
 
 def run_motor(dir, speed):
     if dir == "l":
@@ -20,7 +17,7 @@ def run_motor(dir, speed):
 def stop_motor():
     mcu_com.motor_stop(port)
 
-def plot_generator():
+def stressPlot_generator(): #Generator for stress graf, yield [x,y] koordinater
     while True:
         t = time.time()
         yield [t, math.sin(0.1*t)]

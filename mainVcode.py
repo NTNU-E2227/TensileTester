@@ -5,7 +5,7 @@ from  pyqtgraph.flowchart import Flowchart
 from pyqtgraph import PlotWidget
 import pyqtgraph as pg
 import numpy as np
-import tmp
+import backend
 from PyQt5.QtCore import QObject, QThread, pyqtSignal
 
 QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True) #enable highdpi scaling
@@ -15,7 +15,7 @@ class stressWorker(QObject):
     newData = pyqtSignal(float,float)
 
     def run(self):
-        generator = tmp.plot_generator()
+        generator = backend.stressPlot_generator()
         while True:
             d = next(generator)
             self.newData.emit(d[0],d[1])
@@ -104,29 +104,27 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
 
     def writeUpdate(self):
         if self.motorRunning:
-            tmp.run_motor(self.direction,self.RWtensileSpeed.value())
-
-        
+            backend.run_motor(self.direction,self.RWtensileSpeed.value())
 
     def start_func(self):
         self.motorRunning = True
-        tmp.run_motor(self.direction,self.RWtensileSpeed.value())
+        backend.run_motor(self.direction,self.RWtensileSpeed.value())
         self.graphWdiget.plot(self.stressDataX, self.stressDataY, pen=(4,3))
 
     def stop_func(self):
         self.motorRunning = False
-        tmp.stop_motor()
+        backend.stop_motor()
 
     def tensile_func(self):
         self.direction = "l"
         if self.motorRunning:
-            tmp.run_motor(self.direction,self.RWtensileSpeed.value())
+            backend.run_motor(self.direction,self.RWtensileSpeed.value())
 
 
     def compress_func(self):
         self.direction = "u"
         if self.motorRunning:
-            tmp.run_motor(self.direction,self.RWtensileSpeed.value())
+            backend.run_motor(self.direction,self.RWtensileSpeed.value())
 
 if __name__ == "__main__":
     import sys
