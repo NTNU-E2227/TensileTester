@@ -8,6 +8,9 @@ import numpy as np
 import tmp
 from PyQt5.QtCore import QObject, QThread, pyqtSignal
 
+QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True) #enable highdpi scaling
+QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True) #use highdpi icons
+
 class stressWorker(QObject):
     newData = pyqtSignal(float,float)
 
@@ -38,13 +41,6 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         self.RWtensileSpeed.editingFinished.connect(self.writeUpdate)
         self.RWlengthRange.editingFinished.connect(self.writeUpdate)
         self.RWinitialForce.editingFinished.connect(self.writeUpdate)
-        
-
-        ## -------- Add graph ---------- ##
-        #self.graphWdiget = pg.PlotWidget()
-        #self.graphWdiget.setBackground(background= (33, 33, 33))
-        #self.graphWdiget.setRange(xRange=(0,100), yRange=(0,100))
-        #self.gridLayout_6.addWidget(self.graphWdiget, 1, 1, 1, 1)
 
         #### --- Newest graph setup --- ####
         self.stressPlothWidget = pg.PlotWidget()
@@ -88,14 +84,6 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         self.forcePlothWidget.addItem(self.forcePlotWidgetCurve)
         self.gridLayout_7.addWidget(self.forcePlothWidget,0,0,1,1)
         #self.gridLayout_10.addWidget(self.stressPlothWidget,0,0,1,1)  <--- gridlayout til Forcegraf
-        
-        ## --- Autoadjust minimum size widgets -- ##
-        screen_resolution = app.desktop().screenGeometry()
-        height, width = screen_resolution.height(), screen_resolution.width()
-        print(height)
-        print(width)
-        MainWindow.setMinimumSize(((0.6)*width), ((0.6)*height))
-        #self.TitleBox.setMinimumWidth() 
 
         ## --- Set program icon --- ##
         MainWindow.setWindowIcon(QtGui.QIcon("icon.png"))
@@ -113,7 +101,6 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         self.stressDataY.append(y)
         self.stressPlotWidgetCurve.setData(self.stressDataX,self.stressDataY)
         self.forcePlotWidgetCurve.setData(self.stressDataX,self.stressDataY)
-        #self.graphWdiget.plot(self.stressDataX, self.stressDataY, pen=(4,3))
 
     def writeUpdate(self):
         if self.motorRunning:
