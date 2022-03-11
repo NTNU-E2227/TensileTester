@@ -1,5 +1,5 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-import Her_rc
+
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
