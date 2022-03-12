@@ -1358,21 +1358,31 @@ p, li { white-space: pre-wrap; }
     <property name="title">
      <string>Tools</string>
     </property>
+    <widget class="QMenu" name="menuCOM_Port">
+     <property name="title">
+      <string>COM Port</string>
+     </property>
+    </widget>
     <addaction name="separator"/>
-    <addaction name="actionCOM_Port"/>
+    <addaction name="menuCOM_Port"/>
     <addaction name="actionGeometry"/>
    </widget>
    <addaction name="menusssss"/>
    <addaction name="menuTools"/>
   </widget>
-  <action name="actionCOM_Port">
-   <property name="text">
-    <string>COM Port</string>
-   </property>
-  </action>
   <action name="actionGeometry">
    <property name="text">
     <string>Geometry</string>
+   </property>
+  </action>
+  <action name="actionCOM1">
+   <property name="text">
+    <string>COM1</string>
+   </property>
+  </action>
+  <action name="actionCOM9">
+   <property name="text">
+    <string>COM9</string>
    </property>
   </action>
  </widget>

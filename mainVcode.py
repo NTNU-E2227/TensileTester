@@ -6,6 +6,7 @@ from pyqtgraph import PlotWidget
 import pyqtgraph as pg
 import numpy as np
 import backend
+import slett
 from PyQt5.QtCore import QObject, QThread, pyqtSignal
 
 QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True) #enable highdpi scaling
@@ -86,8 +87,18 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         #self.gridLayout_10.addWidget(self.stressPlothWidget,0,0,1,1)  <--- gridlayout til Forcegraf
 
         ## --- Set program icon --- ##
-        MainWindow.setWindowIcon(QtGui.QIcon("icon.png"))
-        MainWindow.setWindowTitle("Hovedvindu - Strekktest")
+        MainWindow.setWindowIcon(QtGui.QIcon("iconTTTT.png"))
+        MainWindow.setWindowTitle("Hovedvindu - Strekktest")    
+
+        ## --- Find ready COM-ports --- ##
+        coms = slett.port_ready()
+        for i in range(len(coms)):
+            namn = coms[i]
+            namns = "{}{}".format("self.", coms[i])
+            namnss = "{}{}{}".format("self.", coms[i], "setObjectName")
+            namns = QtWidgets.QAction(MainWindow)
+            self.menuCOM_Port.addAction(namn)
+
 
         self.sThread = QThread()
         self.generator = stressWorker()
@@ -109,7 +120,7 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
     def start_func(self):
         self.motorRunning = True
         backend.run_motor(self.direction,self.RWtensileSpeed.value())
-        self.graphWdiget.plot(self.stressDataX, self.stressDataY, pen=(4,3))
+        #self.graphWdiget.plot(self.stressDataX, self.stressDataY, pen=(4,3))
 
     def stop_func(self):
         self.motorRunning = False

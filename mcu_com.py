@@ -2,7 +2,7 @@ PWM_MAX = 0x7530
 
 def motor_stop(serial_port):
     serial_port.write(b's\n')
-    print('Hei')
+    
 
 def motor_load(serial_port, speed):
     payload = bytearray(b'l')
