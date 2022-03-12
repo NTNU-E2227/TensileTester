@@ -19,7 +19,7 @@
   <property name="minimumSize">
    <size>
     <width>0</width>
-    <height>380</height>
+    <height>600</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -228,6 +228,18 @@
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
         <widget class="QFrame" name="frame">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
          <property name="maximumSize">
           <size>
            <width>500</width>
@@ -302,7 +314,8 @@
               <widget class="QLabel" name="label_9">
                <property name="font">
                 <font>
-                 <pointsize>10</pointsize>
+                 <family>Dubai</family>
+                 <pointsize>11</pointsize>
                 </font>
                </property>
                <property name="text">
@@ -318,6 +331,12 @@
                  <height>25</height>
                 </size>
                </property>
+               <property name="font">
+                <font>
+                 <family>Dubai</family>
+                 <pointsize>11</pointsize>
+                </font>
+               </property>
                <property name="text">
                 <string>Set zero</string>
                </property>
@@ -325,6 +344,18 @@
              </item>
              <item row="5" column="3">
               <widget class="QSpinBox" name="epsilonRead">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>25</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <family>Dubai</family>
+                 <pointsize>10</pointsize>
+                </font>
+               </property>
                <property name="alignment">
                 <set>Qt::AlignCenter</set>
                </property>
@@ -341,6 +372,18 @@
              </item>
              <item row="5" column="2">
               <widget class="QSpinBox" name="stressRead">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>25</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <family>Dubai</family>
+                 <pointsize>10</pointsize>
+                </font>
+               </property>
                <property name="alignment">
                 <set>Qt::AlignCenter</set>
                </property>
@@ -385,6 +428,18 @@
              </item>
              <item row="5" column="5">
               <widget class="QSpinBox" name="timeRead">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>25</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <family>Dubai</family>
+                 <pointsize>10</pointsize>
+                </font>
+               </property>
                <property name="alignment">
                 <set>Qt::AlignCenter</set>
                </property>
@@ -401,6 +456,18 @@
              </item>
              <item row="11" column="3">
               <widget class="QSpinBox" name="lengthRead">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>25</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <family>Dubai</family>
+                 <pointsize>10</pointsize>
+                </font>
+               </property>
                <property name="alignment">
                 <set>Qt::AlignCenter</set>
                </property>
@@ -439,6 +506,12 @@
                  <height>25</height>
                 </size>
                </property>
+               <property name="font">
+                <font>
+                 <family>Dubai</family>
+                 <pointsize>11</pointsize>
+                </font>
+               </property>
                <property name="text">
                 <string>Reset</string>
                </property>
@@ -448,7 +521,8 @@
               <widget class="QLabel" name="label_8">
                <property name="font">
                 <font>
-                 <pointsize>10</pointsize>
+                 <family>Dubai</family>
+                 <pointsize>11</pointsize>
                 </font>
                </property>
                <property name="text">
@@ -476,7 +550,8 @@
               <widget class="QLabel" name="label_7">
                <property name="font">
                 <font>
-                 <pointsize>10</pointsize>
+                 <family>Dubai</family>
+                 <pointsize>11</pointsize>
                 </font>
                </property>
                <property name="text">
@@ -488,7 +563,8 @@
               <widget class="QLabel" name="label_5">
                <property name="font">
                 <font>
-                 <pointsize>10</pointsize>
+                 <family>Dubai</family>
+                 <pointsize>11</pointsize>
                 </font>
                </property>
                <property name="text">
@@ -498,6 +574,18 @@
              </item>
              <item row="11" column="2">
               <widget class="QSpinBox" name="forceRead">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>25</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <family>Dubai</family>
+                 <pointsize>10</pointsize>
+                </font>
+               </property>
                <property name="alignment">
                 <set>Qt::AlignCenter</set>
                </property>
@@ -519,7 +607,8 @@
               <widget class="QLabel" name="label_6">
                <property name="font">
                 <font>
-                 <pointsize>10</pointsize>
+                 <family>Dubai</family>
+                 <pointsize>11</pointsize>
                 </font>
                </property>
                <property name="text">
@@ -536,134 +625,138 @@
              <string notr="true"/>
             </property>
             <layout class="QGridLayout" name="gridLayout_3">
-             <item row="8" column="1">
-              <widget class="QWidget" name="widget" native="true"/>
-             </item>
-             <item row="9" column="0">
-              <widget class="QPushButton" name="saveGraphButton">
+             <item row="6" column="0">
+              <widget class="QPushButton" name="startButton">
                <property name="minimumSize">
                 <size>
                  <width>0</width>
                  <height>25</height>
                 </size>
                </property>
+               <property name="font">
+                <font>
+                 <family>Dubai</family>
+                 <pointsize>11</pointsize>
+                </font>
+               </property>
                <property name="text">
-                <string>Save graph</string>
+                <string>Start</string>
                </property>
               </widget>
              </item>
-             <item row="7" column="1">
-              <widget class="QPushButton" name="compressButton">
+             <item row="7" column="0">
+              <widget class="QPushButton" name="stopButton">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>25</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <family>Dubai</family>
+                 <pointsize>11</pointsize>
+                </font>
+               </property>
+               <property name="text">
+                <string>Stop</string>
+               </property>
+              </widget>
+             </item>
+             <item row="6" column="1">
+              <widget class="QPushButton" name="tensileButton">
                <property name="minimumSize">
                 <size>
                  <width>190</width>
                  <height>25</height>
                 </size>
                </property>
+               <property name="font">
+                <font>
+                 <family>Dubai</family>
+                 <pointsize>11</pointsize>
+                </font>
+               </property>
                <property name="text">
-                <string>Compress</string>
+                <string>Tensile</string>
                </property>
               </widget>
+             </item>
+             <item row="8" column="1">
+              <widget class="QWidget" name="widget" native="true"/>
              </item>
              <item row="8" column="0">
               <widget class="QWidget" name="sone1_1" native="true">
                <layout class="QGridLayout" name="gridLayout_2">
-                <item row="1" column="0">
-                 <widget class="QLabel" name="label">
-                  <property name="text">
-                   <string>Tensile-speed:</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="5" column="1">
-                 <widget class="QPushButton" name="releaseMatButton">
-                  <property name="minimumSize">
-                   <size>
-                    <width>80</width>
-                    <height>25</height>
-                   </size>
-                  </property>
-                  <property name="text">
-                   <string>Release</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="6" column="1">
-                 <spacer name="verticalSpacer_2">
-                  <property name="orientation">
-                   <enum>Qt::Vertical</enum>
-                  </property>
-                  <property name="sizeType">
-                   <enum>QSizePolicy::Preferred</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>20</width>
-                    <height>40</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
-                <item row="0" column="1">
-                 <widget class="QDoubleSpinBox" name="RWmaxForce">
-                  <property name="buttonSymbols">
-                   <enum>QAbstractSpinBox::NoButtons</enum>
-                  </property>
-                  <property name="suffix">
-                   <string> N</string>
-                  </property>
-                  <property name="maximum">
-                   <double>2500.000000000000000</double>
-                  </property>
-                 </widget>
-                </item>
-                <item row="3" column="1">
-                 <spacer name="verticalSpacer">
-                  <property name="orientation">
-                   <enum>Qt::Vertical</enum>
-                  </property>
-                  <property name="sizeType">
-                   <enum>QSizePolicy::Preferred</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>20</width>
-                    <height>30</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
-                <item row="5" column="0">
-                 <widget class="QPushButton" name="autoZeroButton">
-                  <property name="minimumSize">
-                   <size>
-                    <width>0</width>
-                    <height>25</height>
-                   </size>
-                  </property>
-                  <property name="text">
-                   <string>Auto zero</string>
-                  </property>
-                 </widget>
-                </item>
                 <item row="4" column="0">
                  <widget class="QLabel" name="label_4">
+                  <property name="font">
+                   <font>
+                    <family>Dubai</family>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
                   <property name="text">
                    <string>Initial force:</string>
                   </property>
                  </widget>
                 </item>
+                <item row="2" column="0">
+                 <widget class="QLabel" name="label_3">
+                  <property name="font">
+                   <font>
+                    <family>Dubai</family>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Dubai'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Set length range:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="0">
+                 <widget class="QLabel" name="label">
+                  <property name="font">
+                   <font>
+                    <family>Dubai</family>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>Tensile-speed:</string>
+                  </property>
+                 </widget>
+                </item>
                 <item row="0" column="0">
                  <widget class="QLabel" name="label_2">
+                  <property name="font">
+                   <font>
+                    <family>Dubai</family>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
                   <property name="text">
                    <string>Max force:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="2" column="0">
-                 <widget class="QLabel" name="label_3">
-                  <property name="text">
-                   <string>Set length range:</string>
+                <item row="1" column="1">
+                 <widget class="QDoubleSpinBox" name="RWtensileSpeed">
+                  <property name="font">
+                   <font>
+                    <family>Dubai</family>
+                    <pointsize>10</pointsize>
+                   </font>
+                  </property>
+                  <property name="buttonSymbols">
+                   <enum>QAbstractSpinBox::NoButtons</enum>
+                  </property>
+                  <property name="suffix">
+                   <string> μm/s</string>
                   </property>
                  </widget>
                 </item>
@@ -868,6 +961,12 @@
                     </disabled>
                    </palette>
                   </property>
+                  <property name="font">
+                   <font>
+                    <family>Dubai</family>
+                    <pointsize>10</pointsize>
+                   </font>
+                  </property>
                   <property name="frame">
                    <bool>false</bool>
                   </property>
@@ -885,18 +984,49 @@
                   </property>
                  </widget>
                 </item>
-                <item row="1" column="1">
-                 <widget class="QDoubleSpinBox" name="RWtensileSpeed">
-                  <property name="buttonSymbols">
-                   <enum>QAbstractSpinBox::NoButtons</enum>
+                <item row="5" column="1">
+                 <widget class="QPushButton" name="releaseMatButton">
+                  <property name="minimumSize">
+                   <size>
+                    <width>80</width>
+                    <height>25</height>
+                   </size>
                   </property>
-                  <property name="suffix">
-                   <string> μm/s</string>
+                  <property name="font">
+                   <font>
+                    <family>Dubai</family>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>Release</string>
                   </property>
                  </widget>
                 </item>
+                <item row="3" column="1">
+                 <spacer name="verticalSpacer">
+                  <property name="orientation">
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                  <property name="sizeType">
+                   <enum>QSizePolicy::Preferred</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>20</width>
+                    <height>30</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
                 <item row="2" column="1">
                  <widget class="QDoubleSpinBox" name="RWlengthRange">
+                  <property name="font">
+                   <font>
+                    <family>Dubai</family>
+                    <pointsize>10</pointsize>
+                   </font>
+                  </property>
                   <property name="buttonSymbols">
                    <enum>QAbstractSpinBox::NoButtons</enum>
                   </property>
@@ -905,51 +1035,84 @@
                   </property>
                  </widget>
                 </item>
+                <item row="5" column="0">
+                 <widget class="QPushButton" name="autoZeroButton">
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>25</height>
+                   </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <family>Dubai</family>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>Auto zero</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="6" column="1">
+                 <spacer name="verticalSpacer_2">
+                  <property name="orientation">
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                  <property name="sizeType">
+                   <enum>QSizePolicy::Preferred</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>20</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item row="0" column="1">
+                 <widget class="QDoubleSpinBox" name="RWmaxForce">
+                  <property name="font">
+                   <font>
+                    <family>Dubai</family>
+                    <pointsize>10</pointsize>
+                   </font>
+                  </property>
+                  <property name="buttonSymbols">
+                   <enum>QAbstractSpinBox::NoButtons</enum>
+                  </property>
+                  <property name="suffix">
+                   <string> N</string>
+                  </property>
+                  <property name="maximum">
+                   <double>2500.000000000000000</double>
+                  </property>
+                 </widget>
+                </item>
                </layout>
               </widget>
              </item>
-             <item row="6" column="1">
-              <widget class="QPushButton" name="tensileButton">
+             <item row="7" column="1">
+              <widget class="QPushButton" name="compressButton">
                <property name="minimumSize">
                 <size>
                  <width>190</width>
                  <height>25</height>
                 </size>
                </property>
-               <property name="text">
-                <string>Tensile</string>
-               </property>
-              </widget>
-             </item>
-             <item row="7" column="0">
-              <widget class="QPushButton" name="stopButton">
-               <property name="minimumSize">
-                <size>
-                 <width>0</width>
-                 <height>25</height>
-                </size>
+               <property name="font">
+                <font>
+                 <family>Dubai</family>
+                 <pointsize>11</pointsize>
+                </font>
                </property>
                <property name="text">
-                <string>Stop</string>
-               </property>
-              </widget>
-             </item>
-             <item row="6" column="0">
-              <widget class="QPushButton" name="startButton">
-               <property name="minimumSize">
-                <size>
-                 <width>0</width>
-                 <height>25</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>Start</string>
+                <string>Compress</string>
                </property>
               </widget>
              </item>
             </layout>
             <zorder>sone1_1</zorder>
-            <zorder>saveGraphButton</zorder>
             <zorder>widget</zorder>
             <zorder>tensileButton</zorder>
             <zorder>compressButton</zorder>
@@ -959,6 +1122,12 @@
           </item>
           <item row="0" column="0">
            <widget class="QWidget" name="TitleBox" native="true">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>100</height>
+             </size>
+            </property>
             <property name="maximumSize">
              <size>
               <width>16777215</width>
@@ -1091,7 +1260,7 @@
                </property>
                <property name="font">
                 <font>
-                 <family>Yrsa Light</family>
+                 <family>Dubai</family>
                 </font>
                </property>
                <property name="text">
@@ -1114,12 +1283,12 @@
              <string notr="true"/>
             </property>
             <layout class="QGridLayout" name="gridLayout_7">
-             <item row="1" column="1">
+             <item row="0" column="0">
               <widget class="QWidget" name="forceWidget" native="true">
                <property name="minimumSize">
                 <size>
                  <width>0</width>
-                 <height>380</height>
+                 <height>0</height>
                 </size>
                </property>
                <layout class="QGridLayout" name="gridLayout_10">
@@ -1127,168 +1296,6 @@
                  <widget class="QGraphicsView" name="graphicsView_2"/>
                 </item>
                </layout>
-              </widget>
-             </item>
-             <item row="2" column="1" alignment="Qt::AlignHCenter">
-              <widget class="QLabel" name="label_15">
-               <property name="maximumSize">
-                <size>
-                 <width>16777215</width>
-                 <height>30</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>L [μm]</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="0">
-              <widget class="QLabel" name="label_14">
-               <property name="maximumSize">
-                <size>
-                 <width>20</width>
-                 <height>16777215</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>F[N]</string>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="1" alignment="Qt::AlignHCenter">
-              <widget class="QLabel" name="label_16">
-               <property name="maximumSize">
-                <size>
-                 <width>16777215</width>
-                 <height>30</height>
-                </size>
-               </property>
-               <property name="palette">
-                <palette>
-                 <active>
-                  <colorrole role="WindowText">
-                   <brush brushstyle="SolidPattern">
-                    <color alpha="255">
-                     <red>249</red>
-                     <green>249</green>
-                     <blue>249</blue>
-                    </color>
-                   </brush>
-                  </colorrole>
-                  <colorrole role="Text">
-                   <brush brushstyle="SolidPattern">
-                    <color alpha="255">
-                     <red>249</red>
-                     <green>249</green>
-                     <blue>249</blue>
-                    </color>
-                   </brush>
-                  </colorrole>
-                  <colorrole role="ButtonText">
-                   <brush brushstyle="SolidPattern">
-                    <color alpha="255">
-                     <red>249</red>
-                     <green>249</green>
-                     <blue>249</blue>
-                    </color>
-                   </brush>
-                  </colorrole>
-                  <colorrole role="PlaceholderText">
-                   <brush brushstyle="NoBrush">
-                    <color alpha="128">
-                     <red>249</red>
-                     <green>249</green>
-                     <blue>249</blue>
-                    </color>
-                   </brush>
-                  </colorrole>
-                 </active>
-                 <inactive>
-                  <colorrole role="WindowText">
-                   <brush brushstyle="SolidPattern">
-                    <color alpha="255">
-                     <red>249</red>
-                     <green>249</green>
-                     <blue>249</blue>
-                    </color>
-                   </brush>
-                  </colorrole>
-                  <colorrole role="Text">
-                   <brush brushstyle="SolidPattern">
-                    <color alpha="255">
-                     <red>249</red>
-                     <green>249</green>
-                     <blue>249</blue>
-                    </color>
-                   </brush>
-                  </colorrole>
-                  <colorrole role="ButtonText">
-                   <brush brushstyle="SolidPattern">
-                    <color alpha="255">
-                     <red>249</red>
-                     <green>249</green>
-                     <blue>249</blue>
-                    </color>
-                   </brush>
-                  </colorrole>
-                  <colorrole role="PlaceholderText">
-                   <brush brushstyle="NoBrush">
-                    <color alpha="128">
-                     <red>249</red>
-                     <green>249</green>
-                     <blue>249</blue>
-                    </color>
-                   </brush>
-                  </colorrole>
-                 </inactive>
-                 <disabled>
-                  <colorrole role="WindowText">
-                   <brush brushstyle="SolidPattern">
-                    <color alpha="255">
-                     <red>249</red>
-                     <green>249</green>
-                     <blue>249</blue>
-                    </color>
-                   </brush>
-                  </colorrole>
-                  <colorrole role="Text">
-                   <brush brushstyle="SolidPattern">
-                    <color alpha="255">
-                     <red>249</red>
-                     <green>249</green>
-                     <blue>249</blue>
-                    </color>
-                   </brush>
-                  </colorrole>
-                  <colorrole role="ButtonText">
-                   <brush brushstyle="SolidPattern">
-                    <color alpha="255">
-                     <red>249</red>
-                     <green>249</green>
-                     <blue>249</blue>
-                    </color>
-                   </brush>
-                  </colorrole>
-                  <colorrole role="PlaceholderText">
-                   <brush brushstyle="NoBrush">
-                    <color alpha="128">
-                     <red>249</red>
-                     <green>249</green>
-                     <blue>249</blue>
-                    </color>
-                   </brush>
-                  </colorrole>
-                 </disabled>
-                </palette>
-               </property>
-               <property name="font">
-                <font>
-                 <family>Yrsa Light</family>
-                </font>
-               </property>
-               <property name="text">
-                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:20pt; font-weight:600;&quot;&gt;Tensile&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-               </property>
               </widget>
              </item>
             </layout>
@@ -1306,20 +1313,7 @@
              <string notr="true"/>
             </property>
             <layout class="QGridLayout" name="gridLayout_6">
-             <item row="2" column="1" alignment="Qt::AlignHCenter">
-              <widget class="QLabel" name="label_12">
-               <property name="maximumSize">
-                <size>
-                 <width>16777215</width>
-                 <height>30</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>ɛ </string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="1">
+             <item row="0" column="0">
               <widget class="QWidget" name="stressWidget" native="true">
                <layout class="QGridLayout" name="gridLayout_9">
                 <item row="0" column="0">
@@ -1327,162 +1321,12 @@
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
-                    <height>380</height>
+                    <height>0</height>
                    </size>
                   </property>
                  </widget>
                 </item>
                </layout>
-              </widget>
-             </item>
-             <item row="1" column="0">
-              <widget class="QLabel" name="label_1">
-               <property name="maximumSize">
-                <size>
-                 <width>35</width>
-                 <height>16777215</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>δ[MPa]</string>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="1" alignment="Qt::AlignHCenter">
-              <widget class="QLabel" name="label_13">
-               <property name="maximumSize">
-                <size>
-                 <width>16777215</width>
-                 <height>30</height>
-                </size>
-               </property>
-               <property name="palette">
-                <palette>
-                 <active>
-                  <colorrole role="WindowText">
-                   <brush brushstyle="SolidPattern">
-                    <color alpha="255">
-                     <red>249</red>
-                     <green>249</green>
-                     <blue>249</blue>
-                    </color>
-                   </brush>
-                  </colorrole>
-                  <colorrole role="Text">
-                   <brush brushstyle="SolidPattern">
-                    <color alpha="255">
-                     <red>249</red>
-                     <green>249</green>
-                     <blue>249</blue>
-                    </color>
-                   </brush>
-                  </colorrole>
-                  <colorrole role="ButtonText">
-                   <brush brushstyle="SolidPattern">
-                    <color alpha="255">
-                     <red>249</red>
-                     <green>249</green>
-                     <blue>249</blue>
-                    </color>
-                   </brush>
-                  </colorrole>
-                  <colorrole role="PlaceholderText">
-                   <brush brushstyle="NoBrush">
-                    <color alpha="128">
-                     <red>249</red>
-                     <green>249</green>
-                     <blue>249</blue>
-                    </color>
-                   </brush>
-                  </colorrole>
-                 </active>
-                 <inactive>
-                  <colorrole role="WindowText">
-                   <brush brushstyle="SolidPattern">
-                    <color alpha="255">
-                     <red>249</red>
-                     <green>249</green>
-                     <blue>249</blue>
-                    </color>
-                   </brush>
-                  </colorrole>
-                  <colorrole role="Text">
-                   <brush brushstyle="SolidPattern">
-                    <color alpha="255">
-                     <red>249</red>
-                     <green>249</green>
-                     <blue>249</blue>
-                    </color>
-                   </brush>
-                  </colorrole>
-                  <colorrole role="ButtonText">
-                   <brush brushstyle="SolidPattern">
-                    <color alpha="255">
-                     <red>249</red>
-                     <green>249</green>
-                     <blue>249</blue>
-                    </color>
-                   </brush>
-                  </colorrole>
-                  <colorrole role="PlaceholderText">
-                   <brush brushstyle="NoBrush">
-                    <color alpha="128">
-                     <red>249</red>
-                     <green>249</green>
-                     <blue>249</blue>
-                    </color>
-                   </brush>
-                  </colorrole>
-                 </inactive>
-                 <disabled>
-                  <colorrole role="WindowText">
-                   <brush brushstyle="SolidPattern">
-                    <color alpha="255">
-                     <red>249</red>
-                     <green>249</green>
-                     <blue>249</blue>
-                    </color>
-                   </brush>
-                  </colorrole>
-                  <colorrole role="Text">
-                   <brush brushstyle="SolidPattern">
-                    <color alpha="255">
-                     <red>249</red>
-                     <green>249</green>
-                     <blue>249</blue>
-                    </color>
-                   </brush>
-                  </colorrole>
-                  <colorrole role="ButtonText">
-                   <brush brushstyle="SolidPattern">
-                    <color alpha="255">
-                     <red>249</red>
-                     <green>249</green>
-                     <blue>249</blue>
-                    </color>
-                   </brush>
-                  </colorrole>
-                  <colorrole role="PlaceholderText">
-                   <brush brushstyle="NoBrush">
-                    <color alpha="128">
-                     <red>249</red>
-                     <green>249</green>
-                     <blue>249</blue>
-                    </color>
-                   </brush>
-                  </colorrole>
-                 </disabled>
-                </palette>
-               </property>
-               <property name="font">
-                <font>
-                 <family>Yrsa Light</family>
-                 <underline>false</underline>
-                </font>
-               </property>
-               <property name="text">
-                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:20pt; font-weight:600;&quot;&gt;Stress&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-               </property>
               </widget>
              </item>
             </layout>
@@ -1505,10 +1349,43 @@
      <height>21</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menusssss">
+    <property name="title">
+     <string>File</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuTools">
+    <property name="title">
+     <string>Tools</string>
+    </property>
+    <widget class="QMenu" name="menuCOM_Port">
+     <property name="title">
+      <string>COM Port</string>
+     </property>
+    </widget>
+    <addaction name="separator"/>
+    <addaction name="menuCOM_Port"/>
+    <addaction name="actionGeometry"/>
+   </widget>
+   <addaction name="menusssss"/>
+   <addaction name="menuTools"/>
   </widget>
+  <action name="actionGeometry">
+   <property name="text">
+    <string>Geometry</string>
+   </property>
+  </action>
+  <action name="actionCOM1">
+   <property name="text">
+    <string>COM1</string>
+   </property>
+  </action>
+  <action name="actionCOM9">
+   <property name="text">
+    <string>COM9</string>
+   </property>
+  </action>
  </widget>
- <resources>
-  <include location="Her.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>
