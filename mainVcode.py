@@ -6,7 +6,6 @@ from pyqtgraph import PlotWidget
 import pyqtgraph as pg
 import numpy as np
 import backend
-import slett
 from PyQt5.QtCore import QObject, QThread, pyqtSignal
 
 QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True) #enable highdpi scaling
@@ -91,7 +90,7 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         MainWindow.setWindowTitle("Hovedvindu - Strekktest")    
 
         ## --- Find ready COM-ports --- ##
-        coms = slett.port_ready()
+        coms = backend.port_ready()
         for i in range(len(coms)):
             namn = coms[i]
             namns = "{}{}".format("self.", coms[i])
