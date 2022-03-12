@@ -87,7 +87,7 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
 
         ## --- Set program icon --- ##
         MainWindow.setWindowIcon(QtGui.QIcon("icon.png"))
-        MainWindow.setWindowTitle("Hovedvindu - Strekktest")    
+        MainWindow.setWindowTitle("Hovedvindu - Strekktest")
 
         self.sThread = QThread()
         self.generator = stressWorker()

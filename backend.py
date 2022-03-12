@@ -1,7 +1,12 @@
 import serial
+import serial.tools.list_ports
 import mcu_com
 import time
 import math
+
+ports = [comport.name for comport in serial.tools.list_ports.comports()]
+
+print(ports)
 
 try:
     port = serial.Serial("COM8", baudrate=115200)
