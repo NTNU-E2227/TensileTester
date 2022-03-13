@@ -93,11 +93,12 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         ## --- Find ready COM-ports --- ##
         coms = slett.port_ready()
         for i in range(len(coms)):
-            namn = coms[i]
-            namns = "{}{}".format("self.", coms[i])
-            namnss = "{}{}{}".format("self.", coms[i], "setObjectName")
-            namns = QtWidgets.QAction(MainWindow)
-            self.menuCOM_Port.addAction(namn)
+            p = "{}{}".format("self.", coms[i])
+            pp = "{}{}{}{}{}".format("self.", coms[i],".setObjectName(",i,")")          
+            p = QtWidgets.QAction(MainWindow)
+            self.menuCOM_Port.addAction(coms[i])
+     
+
 
 
         self.sThread = QThread()

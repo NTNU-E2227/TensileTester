@@ -1349,7 +1349,7 @@ p, li { white-space: pre-wrap; }
      <height>21</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menusssss">
+   <widget class="QMenu" name="menuFile">
     <property name="title">
      <string>File</string>
     </property>
@@ -1367,7 +1367,7 @@ p, li { white-space: pre-wrap; }
     <addaction name="menuCOM_Port"/>
     <addaction name="actionGeometry"/>
    </widget>
-   <addaction name="menusssss"/>
+   <addaction name="menuFile"/>
    <addaction name="menuTools"/>
   </widget>
   <action name="actionGeometry">
