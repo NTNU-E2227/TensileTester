@@ -1,7 +1,13 @@
 import serial
+import serial.tools.list_ports
 import mcu_com
 import time
 import math
+
+ports = serial.tools.list_ports.comports()
+
+for port, desc, hwid in sorted(ports):
+        print("{}: {} [{}]".format(port, desc, hwid))
 
 try:
     port = serial.Serial("COM9", baudrate=115200)
@@ -25,4 +31,10 @@ def stressPlot_generator(): #Generator for stress graf, yield [x,y] koordinater
         yield [t, math.sin(0.1*t)] # [t, data[0]]  
         time.sleep(1)
 
-        
+def port_ready():
+    coms = []
+    ports = serial.tools.list_ports.comports()
+    for port in sorted(ports):
+        p = format(port[0])
+        coms.append(p)
+    return coms
