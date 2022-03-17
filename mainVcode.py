@@ -120,7 +120,6 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
     def start_func(self):
         self.motorRunning = True
         backend.run_motor(self.direction,self.RWtensileSpeed.value())
-        #self.graphWdiget.plot(self.stressDataX, self.stressDataY, pen=(4,3))
 
     def stop_func(self):
         self.motorRunning = False
