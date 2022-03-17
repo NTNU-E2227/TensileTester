@@ -4,13 +4,8 @@ import mcu_com
 import time
 import math
 
-ports = serial.tools.list_ports.comports()
-
-for port, desc, hwid in sorted(ports):
-        print("{}: {} [{}]".format(port, desc, hwid))
-
 try:
-    port = serial.Serial("COM9", baudrate=115200)
+    port = serial.Serial("COM8", baudrate=115200)
 except:
     port = None
 
@@ -26,10 +21,9 @@ def stop_motor():
 
 def stressPlot_generator(): #Generator for stress graf, yield [x,y] koordinater
     while True:
-        #data = mcu_com.adc_read(port)
+        data = mcu_com.adc_read(port)
         t = time.time()
-        yield [t, math.sin(0.1*t)] # [t, data[0]]  
-        time.sleep(1)
+        yield [t, data[1]]  
 
 def port_ready():
     coms = []
