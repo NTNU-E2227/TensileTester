@@ -119,20 +119,30 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
 
     def start_func(self):
         self.motorRunning = True
+        self.startButton.setStyleSheet('background-color :  #03818a')
+        self.stopButton.setStyleSheet('background-color : rgb(70, 70, 70)')
         backend.run_motor(self.direction,self.RWtensileSpeed.value())
+        
+        #self.graphWdiget.plot(self.stressDataX, self.stressDataY, pen=(4,3))
 
     def stop_func(self):
         self.motorRunning = False
+        self.stopButton.setStyleSheet('background-color : #03818a')#rgb(60, 60, 60)')#color="#03818a"
+        self.startButton.setStyleSheet('background-color : rgb(70, 70, 70)')
         backend.stop_motor()
 
     def tensile_func(self):
         self.direction = "l"
+        self.tensileButton.setStyleSheet('background-color : #03818a')#rgb(60, 60, 60)')#color="#03818a"
+        self.compressButton.setStyleSheet('background-color : rgb(70, 70, 70)')
         if self.motorRunning:
             backend.run_motor(self.direction,self.RWtensileSpeed.value())
 
 
     def compress_func(self):
         self.direction = "u"
+        self.compressButton.setStyleSheet('background-color : #03818a')#rgb(60, 60, 60)')#color="#03818a"
+        self.tensileButton.setStyleSheet('background-color : rgb(70, 70, 70)')
         if self.motorRunning:
             backend.run_motor(self.direction,self.RWtensileSpeed.value())
 
