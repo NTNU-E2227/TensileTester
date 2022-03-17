@@ -29,7 +29,7 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
     def __init__(self):
         super().__init__()     
         self.setupUi(MainWindow)
-        
+
         ## ------ Buttonfunctions ------ ##
         self.startButton.clicked.connect(self.start_func)
         self.stopButton.clicked.connect(self.stop_func)
@@ -96,6 +96,8 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
             pp = "{}{}{}{}{}".format("self.", coms[i],".setObjectName(",i,")")          
             p = QtWidgets.QAction(MainWindow)
             self.menuCOM_Port.addAction(coms[i])
+
+    
      
 
 
