@@ -1,5 +1,6 @@
 from turtle import color, screensize
 from mainWindow import *
+from geometricDialog import *
 from PyQt5 import QtCore, QtGui, QtWidgets
 from  pyqtgraph.flowchart import Flowchart
 from pyqtgraph import PlotWidget
@@ -35,6 +36,7 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         self.stopButton.clicked.connect(self.stop_func)
         self.tensileButton.clicked.connect(self.tensile_func)
         self.compressButton.clicked.connect(self.compress_func)
+        self.actionGeometry.triggered.connect(self.dialogWindow)
 
         ## ------ Read/Write Data ------ ##
         self.RWmaxForce.editingFinished.connect(self.writeUpdate)
@@ -96,11 +98,7 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
             pp = "{}{}{}{}{}".format("self.", coms[i],".setObjectName(",i,")")          
             p = QtWidgets.QAction(MainWindow)
             self.menuCOM_Port.addAction(coms[i])
-
-    
-     
-
-
+            
 
         self.sThread = QThread()
         self.generator = stressWorker()
@@ -119,8 +117,15 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         if self.motorRunning:
             backend.run_motor(self.direction,self.RWtensileSpeed.value())
 
+    def dialogWindow(self):
+        self.Dialog = QtWidgets.QDialog()
+        self.Dialog.setWindowIcon(QtGui.QIcon("iconTTTT.png"))
+        self.ui = Ui_Dialog()
+        self.ui.setupUi(self.Dialog)
+        self.Dialog.show()
+
     def start_func(self):
-        self.motorRunning = True
+        self.motorRunning = True    
         self.startButton.setStyleSheet('background-color :  #03818a')
         self.stopButton.setStyleSheet('background-color : rgb(70, 70, 70)')
         backend.run_motor(self.direction,self.RWtensileSpeed.value())
