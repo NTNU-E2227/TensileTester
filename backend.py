@@ -4,8 +4,10 @@ import mcu_com
 import time
 import math
 
+COM = "COM8"
+
 try:
-    port = serial.Serial("COM8", baudrate=115200)
+    port = serial.Serial(COM, baudrate=115200)
 except:
     port = None
 
