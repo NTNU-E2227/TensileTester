@@ -88,7 +88,7 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         #self.gridLayout_10.addWidget(self.stressPlothWidget,0,0,1,1)  <--- gridlayout til Forcegraf
 
         ## --- Set program icon --- ##
-        MainWindow.setWindowIcon(QtGui.QIcon("iconTTTT.png"))
+        MainWindow.setWindowIcon(QtGui.QIcon("icon.svg"))
         MainWindow.setWindowTitle("Hovedvindu - Strekktest")    
 
         ## --- Find ready COM-ports --- ##
