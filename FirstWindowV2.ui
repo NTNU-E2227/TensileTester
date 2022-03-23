@@ -93,6 +93,14 @@
 #autoZeroButton:pressed{
 		background-color:rgb(65,65,65);
 }
+#resetGraphButton{
+		background-color: rgb(70,70,70); 
+		border-radius: 4px;
+		color: rgb(249,249,249);
+}
+#resetGraphButton:pressed{
+		background-color:rgb(65,65,65);
+}
 #releaseMatButton{
 		background-color: rgb(70,70,70); 
 		border-radius: 4px;
@@ -1089,6 +1097,25 @@ p, li { white-space: pre-wrap; }
                   </property>
                  </widget>
                 </item>
+                <item row="6" column="0">
+                 <widget class="QPushButton" name="resetGraphButton">
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>25</height>
+                   </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <family>Dubai</family>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>Reset graph</string>
+                  </property>
+                 </widget>
+                </item>
                </layout>
               </widget>
              </item>
@@ -1366,6 +1393,7 @@ p, li { white-space: pre-wrap; }
     <addaction name="separator"/>
     <addaction name="menuCOM_Port"/>
     <addaction name="actionGeometry"/>
+    <addaction name="actionReset_ADC"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuTools"/>
@@ -1383,6 +1411,11 @@ p, li { white-space: pre-wrap; }
   <action name="actionCOM9">
    <property name="text">
     <string>COM9</string>
+   </property>
+  </action>
+  <action name="actionReset_ADC">
+   <property name="text">
+    <string>Reset ADC</string>
    </property>
   </action>
  </widget>

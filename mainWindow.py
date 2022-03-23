@@ -88,6 +88,14 @@ class Ui_MainWindow(object):
 "#autoZeroButton:pressed{\n"
 "        background-color:rgb(65,65,65);\n"
 "}\n"
+"#resetGraphButton{\n"
+"        background-color: rgb(70,70,70); \n"
+"        border-radius: 4px;\n"
+"        color: rgb(249,249,249);\n"
+"}\n"
+"#resetGraphButton:pressed{\n"
+"        background-color:rgb(65,65,65);\n"
+"}\n"
 "#releaseMatButton{\n"
 "        background-color: rgb(70,70,70); \n"
 "        border-radius: 4px;\n"
@@ -577,6 +585,14 @@ class Ui_MainWindow(object):
         self.RWmaxForce.setMaximum(2500.0)
         self.RWmaxForce.setObjectName("RWmaxForce")
         self.gridLayout_2.addWidget(self.RWmaxForce, 0, 1, 1, 1)
+        self.resetGraphButton = QtWidgets.QPushButton(self.sone1_1)
+        self.resetGraphButton.setMinimumSize(QtCore.QSize(0, 25))
+        font = QtGui.QFont()
+        font.setFamily("Dubai")
+        font.setPointSize(11)
+        self.resetGraphButton.setFont(font)
+        self.resetGraphButton.setObjectName("resetGraphButton")
+        self.gridLayout_2.addWidget(self.resetGraphButton, 6, 0, 1, 1)
         self.gridLayout_3.addWidget(self.sone1_1, 8, 0, 1, 1)
         self.compressButton = QtWidgets.QPushButton(self.Sone1)
         self.compressButton.setMinimumSize(QtCore.QSize(190, 25))
@@ -687,8 +703,8 @@ class Ui_MainWindow(object):
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 1917, 21))
         self.menubar.setObjectName("menubar")
-        self.menusssss = QtWidgets.QMenu(self.menubar)
-        self.menusssss.setObjectName("menusssss")
+        self.menuFile = QtWidgets.QMenu(self.menubar)
+        self.menuFile.setObjectName("menuFile")
         self.menuTools = QtWidgets.QMenu(self.menubar)
         self.menuTools.setObjectName("menuTools")
         self.menuCOM_Port = QtWidgets.QMenu(self.menuTools)
@@ -698,12 +714,15 @@ class Ui_MainWindow(object):
         self.actionGeometry.setObjectName("actionGeometry")
         self.actionCOM1 = QtWidgets.QAction(MainWindow)
         self.actionCOM1.setObjectName("actionCOM1")
-        #self.actionCOM9 = QtWidgets.QAction(MainWindow)
-        #self.actionCOM9.setObjectName("actionCOM9")
+        self.actionCOM9 = QtWidgets.QAction(MainWindow)
+        self.actionCOM9.setObjectName("actionCOM9")
+        self.actionReset_ADC = QtWidgets.QAction(MainWindow)
+        self.actionReset_ADC.setObjectName("actionReset_ADC")
         self.menuTools.addSeparator()
         self.menuTools.addAction(self.menuCOM_Port.menuAction())
         self.menuTools.addAction(self.actionGeometry)
-        self.menubar.addAction(self.menusssss.menuAction())
+        self.menuTools.addAction(self.actionReset_ADC)
+        self.menubar.addAction(self.menuFile.menuAction())
         self.menubar.addAction(self.menuTools.menuAction())
 
         self.retranslateUi(MainWindow)
@@ -742,14 +761,16 @@ class Ui_MainWindow(object):
         self.RWlengthRange.setSuffix(_translate("MainWindow", " μm"))
         self.autoZeroButton.setText(_translate("MainWindow", "Auto zero"))
         self.RWmaxForce.setSuffix(_translate("MainWindow", " N"))
+        self.resetGraphButton.setText(_translate("MainWindow", "Reset graph"))
         self.compressButton.setText(_translate("MainWindow", "Compress"))
         self.title.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:26pt; font-weight:600; text-decoration: underline;\">Tensile Testing</span></p></body></html>"))
-        self.menusssss.setTitle(_translate("MainWindow", "File"))
+        self.menuFile.setTitle(_translate("MainWindow", "File"))
         self.menuTools.setTitle(_translate("MainWindow", "Tools"))
         self.menuCOM_Port.setTitle(_translate("MainWindow", "COM Port"))
         self.actionGeometry.setText(_translate("MainWindow", "Geometry"))
         self.actionCOM1.setText(_translate("MainWindow", "COM1"))
-        #self.actionCOM9.setText(_translate("MainWindow", "COM9"))
+        self.actionCOM9.setText(_translate("MainWindow", "COM9"))
+        self.actionReset_ADC.setText(_translate("MainWindow", "Reset ADC"))
 
 
 if __name__ == "__main__":
