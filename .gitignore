@@ -1,1 +1,4 @@
 /__pycache__/*
+/service/__pycache__/*
+/resources/__pycache__/*
+/designerfiles/__pycache__/*

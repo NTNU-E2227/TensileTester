@@ -1,6 +1,6 @@
 import serial
 import serial.tools.list_ports
-import mcu_com
+import service.mcu_com as mcu_com
 import time
 import math
 

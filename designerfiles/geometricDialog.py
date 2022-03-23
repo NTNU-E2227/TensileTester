@@ -9,7 +9,10 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-import img_rc
+from resources import img_rc as img_rc
+#import resources.img_rc as img_rc
+
+
 
 
 class Ui_Dialog(object):

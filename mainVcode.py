@@ -1,12 +1,12 @@
 from turtle import color, screensize
-from mainWindow import *
-from geometricDialog import *
+from designerfiles.mainWindow import *
+from designerfiles.geometricDialog import *
 from PyQt5 import QtCore, QtGui, QtWidgets
 from  pyqtgraph.flowchart import Flowchart
 from pyqtgraph import PlotWidget
 import pyqtgraph as pg
 import numpy as np
-import backend
+import service.backend as backend
 from PyQt5.QtCore import QObject, QThread, pyqtSignal
 
 QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True) #enable highdpi scaling
@@ -88,7 +88,7 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         #self.gridLayout_10.addWidget(self.stressPlothWidget,0,0,1,1)  <--- gridlayout til Forcegraf
 
         ## --- Set program icon --- ##
-        MainWindow.setWindowIcon(QtGui.QIcon("icon.svg"))
+        MainWindow.setWindowIcon(QtGui.QIcon("resources/icon.svg"))
         MainWindow.setWindowTitle("Hovedvindu - Strekktest")    
 
         ## --- Find ready COM-ports --- ##
