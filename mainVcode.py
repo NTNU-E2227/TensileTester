@@ -17,13 +17,13 @@ QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True) #en
 QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True)    #use highdpi icons
 
 class stressWorker(QObject):
-    newData = pyqtSignal(float,float)
+    newData = pyqtSignal(list)
 
     def run(self):
         generator = backend.stressPlot_generator()
         while True:
             d = next(generator)
-            self.newData.emit(d[0],d[1])
+            self.newData.emit(d)
 
 
 class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
@@ -127,23 +127,24 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         self.generator = stressWorker()
         self.generator.moveToThread(self.sThread)
         self.sThread.started.connect(self.generator.run)
-        self.generator.newData.connect(self.stressGraphPlot)
+        self.generator.newData.connect(self.graphPlot)
         self.sThread.start()
 
-    def stressGraphPlot(self, x, y):
-        self.stressDataX.append(x)
-        self.stressDataY.append(y)
+    def graphPlot(self, data):
+        self.stressDataX.append(data[0])
+        self.stressDataY.append(data[1])
         self.stressPlotWidgetCurve.setData(self.stressDataX,self.stressDataY)
-
-    def forceGraphPlot(self, x, y):
-        self.forceDataX.append(x)
-        self.forceDataY.append(y)
+        self.forceDataX.append(data[2])
+        self.forceDataY.append(data[3])
         self.forcePlotWidgetCurve.setData(self.forceDataX,self.forceDataY)
-        
 
     def resetgraphPlot(self):
         self.stressDataX = []
         self.stressDataY = []
+        self.forceDataX = []
+        self.forceDataY = []
+        self.stressPlotWidgetCurve.setData(self.stressDataX,self.stressDataY)
+        self.forcePlotWidgetCurve.setData(self.forceDataX,self.forceDataY)
         self.resetgraphDialog.close()
 
     def writeUpdate(self):
