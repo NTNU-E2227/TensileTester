@@ -1,0 +1,5 @@
+<RCC>
+  <qresource prefix="icons">
+    <file>icons/yellow_warning.svg</file>
+  </qresource>
+</RCC>
