@@ -23,9 +23,10 @@ def stop_motor():
 def stressPlot_generator(): #Generator for stress graf, yield [x,y] koordinater
     while True:
         data = mcu_com.adc_read(port)
+        t = time.time()
         if data[0] < 0x900000: continue
         if data[1] < 0x900000: continue
-        yield data 
+        yield [t, data[0], t, data[1]] 
 
 def port_ready():
     coms = []
