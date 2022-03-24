@@ -12,6 +12,7 @@ import numpy as np
 import service.backend as backend
 from PyQt5.QtCore import QObject, QThread, pyqtSignal
 
+
 QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True) #enable highdpi scaling
 QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True)    #use highdpi icons
 

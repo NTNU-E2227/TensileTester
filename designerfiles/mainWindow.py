@@ -763,7 +763,7 @@ class Ui_MainWindow(object):
         self.RWmaxForce.setSuffix(_translate("MainWindow", " N"))
         self.resetGraphButton.setText(_translate("MainWindow", "Reset graph"))
         self.compressButton.setText(_translate("MainWindow", "Compress"))
-        self.title.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:26pt; font-weight:600; text-decoration: underline;\">Tensile Testing</span></p></body></html>"))
+        self.title.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:26pt; font-weight:600;\">Tensile Testing</span></p></body></html>"))
         self.menuFile.setTitle(_translate("MainWindow", "File"))
         self.menuTools.setTitle(_translate("MainWindow", "Tools"))
         self.menuCOM_Port.setTitle(_translate("MainWindow", "COM Port"))
