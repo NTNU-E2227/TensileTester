@@ -57,6 +57,7 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         self.resetGraphButton.clicked.connect(self.resetgraphWindow)
         self.reset_Ui.yesButton.clicked.connect(self.resetgraphPlot)
         self.reset_Ui.noButton.clicked.connect(self.resetgraphDialog.close)
+        self.actionReset_ADC.triggered.connect(backend.reset)
         
 
         ## ------ Read/Write Data ------ ##
