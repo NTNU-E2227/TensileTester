@@ -39,14 +39,14 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         self.reset_Ui = graph_Ui_Dialog() #Ui_Dialog()
         self.reset_Ui.setupUi(self.resetgraphDialog)
         self.resetgraphDialog.setWindowTitle("Warning")
-        self.resetgraphDialog.setWindowIcon(QtGui.QIcon("icon.svg"))
+        self.resetgraphDialog.setWindowIcon(QtGui.QIcon("resources/icon.svg"))
 
         ## ------ GeometricData dialog init ------ ##
         self.geometricDialog = QtWidgets.QDialog()
         self.geo_Ui = geo_Ui_Dialog() # Ui_Dialog()
         self.geo_Ui.setupUi(self.geometricDialog)
         self.geometricDialog.setWindowTitle("Set Geometric Data")
-        self.geometricDialog.setWindowIcon(QtGui.QIcon("icon.svg"))
+        self.geometricDialog.setWindowIcon(QtGui.QIcon("resources/icon.svg"))
 
         ## ------ Buttonfunctions ------ ##
         self.startButton.clicked.connect(self.start_func)
@@ -110,7 +110,7 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
 
 
         ## --- Set program icon --- ##
-        MainWindow.setWindowIcon(QtGui.QIcon("icon.svg"))
+        MainWindow.setWindowIcon(QtGui.QIcon("resources/icon.svg"))
         MainWindow.setWindowTitle("Hovedvindu - Strekktest")    
 
         ## --- Find ready COM-ports --- ##
