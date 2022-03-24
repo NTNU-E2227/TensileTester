@@ -1,4 +1,4 @@
-from turtle import color, screensize
+from turtle import back, color, screensize
 from designerfiles.mainWindow import *
 from designerfiles.geometricDialog import *
 from PyQt5 import QtCore, QtGui, QtWidgets
@@ -37,6 +37,7 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         self.tensileButton.clicked.connect(self.tensile_func)
         self.compressButton.clicked.connect(self.compress_func)
         self.actionGeometry.triggered.connect(self.dialogWindow)
+        self.actionReset_ADC.triggered.connect(backend.reset)
 
         ## ------ Read/Write Data ------ ##
         self.RWmaxForce.editingFinished.connect(self.writeUpdate)

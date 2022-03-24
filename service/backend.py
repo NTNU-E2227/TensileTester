@@ -20,7 +20,6 @@ def run_motor(dir, speed):
 def stop_motor():
     mcu_com.motor_stop(port)
 
-
 def stressPlot_generator(): #Generator for stress graf, yield [x,y] koordinater
     while True:
         data = mcu_com.adc_read(port)
@@ -34,3 +33,6 @@ def port_ready():
         p = format(port[0])
         coms.append(p)
     return coms
+
+def reset():
+    mcu_com.adc_reset(port)
