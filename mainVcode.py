@@ -30,6 +30,8 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
     motorRunning = False
     stressDataX = []
     stressDataY = []
+    forceDataX = []
+    forceDataY = []
     def __init__(self):
         super().__init__()     
         self.setupUi(MainWindow)
@@ -131,7 +133,12 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         self.stressDataX.append(x)
         self.stressDataY.append(y)
         self.stressPlotWidgetCurve.setData(self.stressDataX,self.stressDataY)
-        self.forcePlotWidgetCurve.setData(self.stressDataX,self.stressDataY)
+
+    def forceGraphPlot(self, x, y):
+        self.forceDataX.append(x)
+        self.forceDataY.append(y)
+        self.forcePlotWidgetCurve.setData(self.forceDataX,self.forceDataY)
+        
 
     def resetgraphPlot(self):
         self.stressDataX = []
