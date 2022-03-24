@@ -1,16 +1,19 @@
+#from  pyqtgraph.flowchart import Flowchart
+#from pyqtgraph import PlotWidget
 from turtle import color, screensize
 from designerfiles.mainWindow import *
-from designerfiles.geometricDialog import *
+#from designerfiles.geometricDialog import *
+#from designerfiles.resetgraphDialog import *
+from designerfiles.geometricDialog import Ui_Dialog as geo_Ui_Dialog
+from designerfiles.resetgraphDialog import Ui_Dialog as graph_Ui_Dialog
 from PyQt5 import QtCore, QtGui, QtWidgets
-from  pyqtgraph.flowchart import Flowchart
-from pyqtgraph import PlotWidget
 import pyqtgraph as pg
 import numpy as np
 import service.backend as backend
 from PyQt5.QtCore import QObject, QThread, pyqtSignal
 
 QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True) #enable highdpi scaling
-QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True) #use highdpi icons
+QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True)    #use highdpi icons
 
 class stressWorker(QObject):
     newData = pyqtSignal(float,float)
@@ -31,12 +34,30 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         super().__init__()     
         self.setupUi(MainWindow)
 
+        ## ------ ResetGraph dialog init ------ ##
+        self.resetgraphDialog = QtWidgets.QDialog()
+        self.reset_Ui = graph_Ui_Dialog() #Ui_Dialog()
+        self.reset_Ui.setupUi(self.resetgraphDialog)
+        self.resetgraphDialog.setWindowTitle("Warning")
+        self.resetgraphDialog.setWindowIcon(QtGui.QIcon("icon.svg"))
+
+        ## ------ GeometricData dialog init ------ ##
+        self.geometricDialog = QtWidgets.QDialog()
+        self.geo_Ui = geo_Ui_Dialog() # Ui_Dialog()
+        self.geo_Ui.setupUi(self.geometricDialog)
+        self.geometricDialog.setWindowTitle("Set Geometric Data")
+        self.geometricDialog.setWindowIcon(QtGui.QIcon("icon.svg"))
+
         ## ------ Buttonfunctions ------ ##
         self.startButton.clicked.connect(self.start_func)
         self.stopButton.clicked.connect(self.stop_func)
         self.tensileButton.clicked.connect(self.tensile_func)
         self.compressButton.clicked.connect(self.compress_func)
-        self.actionGeometry.triggered.connect(self.dialogWindow)
+        self.actionGeometry.triggered.connect(self.geometricWindow)
+        self.resetGraphButton.clicked.connect(self.resetgraphWindow)
+        self.reset_Ui.yesButton.clicked.connect(self.resetgraphPlot)
+        self.reset_Ui.noButton.clicked.connect(self.resetgraphDialog.close)
+        
 
         ## ------ Read/Write Data ------ ##
         self.RWmaxForce.editingFinished.connect(self.writeUpdate)
@@ -44,7 +65,7 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         self.RWlengthRange.editingFinished.connect(self.writeUpdate)
         self.RWinitialForce.editingFinished.connect(self.writeUpdate)
 
-        #### --- Newest graph setup --- ####
+        #### --- StressGraph setup --- ####
         self.stressPlothWidget = pg.PlotWidget()
         self.stressPlothWidget.setBackground((33,33,33))
         
@@ -64,8 +85,8 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         self.stressPlotWidgetCurve = pg.PlotCurveItem(pen=pg.mkPen(color="#03818a", width=2))
         self.stressPlothWidget.addItem(self.stressPlotWidgetCurve)
         self.gridLayout_6.addWidget(self.stressPlothWidget,0,0,1,1)
-        #self.gridLayout_10.addWidget(self.stressPlothWidget,0,0,1,1)  <--- gridlayout til Forcegraf
-        ###############################################
+        
+        #### --- ForceGraph setup --- ####
         self.forcePlothWidget = pg.PlotWidget()
         self.forcePlothWidget.setBackground((33,33,33))
         
@@ -85,18 +106,16 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         self.forcePlotWidgetCurve = pg.PlotCurveItem(pen=pg.mkPen(color="#03818a", width=2))
         self.forcePlothWidget.addItem(self.forcePlotWidgetCurve)
         self.gridLayout_7.addWidget(self.forcePlothWidget,0,0,1,1)
-        #self.gridLayout_10.addWidget(self.stressPlothWidget,0,0,1,1)  <--- gridlayout til Forcegraf
+
+
 
         ## --- Set program icon --- ##
-        MainWindow.setWindowIcon(QtGui.QIcon("resources/icon.svg"))
+        MainWindow.setWindowIcon(QtGui.QIcon("icon.svg"))
         MainWindow.setWindowTitle("Hovedvindu - Strekktest")    
 
         ## --- Find ready COM-ports --- ##
         coms = backend.port_ready()
         for i in range(len(coms)):
-            p = "{}{}".format("self.", coms[i])
-            pp = "{}{}{}{}{}".format("self.", coms[i],".setObjectName(",i,")")          
-            p = QtWidgets.QAction(MainWindow)
             self.menuCOM_Port.addAction(coms[i])
             
 
@@ -113,24 +132,34 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         self.stressPlotWidgetCurve.setData(self.stressDataX,self.stressDataY)
         self.forcePlotWidgetCurve.setData(self.stressDataX,self.stressDataY)
 
+    def resetgraphPlot(self):
+        self.stressDataX = []
+        self.stressDataY = []
+        self.resetgraphDialog.close()
+
     def writeUpdate(self):
         if self.motorRunning:
             backend.run_motor(self.direction,self.RWtensileSpeed.value())
 
-    def dialogWindow(self):
-        self.Dialog = QtWidgets.QDialog()
-        self.Dialog.setWindowIcon(QtGui.QIcon("iconTTTT.png"))
-        self.ui = Ui_Dialog()
-        self.ui.setupUi(self.Dialog)
-        self.Dialog.show()
+    def geometricWindow(self):
+        #self.geometricDialog = QtWidgets.QDialog()
+        #self.geometricDialog.setWindowIcon(QtGui.QIcon("icon.svg"))
+        #self.ui = geo_Ui_Dialog() # Ui_Dialog()
+        #self.ui.setupUi(self.geometricDialog)
+        self.geometricDialog.show()
 
+    def resetgraphWindow(self):
+        #self.resetgraphDialog = QtWidgets.QDialog()
+        #self.resetgraphDialog.setWindowIcon(QtGui.QIcon("icon.svg"))
+        #self.ui = graph_Ui_Dialog() #Ui_Dialog()
+        #self.ui.setupUi(self.resetgraphDialog)
+        self.resetgraphDialog.show()
+        
     def start_func(self):
         self.motorRunning = True    
         self.startButton.setStyleSheet('background-color :  #03818a')
         self.stopButton.setStyleSheet('background-color : rgb(70, 70, 70)')
         backend.run_motor(self.direction,self.RWtensileSpeed.value())
-        
-        #self.graphWdiget.plot(self.stressDataX, self.stressDataY, pen=(4,3))
 
     def stop_func(self):
         self.motorRunning = False
@@ -144,7 +173,6 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         self.compressButton.setStyleSheet('background-color : rgb(70, 70, 70)')
         if self.motorRunning:
             backend.run_motor(self.direction,self.RWtensileSpeed.value())
-
 
     def compress_func(self):
         self.direction = "u"
