@@ -2,12 +2,11 @@ import serial
 import serial.tools.list_ports
 import service.mcu_com as mcu_com
 import time
+import service.config
 import math
 
-COM = "COM8"
-
 try:
-    port = serial.Serial(COM, baudrate=115200)
+    port = serial.Serial(config.COM, baudrate=115200)
 except:
     port = None
 
@@ -24,7 +23,7 @@ def stressPlot_generator(): #Generator for stress graf, yield [x,y] koordinater
     while True:
         data = mcu_com.adc_read(port)
         t = time.time()
-        if data[0] < 0x900000: continue
+        if data[0] < 0x100000: continue
         if data[1] < 0x900000: continue
         yield [t, data[0], t, data[1]] 
 
