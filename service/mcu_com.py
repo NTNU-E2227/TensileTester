@@ -18,8 +18,8 @@ def motor_unload(serial_port, speed):
 
 def adc_read(serial_port):
     in_data = serial_port.readline()
-    force = int.from_bytes(in_data[0:3],'big')
-    length = int.from_bytes(in_data[3:6],'big')
+    length = int.from_bytes(in_data[0:3],'big')
+    force = int.from_bytes(in_data[3:6],'big')
     return [length, force]
 
 def motor_load_percent(serial_port, speed_percent):

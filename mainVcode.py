@@ -138,6 +138,9 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         self.forceDataY.append(data[3])
         self.forcePlotWidgetCurve.setData(self.forceDataX,self.forceDataY)
 
+        self.lengthRead.setValue(data[1])
+        self.forceRead.setValue(data[3])
+
     def resetgraphPlot(self):
         self.stressDataX = []
         self.stressDataY = []
