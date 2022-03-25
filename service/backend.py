@@ -2,10 +2,11 @@ import serial
 import serial.tools.list_ports
 import service.mcu_com as mcu_com
 import time
+import config
 import math
 
 try:
-    port = serial.Serial(COM, baudrate=115200)
+    port = serial.Serial(config.COM, baudrate=115200)
 except:
     port = None
 
