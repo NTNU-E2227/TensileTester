@@ -36,6 +36,7 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
 
         ## ------ ResetGraph dialog init ------ ##
         self.resetgraphDialog = QtWidgets.QDialog()
+        self.resetgraphDialog.setWindowFlag(QtCore.Qt.WindowStaysOnTopHint)
         self.reset_Ui = graph_Ui_Dialog() #Ui_Dialog()
         self.reset_Ui.setupUi(self.resetgraphDialog)
         self.resetgraphDialog.setWindowTitle("Warning")
