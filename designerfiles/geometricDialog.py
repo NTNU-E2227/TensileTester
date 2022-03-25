@@ -9,8 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from resources import img_rc 
-
+from resources import geometric_img_rc
 
 
 class Ui_Dialog(object):
@@ -157,7 +156,7 @@ class Ui_Dialog(object):
         self.label_52.setText(_translate("Dialog", "H0"))
         self.label_51.setText(_translate("Dialog", "L1"))
         self.label_50.setText(_translate("Dialog", "L0"))
-        self.label.setText(_translate("Dialog", "<html><head/><body><p><img src=\":/DialogPic/DialogPicT.png\"/></p></body></html>"))
+        self.label.setText(_translate("Dialog", "<html><head/><body><p><img src=\":/geometric_img/DialogPicT1 .png\"/></p></body></html>"))
         self.label_53.setText(_translate("Dialog", "H1"))
         self.label_54.setText(_translate("Dialog", "E0"))
 
