@@ -24,11 +24,6 @@ class stressWorker(QObject):
 class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
     direction = "l"
     motorRunning = False
-    #stressDataX = []
-    #stressDataY = []
-    #forceDataX = []
-    #forceDataY = []
-    #datalist = [time,force,length,stress,espilon]
     datalist = [[],[],[],[],[]]
     def __init__(self):
         super().__init__()     
@@ -128,7 +123,6 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         self.sThread.start()
 
     def graphPlot(self, data):
-        # datalist = [time,force,length,stress,espilon]
         self.datalist[0].append(data[0])
         self.datalist[1].append(data[1])
         self.datalist[2].append(data[2])
@@ -136,13 +130,6 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         self.datalist[3].append(data[4])
         self.stressPlotWidgetCurve.setData(self.datalist[1],self.datalist[2])
         self.forcePlotWidgetCurve.setData(self.datalist[3],self.datalist[4])
-        #datalist = [[],[],[],[],[]]
-        #self.stressDataX.append(data[0])
-        #self.stressDataY.append(data[1])
-        #self.stressPlotWidgetCurve.setData(self.stressDataX,self.stressDataY)
-        #self.forceDataX.append(data[2])
-        #self.forceDataY.append(data[3])
-        #self.forcePlotWidgetCurve.setData(self.forceDataX,self.forceDataY)
 
         self.forceRead.setValue(data[1])
         self.lengthRead.setValue(data[2])
@@ -150,12 +137,8 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
 
     def resetgraphPlot(self):
         self.datalist = [[],[],[],[],[]] 
-        #self.stressDataX = []
-        #self.stressDataY = []
-        #self.forceDataX = []
-        #self.forceDataY = []
-        #self.stressPlotWidgetCurve.setData(self.stressDataX,self.stressDataY)
-        #self.forcePlotWidgetCurve.setData(self.forceDataX,self.forceDataY)
+        self.stressPlotWidgetCurve.setData(self.datalist[1],self.datalist[2])
+        self.forcePlotWidgetCurve.setData(self.datalist[3],self.datalist[4])
         self.resetgraphDialog.close()
 
     def writeUpdate(self):
