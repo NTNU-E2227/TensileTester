@@ -2,7 +2,7 @@ import serial
 import serial.tools.list_ports
 import service.mcu_com as mcu_com
 import time
-import service.config
+import service.config as config
 import math
 
 try:
