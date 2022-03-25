@@ -4,8 +4,6 @@ import service.mcu_com as mcu_com
 import time
 import math
 
-COM = "COM8"
-
 try:
     port = serial.Serial(COM, baudrate=115200)
 except:
