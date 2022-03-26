@@ -37,3 +37,15 @@ def port_ready():
 
 def reset():
     mcu_com.adc_reset(port)
+
+def stress(force):
+    A0 = config.E0 * config.H0
+    stress = force/A0
+    return stress
+
+def strain(force, distance): #Går ut ifra at metallene strekker seg lineært med påført kraft når elastiske.
+    R1 = 4 # not quite sure if this one is correct, might have to put in one more input parameter
+
+    R0 = config.H1 - config.H0 - R1
+    strain = gauge_distance/config.L0
+    return strain
