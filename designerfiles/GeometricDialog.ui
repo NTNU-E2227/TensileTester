@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>816</width>
-    <height>407</height>
+    <width>829</width>
+    <height>491</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -72,26 +72,6 @@
 </string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="3" column="3">
-    <widget class="QDoubleSpinBox" name="RWH1">
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-     <property name="buttonSymbols">
-      <enum>QAbstractSpinBox::NoButtons</enum>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="4">
-    <widget class="QDoubleSpinBox" name="RWE0">
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-     <property name="buttonSymbols">
-      <enum>QAbstractSpinBox::NoButtons</enum>
-     </property>
-    </widget>
-   </item>
    <item row="2" column="2" alignment="Qt::AlignHCenter|Qt::AlignBottom">
     <widget class="QLabel" name="label_52">
      <property name="font">
@@ -104,32 +84,21 @@
      </property>
     </widget>
    </item>
-   <item row="2" column="1" alignment="Qt::AlignHCenter|Qt::AlignBottom">
-    <widget class="QLabel" name="label_51">
-     <property name="font">
-      <font>
-       <pointsize>14</pointsize>
-      </font>
+   <item row="3" column="3">
+    <widget class="QDoubleSpinBox" name="RWH1">
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
-     <property name="text">
-      <string>L1</string>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="0" alignment="Qt::AlignHCenter|Qt::AlignBottom">
-    <widget class="QLabel" name="label_50">
-     <property name="font">
-      <font>
-       <pointsize>14</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>L0</string>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
      </property>
     </widget>
    </item>
    <item row="0" column="0" colspan="5">
     <widget class="QWidget" name="widget" native="true">
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(115, 115, 115);</string>
+     </property>
      <layout class="QGridLayout" name="gridLayout_2">
       <item row="0" column="0">
        <widget class="QLabel" name="label">
@@ -147,15 +116,15 @@
         </property>
         <property name="maximumSize">
          <size>
-          <width>780</width>
-          <height>320</height>
+          <width>800</width>
+          <height>400</height>
          </size>
         </property>
         <property name="whatsThis">
          <string/>
         </property>
         <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/geometric_img/DialogPicT1 .png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/geometric/DialogPicT2.PNG&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
        </widget>
       </item>
@@ -164,6 +133,50 @@
    </item>
    <item row="3" column="1">
     <widget class="QDoubleSpinBox" name="RWL1">
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="4" alignment="Qt::AlignHCenter|Qt::AlignBottom">
+    <widget class="QLabel" name="label_54">
+     <property name="font">
+      <font>
+       <pointsize>14</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>E0</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0" alignment="Qt::AlignHCenter|Qt::AlignBottom">
+    <widget class="QLabel" name="label_50">
+     <property name="font">
+      <font>
+       <pointsize>14</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>L0</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="2">
+    <widget class="QDoubleSpinBox" name="RWH0">
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="4">
+    <widget class="QDoubleSpinBox" name="RWE0">
      <property name="alignment">
       <set>Qt::AlignCenter</set>
      </property>
@@ -184,16 +197,6 @@
      </property>
     </widget>
    </item>
-   <item row="3" column="2">
-    <widget class="QDoubleSpinBox" name="RWH0">
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-     <property name="buttonSymbols">
-      <enum>QAbstractSpinBox::NoButtons</enum>
-     </property>
-    </widget>
-   </item>
    <item row="3" column="0">
     <widget class="QDoubleSpinBox" name="RWL0">
      <property name="frame">
@@ -207,15 +210,15 @@
      </property>
     </widget>
    </item>
-   <item row="2" column="4" alignment="Qt::AlignHCenter|Qt::AlignBottom">
-    <widget class="QLabel" name="label_54">
+   <item row="2" column="1" alignment="Qt::AlignHCenter|Qt::AlignBottom">
+    <widget class="QLabel" name="label_51">
      <property name="font">
       <font>
        <pointsize>14</pointsize>
       </font>
      </property>
      <property name="text">
-      <string>E0</string>
+      <string>L1</string>
      </property>
     </widget>
    </item>

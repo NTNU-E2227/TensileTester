@@ -1,5 +1,5 @@
 <RCC>
-  <qresource prefix="geometric_img">
-    <file>DialogPicT1 .png</file>
+  <qresource prefix="geometric">
+    <file>DialogPicT2.PNG</file>
   </qresource>
 </RCC>
