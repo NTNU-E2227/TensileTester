@@ -155,7 +155,7 @@
          <string/>
         </property>
         <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/DialogPic/DialogPicT.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/geometric_img/DialogPicT1 .png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
        </widget>
       </item>
@@ -222,7 +222,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="img.qrc"/>
+  <include location="../resources/geometric_img.qrc"/>
  </resources>
  <connections/>
 </ui>

@@ -1,14 +1,9 @@
-#from  pyqtgraph.flowchart import Flowchart
-#from pyqtgraph import PlotWidget
 from turtle import color, screensize
 from designerfiles.mainWindow import *
-#from designerfiles.geometricDialog import *
-#from designerfiles.resetgraphDialog import *
 from designerfiles.geometricDialog import Ui_Dialog as geo_Ui_Dialog
 from designerfiles.resetgraphDialog import Ui_Dialog as graph_Ui_Dialog
 from PyQt5 import QtCore, QtGui, QtWidgets
 import pyqtgraph as pg
-import numpy as np
 import service.backend as backend
 from PyQt5.QtCore import QObject, QThread, pyqtSignal
 
@@ -29,16 +24,14 @@ class stressWorker(QObject):
 class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
     direction = "l"
     motorRunning = False
-    stressDataX = []
-    stressDataY = []
-    forceDataX = []
-    forceDataY = []
+    datalist = [[],[],[],[],[]]
     def __init__(self):
         super().__init__()     
         self.setupUi(MainWindow)
 
         ## ------ ResetGraph dialog init ------ ##
         self.resetgraphDialog = QtWidgets.QDialog()
+        self.resetgraphDialog.setWindowFlag(QtCore.Qt.WindowStaysOnTopHint)
         self.reset_Ui = graph_Ui_Dialog() #Ui_Dialog()
         self.reset_Ui.setupUi(self.resetgraphDialog)
         self.resetgraphDialog.setWindowTitle("Warning")
@@ -131,20 +124,22 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         self.sThread.start()
 
     def graphPlot(self, data):
-        self.stressDataX.append(data[0])
-        self.stressDataY.append(data[1])
-        self.stressPlotWidgetCurve.setData(self.stressDataX,self.stressDataY)
-        self.forceDataX.append(data[2])
-        self.forceDataY.append(data[3])
-        self.forcePlotWidgetCurve.setData(self.forceDataX,self.forceDataY)
+        self.datalist[0].append(data[0])
+        self.datalist[1].append(data[1])
+        self.datalist[2].append(data[2])
+        self.datalist[3].append(data[3])
+        self.datalist[3].append(data[4])
+        self.stressPlotWidgetCurve.setData(self.datalist[1],self.datalist[2])
+        self.forcePlotWidgetCurve.setData(self.datalist[3],self.datalist[4])
+
+        self.forceRead.setValue(data[1])
+        self.lengthRead.setValue(data[2])
+        
 
     def resetgraphPlot(self):
-        self.stressDataX = []
-        self.stressDataY = []
-        self.forceDataX = []
-        self.forceDataY = []
-        self.stressPlotWidgetCurve.setData(self.stressDataX,self.stressDataY)
-        self.forcePlotWidgetCurve.setData(self.forceDataX,self.forceDataY)
+        self.datalist = [[],[],[],[],[]] 
+        self.stressPlotWidgetCurve.setData(self.datalist[1],self.datalist[2])
+        self.forcePlotWidgetCurve.setData(self.datalist[3],self.datalist[4])
         self.resetgraphDialog.close()
 
     def writeUpdate(self):
@@ -152,17 +147,9 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
             backend.run_motor(self.direction,self.RWtensileSpeed.value())
 
     def geometricWindow(self):
-        #self.geometricDialog = QtWidgets.QDialog()
-        #self.geometricDialog.setWindowIcon(QtGui.QIcon("icon.svg"))
-        #self.ui = geo_Ui_Dialog() # Ui_Dialog()
-        #self.ui.setupUi(self.geometricDialog)
         self.geometricDialog.show()
 
     def resetgraphWindow(self):
-        #self.resetgraphDialog = QtWidgets.QDialog()
-        #self.resetgraphDialog.setWindowIcon(QtGui.QIcon("icon.svg"))
-        #self.ui = graph_Ui_Dialog() #Ui_Dialog()
-        #self.ui.setupUi(self.resetgraphDialog)
         self.resetgraphDialog.show()
         
     def start_func(self):
