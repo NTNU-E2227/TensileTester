@@ -85,7 +85,7 @@ class Ui_Dialog(object):
         self.RWH1.setObjectName("RWH1")
         self.gridLayout.addWidget(self.RWH1, 3, 3, 1, 1)
         self.widget = QtWidgets.QWidget(Dialog)
-        self.widget.setStyleSheet("background-color: rgb(98, 98, 98);\n"
+        self.widget.setStyleSheet("background-color: rgb(77, 77, 77);\n"
 "")
         self.widget.setObjectName("widget")
         self.gridLayout_2 = QtWidgets.QGridLayout(self.widget)
@@ -161,6 +161,7 @@ class Ui_Dialog(object):
         self.label_50.setText(_translate("Dialog", "L0"))
         self.label_53.setText(_translate("Dialog", "H1"))
         self.label_51.setText(_translate("Dialog", "L1"))
+
 
 
 if __name__ == "__main__":

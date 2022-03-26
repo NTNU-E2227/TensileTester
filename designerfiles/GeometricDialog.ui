@@ -97,7 +97,7 @@
    <item row="0" column="0" colspan="5">
     <widget class="QWidget" name="widget" native="true">
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(98, 98, 98);
+      <string notr="true">background-color: rgb(77, 77, 77);
 </string>
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
