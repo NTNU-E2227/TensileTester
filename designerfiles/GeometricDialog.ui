@@ -97,7 +97,8 @@
    <item row="0" column="0" colspan="5">
     <widget class="QWidget" name="widget" native="true">
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(115, 115, 115);</string>
+      <string notr="true">background-color: rgb(98, 98, 98);
+</string>
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
       <item row="0" column="0">
@@ -122,6 +123,9 @@
         </property>
         <property name="whatsThis">
          <string/>
+        </property>
+        <property name="styleSheet">
+         <string notr="true"/>
         </property>
         <property name="text">
          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/geometric/DialogPicT2.PNG&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>

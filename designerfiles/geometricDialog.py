@@ -85,7 +85,8 @@ class Ui_Dialog(object):
         self.RWH1.setObjectName("RWH1")
         self.gridLayout.addWidget(self.RWH1, 3, 3, 1, 1)
         self.widget = QtWidgets.QWidget(Dialog)
-        self.widget.setStyleSheet("background-color: rgb(115, 115, 115);")
+        self.widget.setStyleSheet("background-color: rgb(98, 98, 98);\n"
+"")
         self.widget.setObjectName("widget")
         self.gridLayout_2 = QtWidgets.QGridLayout(self.widget)
         self.gridLayout_2.setObjectName("gridLayout_2")
@@ -98,6 +99,7 @@ class Ui_Dialog(object):
         self.label.setMinimumSize(QtCore.QSize(780, 320))
         self.label.setMaximumSize(QtCore.QSize(800, 400))
         self.label.setWhatsThis("")
+        self.label.setStyleSheet("")
         self.label.setObjectName("label")
         self.gridLayout_2.addWidget(self.label, 0, 0, 1, 1)
         self.gridLayout.addWidget(self.widget, 0, 0, 1, 5)
@@ -159,8 +161,6 @@ class Ui_Dialog(object):
         self.label_50.setText(_translate("Dialog", "L0"))
         self.label_53.setText(_translate("Dialog", "H1"))
         self.label_51.setText(_translate("Dialog", "L1"))
-
-
 
 
 if __name__ == "__main__":
