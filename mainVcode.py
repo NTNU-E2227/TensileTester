@@ -1,8 +1,10 @@
+from time import sleep
 from turtle import color, screensize
 from designerfiles.mainWindow import *
 from designerfiles.geometricDialog import Ui_Dialog as geo_Ui_Dialog
 from designerfiles.resetgraphDialog import Ui_Dialog as graph_Ui_Dialog
 from PyQt5 import QtCore, QtGui, QtWidgets
+import service.config as config
 import pyqtgraph as pg
 import service.backend as backend
 from PyQt5.QtCore import QObject, QThread, pyqtSignal
@@ -32,6 +34,7 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         ## ------ ResetGraph dialog init ------ ##
         self.resetgraphDialog = QtWidgets.QDialog()
         self.resetgraphDialog.setWindowFlag(QtCore.Qt.WindowStaysOnTopHint)
+        self.resetgraphDialog.setWindowModality(QtCore.Qt.ApplicationModal)
         self.reset_Ui = graph_Ui_Dialog() #Ui_Dialog()
         self.reset_Ui.setupUi(self.resetgraphDialog)
         self.resetgraphDialog.setWindowTitle("Warning")
@@ -40,6 +43,7 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         ## ------ GeometricData dialog init ------ ##
         self.geometricDialog = QtWidgets.QDialog()
         self.geo_Ui = geo_Ui_Dialog() # Ui_Dialog()
+        self.geometricDialog.setWindowFlag(QtCore.Qt.WindowStaysOnTopHint)
         self.geo_Ui.setupUi(self.geometricDialog)
         self.geometricDialog.setWindowTitle("Set Geometric Data")
         self.geometricDialog.setWindowIcon(QtGui.QIcon("resources/icon.svg"))
@@ -110,11 +114,17 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         MainWindow.setWindowIcon(QtGui.QIcon("resources/icon.svg"))
         MainWindow.setWindowTitle("Hovedvindu - Strekktest")    
 
-        ## --- Find ready COM-ports --- ##
+        ## --- Set COM-ports  --- ##
         coms = backend.port_ready()
+        self.action_group = QtWidgets.QActionGroup(self)
+        self.action_group.setExclusive(True)
         for i in range(len(coms)):
-            self.menuCOM_Port.addAction(coms[i])
-            
+            self.name = coms
+            self.name[i] = QtWidgets.QAction(coms[i],self)
+            self.name[i].setCheckable(True)
+            self.menuCOM_Port.addAction(self.name[i])
+            self.action_group.addAction(self.name[i])
+        self.action_group.triggered.connect(self.updateportSelect)
 
         self.sThread = QThread()
         self.generator = stressWorker()
@@ -122,6 +132,11 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         self.sThread.started.connect(self.generator.run)
         self.generator.newData.connect(self.graphPlot)
         self.sThread.start()
+
+    def updateportSelect(self, action):
+        #print(action.text())
+        config.COM = action.text()
+        
 
     def graphPlot(self, data):
         self.datalist[0].append(data[0])
@@ -183,5 +198,5 @@ if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
     ui = extendWindow()
-    MainWindow.show()
+    MainWindow.showMaximized()
     sys.exit(app.exec_())

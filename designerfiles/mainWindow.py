@@ -741,6 +741,9 @@ class Ui_MainWindow(object):
         self.actionCOM9.setObjectName("actionCOM9")
         self.actionReset_ADC = QtWidgets.QAction(MainWindow)
         self.actionReset_ADC.setObjectName("actionReset_ADC")
+        self.actionExport = QtWidgets.QAction(MainWindow)
+        self.actionExport.setObjectName("actionExport")
+        self.menuFile.addAction(self.actionExport)
         self.menuTools.addSeparator()
         self.menuTools.addAction(self.menuCOM_Port.menuAction())
         self.menuTools.addAction(self.actionGeometry)
@@ -785,11 +788,12 @@ class Ui_MainWindow(object):
         self.RWmaxForce.setSuffix(_translate("MainWindow", " N"))
         self.menuFile.setTitle(_translate("MainWindow", "File"))
         self.menuTools.setTitle(_translate("MainWindow", "Tools"))
-        self.menuCOM_Port.setTitle(_translate("MainWindow", "COM Port"))
+        self.menuCOM_Port.setTitle(_translate("MainWindow", "Port"))
         self.actionGeometry.setText(_translate("MainWindow", "Geometry"))
         self.actionCOM1.setText(_translate("MainWindow", "COM1"))
         self.actionCOM9.setText(_translate("MainWindow", "COM9"))
         self.actionReset_ADC.setText(_translate("MainWindow", "Reset ADC"))
+        self.actionExport.setText(_translate("MainWindow", "Export"))
 
 
 if __name__ == "__main__":
