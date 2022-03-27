@@ -92,6 +92,9 @@
      <property name="buttonSymbols">
       <enum>QAbstractSpinBox::NoButtons</enum>
      </property>
+     <property name="suffix">
+      <string> cm</string>
+     </property>
     </widget>
    </item>
    <item row="0" column="0" colspan="5">
@@ -143,6 +146,9 @@
      <property name="buttonSymbols">
       <enum>QAbstractSpinBox::NoButtons</enum>
      </property>
+     <property name="suffix">
+      <string> cm</string>
+     </property>
     </widget>
    </item>
    <item row="2" column="4" alignment="Qt::AlignHCenter|Qt::AlignBottom">
@@ -177,6 +183,9 @@
      <property name="buttonSymbols">
       <enum>QAbstractSpinBox::NoButtons</enum>
      </property>
+     <property name="suffix">
+      <string> cm</string>
+     </property>
     </widget>
    </item>
    <item row="3" column="4">
@@ -186,6 +195,9 @@
      </property>
      <property name="buttonSymbols">
       <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="suffix">
+      <string> cm</string>
      </property>
     </widget>
    </item>
@@ -211,6 +223,9 @@
      </property>
      <property name="buttonSymbols">
       <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="suffix">
+      <string> cm</string>
      </property>
     </widget>
    </item>

@@ -156,10 +156,15 @@ class Ui_Dialog(object):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
         self.label_52.setText(_translate("Dialog", "H0"))
+        self.RWH1.setSuffix(_translate("Dialog", " cm"))
         self.label.setText(_translate("Dialog", "<html><head/><body><p><img src=\":/geometric/DialogPicT2.PNG\"/></p></body></html>"))
+        self.RWL1.setSuffix(_translate("Dialog", " cm"))
         self.label_54.setText(_translate("Dialog", "E0"))
         self.label_50.setText(_translate("Dialog", "L0"))
+        self.RWH0.setSuffix(_translate("Dialog", " cm"))
+        self.RWE0.setSuffix(_translate("Dialog", " cm"))
         self.label_53.setText(_translate("Dialog", "H1"))
+        self.RWL0.setSuffix(_translate("Dialog", " cm"))
         self.label_51.setText(_translate("Dialog", "L1"))
 
 
