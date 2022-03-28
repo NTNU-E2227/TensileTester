@@ -8,28 +8,30 @@ import service.config as config
 import pyqtgraph as pg
 import service.backend as backend
 from PyQt5.QtCore import QObject, QThread, pyqtSignal
+import serial.tools.list_ports
 
 
 QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True) #enable highdpi scaling
 QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True)    #use highdpi icons
 
 class stressWorker(QObject):
-    newData = pyqtSignal(list)
+    newData = pyqtSignal(bool)
+    def __init__(self, s):
+        super().__init__()
+        self.source = s
 
     def run(self):
-        generator = backend.stressPlot_generator()
+        generator = self.source.generator()
         while True:
-            d = next(generator)
-            self.newData.emit(d)
+            self.newData.emit( next(generator) )
 
 
 class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
-    direction = "l"
-    motorRunning = False
-    datalist = [[],[],[],[],[]]
     def __init__(self):
         super().__init__()     
         self.setupUi(MainWindow)
+
+        self.mcu = backend.com_obj()
 
         ## ------ ResetGraph dialog init ------ ##
         self.resetgraphDialog = QtWidgets.QDialog()
@@ -57,7 +59,7 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         self.resetGraphButton.clicked.connect(self.resetgraphWindow)
         self.reset_Ui.yesButton.clicked.connect(self.resetgraphPlot)
         self.reset_Ui.noButton.clicked.connect(self.resetgraphDialog.close)
-        self.actionReset_ADC.triggered.connect(backend.reset)
+        self.actionReset_ADC.triggered.connect(self.mcu.adc_reset)
         
 
         ## ------ Read/Write Data ------ ##
@@ -115,51 +117,42 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         MainWindow.setWindowTitle("Hovedvindu - Strekktest")    
 
         ## --- Set COM-ports  --- ##
-        coms = backend.port_ready()
         self.action_group = QtWidgets.QActionGroup(self)
         self.action_group.setExclusive(True)
-        for i in range(len(coms)):
-            self.name = coms
-            self.name[i] = QtWidgets.QAction(coms[i],self)
-            self.name[i].setCheckable(True)
-            self.menuCOM_Port.addAction(self.name[i])
-            self.action_group.addAction(self.name[i])
+
+        ports = serial.tools.list_ports.comports()
+        for port in sorted(ports):
+            p = format(port[0])
+            action = QtWidgets.QAction(p, self)
+            action.setCheckable(True)
+            self.menuCOM_Port.addAction(action)
+            self.action_group.addAction(action)
         self.action_group.triggered.connect(self.updateportSelect)
 
         self.sThread = QThread()
-        self.generator = stressWorker()
+        self.generator = stressWorker(self.mcu)
         self.generator.moveToThread(self.sThread)
         self.sThread.started.connect(self.generator.run)
         self.generator.newData.connect(self.graphPlot)
         self.sThread.start()
 
     def updateportSelect(self, action):
-        #print(action.text())
-        config.COM = action.text()
-        
+        self.mcu.set_port(action.text())
 
-    def graphPlot(self, data):
-        self.datalist[0].append(data[0])
-        self.datalist[1].append(data[1])
-        self.datalist[2].append(data[2])
-        self.datalist[3].append(data[3])
-        self.datalist[3].append(data[4])
-        self.stressPlotWidgetCurve.setData(self.datalist[1],self.datalist[2])
-        self.forcePlotWidgetCurve.setData(self.datalist[3],self.datalist[4])
-
-        self.forceRead.setValue(data[1])
-        self.lengthRead.setValue(data[2])
-        
+    def graphPlot(self):
+        self.stressPlotWidgetCurve.setData(self.mcu.datalist[1],self.mcu.datalist[2])
+        self.forcePlotWidgetCurve.setData(self.mcu.datalist[3],self.mcu.datalist[4])
+        self.forceRead.setValue(self.mcu.datalist[2][-1])
+        self.lengthRead.setValue(self.mcu.datalist[4][-1])
 
     def resetgraphPlot(self):
-        self.datalist = [[],[],[],[],[]] 
-        self.stressPlotWidgetCurve.setData(self.datalist[1],self.datalist[2])
-        self.forcePlotWidgetCurve.setData(self.datalist[3],self.datalist[4])
+        self.mcu.reset_data()
+        self.stressPlotWidgetCurve.setData(self.mcu.datalist[1],self.mcu.datalist[2])
+        self.forcePlotWidgetCurve.setData(self.mcu.datalist[3],self.mcu.datalist[4])
         self.resetgraphDialog.close()
 
     def writeUpdate(self):
-        if self.motorRunning:
-            backend.run_motor(self.direction,self.RWtensileSpeed.value())
+        self.mcu.set_speed(self.RWtensileSpeed.value())
 
     def geometricWindow(self):
         self.geometricDialog.show()
@@ -168,30 +161,24 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         self.resetgraphDialog.show()
         
     def start_func(self):
-        self.motorRunning = True    
         self.startButton.setStyleSheet('background-color :  #03818a')
         self.stopButton.setStyleSheet('background-color : rgb(70, 70, 70)')
-        backend.run_motor(self.direction,self.RWtensileSpeed.value())
+        self.mcu.motor_run_percent(self.RWtensileSpeed.value())
 
     def stop_func(self):
-        self.motorRunning = False
         self.stopButton.setStyleSheet('background-color : #03818a')#rgb(60, 60, 60)')#color="#03818a"
         self.startButton.setStyleSheet('background-color : rgb(70, 70, 70)')
-        backend.stop_motor()
+        self.mcu.motor_stop()
 
     def tensile_func(self):
-        self.direction = "l"
+        self.mcu.set_direction(b'l')
         self.tensileButton.setStyleSheet('background-color : #03818a')#rgb(60, 60, 60)')#color="#03818a"
         self.compressButton.setStyleSheet('background-color : rgb(70, 70, 70)')
-        if self.motorRunning:
-            backend.run_motor(self.direction,self.RWtensileSpeed.value())
 
     def compress_func(self):
-        self.direction = "u"
+        self.mcu.set_direction(b'u')
         self.compressButton.setStyleSheet('background-color : #03818a')#rgb(60, 60, 60)')#color="#03818a"
         self.tensileButton.setStyleSheet('background-color : rgb(70, 70, 70)')
-        if self.motorRunning:
-            backend.run_motor(self.direction,self.RWtensileSpeed.value())
 
 if __name__ == "__main__":
     import sys
