@@ -25,13 +25,12 @@ class stressWorker(QObject):
         while True:
             self.newData.emit( next(generator) )
 
-
 class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
     def __init__(self):
         super().__init__()     
         self.setupUi(MainWindow)
-
         self.mcu = backend.com_obj()
+
 
         ## ------ ResetGraph dialog init ------ ##
         self.resetgraphDialog = QtWidgets.QDialog()
@@ -68,6 +67,13 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         self.RWtensileSpeed.editingFinished.connect(self.writeUpdate)
         self.RWlengthRange.editingFinished.connect(self.writeUpdate)
         self.RWinitialForce.editingFinished.connect(self.writeUpdate)
+
+        ## ------ Geometric Data ------- ##
+        self.geo_Ui.RWL0.editingFinished.connect(self.geometric_updtate)
+        self.geo_Ui.RWL1.editingFinished.connect(self.geometric_updtate)
+        self.geo_Ui.RWH0.editingFinished.connect(self.geometric_updtate)
+        self.geo_Ui.RWH1.editingFinished.connect(self.geometric_updtate)
+        self.geo_Ui.RWE0.editingFinished.connect(self.geometric_updtate)
 
         #### --- StressGraph setup --- ####
         self.stressPlothWidget = pg.PlotWidget()
@@ -110,7 +116,7 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         self.forcePlotWidgetCurve = pg.PlotCurveItem(pen=pg.mkPen(color="#03818a", width=2))
         self.forcePlothWidget.addItem(self.forcePlotWidgetCurve)
         self.gridLayout_7.addWidget(self.forcePlothWidget,0,0,1,1)
-
+        
 
 
         ## --- Set program icon --- ##
@@ -138,6 +144,9 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         self.generator.newData.connect(self.graphPlot)
         self.sThread.start()
 
+        self.stop_func() #Stop at startup
+        self.tensile_func() #Tensile at startup
+
     def updateportSelect(self, action):
         self.mcu.set_port(action.text())
 
@@ -150,6 +159,7 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
 
     def resetgraphPlot(self):
         self.mcu.reset_data()
+        self.mcu.set_time_zero()
         self.stressPlotWidgetCurve.setData(self.mcu.datalist[1],self.mcu.datalist[2])
         self.forcePlotWidgetCurve.setData(self.mcu.datalist[3],self.mcu.datalist[4])
         self.resetgraphDialog.close()
@@ -159,6 +169,13 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
 
     def geometricWindow(self):
         self.geometricDialog.show()
+    
+    def geometric_updtate(self):
+        self.mcu.conf["H0"] = self.geo_Ui.RWH0.value()
+        self.mcu.conf["H1"] = self.geo_Ui.RWH1.value()
+        self.mcu.conf["L0"] = self.geo_Ui.RWL0.value()
+        self.mcu.conf["L1"] = self.geo_Ui.RWL1.value()
+        self.mcu.conf["E0"] = self.geo_Ui.RWE0.value()
 
     def resetgraphWindow(self):
         self.resetgraphDialog.show()
@@ -183,6 +200,7 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         self.compressButton.setStyleSheet('background-color : #03818a')#rgb(60, 60, 60)')#color="#03818a"
         self.tensileButton.setStyleSheet('background-color : rgb(70, 70, 70)')
 
+    
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
