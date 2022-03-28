@@ -1,3 +1,5 @@
+import math
+
 import serial
 import serial.tools.list_ports
 import time
@@ -101,9 +103,11 @@ class com_obj:
         stress = force/A0
         return stress
 
-    def strain(self, force, distance): #Går ut ifra at metallene strekker seg lineært med påført kraft når elastiske.
-        R1 = 4 # not quite sure if this one is correct, might have to put in one more input parameter
-
-        R0 = self.conf["H1"] - self.conf["H0"] - R1
-        strain = gauge_distance / self.conf["L0"]
+    def strain(self, distance):           #Går ut ifra at metallene strekker seg lineært med påført kraft når elastiske.
+        R0 = (self.conf["H1"] - self.conf["H0"])/2
+        R0_L = 0
+        for i in range(89):
+            R0_L += (R0/89)*(self.conf["H0"]/(self.conf["H0"]+2*(R0*(1+math.sin(math.radians(271+i))))))
+        gauge_distance = distance*(self.conf["L0"]-R0)/((self.conf["H0"]/self.conf["H1"])*(self.conf["L1"]-self.conf["L0"])+(self.conf["L0"]-R0)+2*R0_L) #distance er strukket lengde dvs. forskjellen på prøvens lengde før og under spenning(ikke elektrisk men fysisk).
+        strain = gauge_distance / (self.conf["L0"]-R0)
         return strain
