@@ -1,20 +1,8 @@
 import serial
 import serial.tools.list_ports
-import service.mcu_com as mcu_com
 import time
 import service.config as config
-
-def stress(force):
-    A0 = config.E0 * config.H0
-    stress = force/A0
-    return stress
-
-def strain(force, distance): #Går ut ifra at metallene strekker seg lineært med påført kraft når elastiske.
-    R1 = 4 # not quite sure if this one is correct, might have to put in one more input parameter
-
-    R0 = config.H1 - config.H0 - R1
-    strain = gauge_distance/config.L0
-    return strain
+import json
 
 class com_obj:
     def __init__(self):
@@ -23,6 +11,14 @@ class com_obj:
         self.running = False
         self.speed = 0
         self.datalist = [[],[],[],[],[]]
+
+        with open('config.txt') as f:
+            data = f.read()
+            self.conf = json.loads(data)
+            ports = serial.tools.list_ports.comports()
+            for port in ports:
+                if port.serial_number == self.conf["id"]:
+                    self.set_port(port.name)
 
     def motor_stop(self):
         self.port.write(b's\n')
@@ -66,8 +62,8 @@ class com_obj:
     
     def generator(self):
         while True:
-            while self.port == None:
-                pass
+            if self.port == None:
+                continue
             data = self.adc_read()
             t = time.time()
             self.datalist[0].append(t)
@@ -79,3 +75,15 @@ class com_obj:
 
     def reset_data(self):
         self.datalist = [[],[],[],[],[]]
+
+    def stress(self, force):
+        A0 = self.conf["E0"] * self.conf["H0"]
+        stress = force/A0
+        return stress
+
+    def strain(self, force, distance): #Går ut ifra at metallene strekker seg lineært med påført kraft når elastiske.
+        R1 = 4 # not quite sure if this one is correct, might have to put in one more input parameter
+
+        R0 = self.conf["H1"] - self.conf["H0"] - R1
+        strain = gauge_distance / self.conf["L0"]
+        return strain
