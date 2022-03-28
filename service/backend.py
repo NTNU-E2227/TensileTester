@@ -85,11 +85,10 @@ class com_obj:
         self.time_zero = time.time()
 
     def length_from_raw(self, length_raw):
-        l = length_raw - self.lengt_zero
         length = 0
         for a in range(0, 5):
-            length += self.conf["a" + str(a)] * (l ** a)
-        return length
+            length += self.conf["a" + str(a)] * (length_raw ** a)
+        return length - self.lengt_zero
 
     def force_from_raw(self, force_raw):
         force = 0
