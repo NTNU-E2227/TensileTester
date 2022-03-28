@@ -11,6 +11,8 @@ class com_obj:
         self.running = False
         self.speed = 0
         self.datalist = [[],[],[],[],[]]
+        self.lengt_zero = 0
+        self.time_zero = time.time()
 
         with open('config.txt') as f:
             data = f.read()
@@ -65,16 +67,35 @@ class com_obj:
             if self.port == None:
                 continue
             data = self.adc_read()
-            t = time.time()
+            t = time.time() - self.time_zero
             self.datalist[0].append(t)
             self.datalist[1].append(t)
-            self.datalist[2].append(data[0])
+            self.datalist[2].append(self.length_from_raw(data[0]))
             self.datalist[3].append(t)
-            self.datalist[4].append(data[1])
+            self.datalist[4].append(self.force_from_raw(data[1]))
             yield True
 
     def reset_data(self):
         self.datalist = [[],[],[],[],[]]
+
+    def set_length_zero(self):
+        self.lengt_zero = self.adc_read()[0]
+
+    def set_time_zero(self):
+        self.time_zero = time.time()
+
+    def length_from_raw(self, length_raw):
+        l = length_raw - self.lengt_zero
+        length = 0
+        for a in range(0, 5):
+            length += self.conf["a" + str(a)] * (l ** a)
+        return length
+
+    def force_from_raw(self, force_raw):
+        force = 0
+        for a in range(0, 5):
+            force += self.conf["a" + str(a)] * (force_raw ** a)
+        return force
 
     def stress(self, force):
         A0 = self.conf["E0"] * self.conf["H0"]

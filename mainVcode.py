@@ -60,6 +60,8 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         self.reset_Ui.yesButton.clicked.connect(self.resetgraphPlot)
         self.reset_Ui.noButton.clicked.connect(self.resetgraphDialog.close)
         self.actionReset_ADC.triggered.connect(self.mcu.adc_reset)
+        self.resetTimeButton.clicked.connect(self.mcu.set_time_zero)
+        self.setZeroButton.clicked.connect(self.mcu.set_length_zero)
         
 
         ## ------ Read/Write Data ------ ##
@@ -119,12 +121,13 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         ## --- Set COM-ports  --- ##
         self.action_group = QtWidgets.QActionGroup(self)
         self.action_group.setExclusive(True)
-
         ports = serial.tools.list_ports.comports()
         for port in sorted(ports):
             p = format(port[0])
             action = QtWidgets.QAction(p, self)
             action.setCheckable(True)
+            if port.name == self.mcu.port.name:
+                action.setChecked(True)
             self.menuCOM_Port.addAction(action)
             self.action_group.addAction(action)
         self.action_group.triggered.connect(self.updateportSelect)
@@ -144,6 +147,7 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         self.forcePlotWidgetCurve.setData(self.mcu.datalist[3],self.mcu.datalist[4])
         self.forceRead.setValue(self.mcu.datalist[2][-1])
         self.lengthRead.setValue(self.mcu.datalist[4][-1])
+        self.timeRead.setValue(int(self.mcu.datalist[0][-1]))
 
     def resetgraphPlot(self):
         self.mcu.reset_data()
