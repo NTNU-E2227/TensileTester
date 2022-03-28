@@ -125,7 +125,7 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
             p = format(port[0])
             action = QtWidgets.QAction(p, self)
             action.setCheckable(True)
-            if port.name == self.mcu.port.name:
+            if self.mcu.port != None and port.name == self.mcu.port.name:
                 action.setChecked(True)
             self.menuCOM_Port.addAction(action)
             self.action_group.addAction(action)
