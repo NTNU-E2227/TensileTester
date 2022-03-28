@@ -188,7 +188,8 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
     def stop_func(self):
         self.stopButton.setStyleSheet('background-color : #03818a')#rgb(60, 60, 60)')#color="#03818a"
         self.startButton.setStyleSheet('background-color : rgb(70, 70, 70)')
-        self.mcu.motor_stop()
+        if self.mcu.port != None:
+            self.mcu.motor_stop()
 
     def tensile_func(self):
         self.mcu.set_direction(b'l')
