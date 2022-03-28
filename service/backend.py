@@ -79,7 +79,7 @@ class com_obj:
         self.datalist = [[],[],[],[],[]]
 
     def set_length_zero(self):
-        self.lengt_zero = self.adc_read()[0]
+        self.lengt_zero = self.datalist[2][-1]
 
     def set_time_zero(self):
         self.time_zero = time.time()
