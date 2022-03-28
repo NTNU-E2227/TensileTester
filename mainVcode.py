@@ -188,5 +188,6 @@ if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
     ui = extendWindow()
+    app.aboutToQuit.connect(ui.stop_func)
     MainWindow.showMaximized()
     sys.exit(app.exec_())
