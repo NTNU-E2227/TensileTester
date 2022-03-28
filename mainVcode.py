@@ -60,7 +60,6 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         self.reset_Ui.yesButton.clicked.connect(self.resetgraphPlot)
         self.reset_Ui.noButton.clicked.connect(self.resetgraphDialog.close)
         self.actionReset_ADC.triggered.connect(self.mcu.adc_reset)
-        self.resetTimeButton.clicked.connect(self.mcu.set_time_zero)
         self.setZeroButton.clicked.connect(self.mcu.set_length_zero)
         
 
