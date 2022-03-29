@@ -11,6 +11,7 @@ class com_obj:
         self.port = None
         self.direction = b"l"
         self.running = False
+        self.timer_run = False
         self.speed = 0
         self.datalist = [[],[],[],[],[]]
         self.lengt_zero = 0
@@ -69,13 +70,23 @@ class com_obj:
             if self.port == None:
                 continue
             data = self.adc_read()
-            t = time.time() - self.time_zero
-            self.datalist[0].append(t)
+            self.time()
             self.datalist[1].append(t)
             self.datalist[2].append(self.length_from_raw(data[0]))
             self.datalist[3].append(t)
             self.datalist[4].append(self.force_from_raw(data[1]))
             yield True
+
+    def time(self):
+        global t #Tas bort når t i generator() er borte
+        if self.running == True:
+            self.timer_run = True
+               #Motor startet/ikke trykket reset (run), Motor stoppet/ikke trykket reset (run), Motor stoppet/og reset (reset, timer slutter å gå), Motor startet/trykker reset (reset, timer går) 
+        if self.timer_run == False and self.running == False:
+            self.set_time_zero()
+        t = time.time() - self.time_zero 
+        self.datalist[0].append(t)
+        #print(t)
 
     def reset_data(self):
         self.datalist = [[],[],[],[],[]]
@@ -85,6 +96,8 @@ class com_obj:
 
     def set_time_zero(self):
         self.time_zero = time.time()
+        if not self.running:
+            self.timer_run = False
 
     def length_from_raw(self, length_raw):
         length = 0
