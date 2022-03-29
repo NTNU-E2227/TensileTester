@@ -10,7 +10,8 @@ a = Analysis(['mainVcode.py', 'mainVcode.spec'],
              datas=[
                  ('designerfiles/*', 'designerfiles'),
                  ('resources/*', 'resources'),
-                 ('service/*.py', 'service')
+                 ('service/*.py', 'service'),
+                 ('config.txt', '.')
              ],
              hiddenimports=[],
              hookspath=[],
