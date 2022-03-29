@@ -3,3 +3,5 @@
 /resources/__pycache__/*
 /designerfiles/__pycache__/*
 /.github/*
+/build/*
+/dist/*
