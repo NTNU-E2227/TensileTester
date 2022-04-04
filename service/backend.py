@@ -122,7 +122,6 @@ class com_obj:
                         self.conf["H0"] / (self.conf["H0"] + 2 * (R0 * (1 + math.sin(math.radians(270.5 + i))))))
             linear_gauge_distance = distance * (self.conf["L0"] - R0) / ((self.conf["H0"] / self.conf["H1"]) * (
                     self.conf["L1"] - self.conf["L0"]) + (self.conf["L0"] - R0) + 2 * R0_L)
-
             # distance er strukket lengde dvs. forskjellen på prøvens lengde før og under spenning(ikke elektrisk men fysisk).
 
             def not_linear(Force_list, Length_list):
