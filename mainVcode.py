@@ -43,6 +43,7 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
 
         ## ------ GeometricData dialog init ------ ##
         self.geometricDialog = QtWidgets.QDialog()
+        self.geometricDialog.setWindowFlag(QtCore.Qt.WindowContextHelpButtonHint,False)
         self.geo_Ui = geo_Ui_Dialog() # Ui_Dialog()
         self.geometricDialog.setWindowFlag(QtCore.Qt.WindowStaysOnTopHint)
         self.geo_Ui.setupUi(self.geometricDialog)
@@ -60,6 +61,7 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         self.reset_Ui.noButton.clicked.connect(self.resetgraphDialog.close)
         self.actionReset_ADC.triggered.connect(self.mcu.adc_reset)
         self.setZeroButton.clicked.connect(self.mcu.set_length_zero)
+        self.actionExport.triggered.connect(self.saveFile)
         
 
         ## ------ Read/Write Data ------ ##
@@ -147,6 +149,15 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         ## --- Startup actions  --- ##
         self.stop_func() 
         self.tensile_func() 
+        
+
+    def saveFile(self):
+        self.saveFileDialog = QtWidgets.QFileDialog.getSaveFileName(
+            parent = self,
+            caption = 'Save File')
+        open(self.saveFileDialog, 'w')
+        
+
 
     def updateportSelect(self, action):
         self.mcu.set_port(action.text())

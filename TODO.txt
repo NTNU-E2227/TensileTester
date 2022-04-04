@@ -7,7 +7,7 @@ TODO:
 
 	- SVG export problem
 
-	- Mulig å fjerne ? knapp øverst til høyre i geo vindu?
+	- Mulig å fjerne ? knapp øverst til høyre i geo vindu? [JBT Fjernet "help"-knapp]
 	- Legge inn tooltips på knapper?
 
 	- Oppdater COM porter hvis ikke tilkoblet?
