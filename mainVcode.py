@@ -144,8 +144,9 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         self.generator.newData.connect(self.graphPlot)
         self.sThread.start()
 
-        self.stop_func() #Stop at startup
-        self.tensile_func() #Tensile at startup
+        ## --- Startup actions  --- ##
+        self.stop_func() 
+        self.tensile_func() 
 
     def updateportSelect(self, action):
         self.mcu.set_port(action.text())
