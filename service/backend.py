@@ -128,6 +128,7 @@ class com_obj:
         sep = [map(str,l) for l in data]
         nl = [(';'.join(s)) for s in sep]
         param = { key: self.conf[key] for key in ["L0","L1","H0","H1","E0"] }
+        param = param.items()
         sep2 = [map(str,l1) for l1 in param]
         nl2 = [(';'.join(s2)) for s2 in sep2]
         tabell = ["Time; Force; Length; Stress; Epilon;"]
