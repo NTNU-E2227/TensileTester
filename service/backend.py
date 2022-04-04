@@ -71,13 +71,14 @@ class com_obj:
             if self.port == None:
                 continue
             data = self.adc_read()
+            #if data[0] < 0xD000: continue
             length = self.length_from_raw(data[0])
             force = self.force_from_raw(data[1])
             self.datalist[0].append(self.time())
-            self.datalist[1].append(self.length_from_raw(data[0]))
-            self.datalist[2].append(self.force_from_raw(data[1]))
-            self.datalist[3].append(self.stress(force))
-            self.datalist[4].append(self.strain(length))
+            self.datalist[1].append(self.time())
+            self.datalist[2].append(length)
+            self.datalist[3].append(self.time())
+            self.datalist[4].append(data[0])
             yield True
 
     def time(self):
