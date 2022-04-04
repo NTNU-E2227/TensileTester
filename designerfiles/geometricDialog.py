@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'geometricDialog.ui'
+# Form implementation generated from reading ui file 'GeometricDialog.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.4
 #
@@ -14,7 +14,7 @@ from resources import geometric_img_rc
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(829, 491)
+        Dialog.resize(596, 367)
         Dialog.setStyleSheet("#Dialog{\n"
 "    background-color: rgb(40, 40, 40);\n"
 "}\n"
@@ -82,6 +82,8 @@ class Ui_Dialog(object):
         self.RWH1 = QtWidgets.QDoubleSpinBox(Dialog)
         self.RWH1.setAlignment(QtCore.Qt.AlignCenter)
         self.RWH1.setButtonSymbols(QtWidgets.QAbstractSpinBox.NoButtons)
+        self.RWH1.setDecimals(1)
+        self.RWH1.setMaximum(1000.0)
         self.RWH1.setObjectName("RWH1")
         self.gridLayout.addWidget(self.RWH1, 3, 3, 1, 1)
         self.widget = QtWidgets.QWidget(Dialog)
@@ -96,7 +98,7 @@ class Ui_Dialog(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.label.sizePolicy().hasHeightForWidth())
         self.label.setSizePolicy(sizePolicy)
-        self.label.setMinimumSize(QtCore.QSize(780, 320))
+        self.label.setMinimumSize(QtCore.QSize(560, 280))
         self.label.setMaximumSize(QtCore.QSize(800, 400))
         self.label.setWhatsThis("")
         self.label.setStyleSheet("")
@@ -106,6 +108,8 @@ class Ui_Dialog(object):
         self.RWL1 = QtWidgets.QDoubleSpinBox(Dialog)
         self.RWL1.setAlignment(QtCore.Qt.AlignCenter)
         self.RWL1.setButtonSymbols(QtWidgets.QAbstractSpinBox.NoButtons)
+        self.RWL1.setDecimals(1)
+        self.RWL1.setMaximum(1000.0)
         self.RWL1.setObjectName("RWL1")
         self.gridLayout.addWidget(self.RWL1, 3, 1, 1, 1)
         self.label_54 = QtWidgets.QLabel(Dialog)
@@ -123,11 +127,15 @@ class Ui_Dialog(object):
         self.RWH0 = QtWidgets.QDoubleSpinBox(Dialog)
         self.RWH0.setAlignment(QtCore.Qt.AlignCenter)
         self.RWH0.setButtonSymbols(QtWidgets.QAbstractSpinBox.NoButtons)
+        self.RWH0.setDecimals(1)
+        self.RWH0.setMaximum(1000.0)
         self.RWH0.setObjectName("RWH0")
         self.gridLayout.addWidget(self.RWH0, 3, 2, 1, 1)
         self.RWE0 = QtWidgets.QDoubleSpinBox(Dialog)
         self.RWE0.setAlignment(QtCore.Qt.AlignCenter)
         self.RWE0.setButtonSymbols(QtWidgets.QAbstractSpinBox.NoButtons)
+        self.RWE0.setDecimals(1)
+        self.RWE0.setMaximum(1000.0)
         self.RWE0.setObjectName("RWE0")
         self.gridLayout.addWidget(self.RWE0, 3, 4, 1, 1)
         self.label_53 = QtWidgets.QLabel(Dialog)
@@ -140,6 +148,8 @@ class Ui_Dialog(object):
         self.RWL0.setFrame(False)
         self.RWL0.setAlignment(QtCore.Qt.AlignCenter)
         self.RWL0.setButtonSymbols(QtWidgets.QAbstractSpinBox.NoButtons)
+        self.RWL0.setDecimals(1)
+        self.RWL0.setMaximum(1000.0)
         self.RWL0.setObjectName("RWL0")
         self.gridLayout.addWidget(self.RWL0, 3, 0, 1, 1)
         self.label_51 = QtWidgets.QLabel(Dialog)
@@ -156,15 +166,15 @@ class Ui_Dialog(object):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
         self.label_52.setText(_translate("Dialog", "H0"))
-        self.RWH1.setSuffix(_translate("Dialog", " cm"))
+        self.RWH1.setSuffix(_translate("Dialog", " mm"))
         self.label.setText(_translate("Dialog", "<html><head/><body><p><img src=\":/geometric/DialogPicT2.PNG\"/></p></body></html>"))
-        self.RWL1.setSuffix(_translate("Dialog", " cm"))
+        self.RWL1.setSuffix(_translate("Dialog", " mm"))
         self.label_54.setText(_translate("Dialog", "E0"))
         self.label_50.setText(_translate("Dialog", "L0"))
-        self.RWH0.setSuffix(_translate("Dialog", " cm"))
-        self.RWE0.setSuffix(_translate("Dialog", " cm"))
+        self.RWH0.setSuffix(_translate("Dialog", " mm"))
+        self.RWE0.setSuffix(_translate("Dialog", "mm"))
         self.label_53.setText(_translate("Dialog", "H1"))
-        self.RWL0.setSuffix(_translate("Dialog", " cm"))
+        self.RWL0.setSuffix(_translate("Dialog", " mm"))
         self.label_51.setText(_translate("Dialog", "L1"))
 
 
