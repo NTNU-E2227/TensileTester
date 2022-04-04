@@ -6,7 +6,6 @@ import time
 import json
 import numpy as np
 
-
 class com_obj:
     def __init__(self):
         self.port = None
@@ -14,7 +13,7 @@ class com_obj:
         self.running = False
         self.timer_run = False
         self.speed = 0
-        self.datalist = [[], [], [], [], []]
+        self.datalist = [[],[],[],[],[]]
         self.lengt_zero = 0
         self.time_zero = time.time()
 
@@ -32,7 +31,7 @@ class com_obj:
 
     def motor_run(self):
         payload = bytearray(self.direction)
-        payload.extend(self.speed.to_bytes(2, 'big'))
+        payload.extend(self.speed.to_bytes(2,'big'))
         payload.extend(b'\n')
         self.port.write(payload)
         self.running = True
@@ -40,7 +39,7 @@ class com_obj:
 
     def motor_run_percent(self, speed_percent):
         PWM_MAX = 0x7530
-        self.speed = int(PWM_MAX * (0.8 * speed_percent + 10) / 100)
+        self.speed = int(PWM_MAX * (0.8*speed_percent + 10) / 100)
         self.motor_run()
 
     def adc_reset(self):
@@ -48,13 +47,13 @@ class com_obj:
 
     def adc_read(self):
         in_data = self.port.readline()
-        length = int.from_bytes(in_data[0:3], 'big')
-        force = int.from_bytes(in_data[3:6], 'big')
+        length = int.from_bytes(in_data[0:3],'big')
+        force = int.from_bytes(in_data[3:6],'big')
         return [length, force]
 
     def set_direction(self, dir):
         self.direction = dir
-        if self.running:
+        if self.running: 
             self.motor_run()
 
     def set_speed(self, spd):
@@ -66,28 +65,29 @@ class com_obj:
         if self.port != None:
             self.port.close()
         self.port = serial.Serial(port_name, baudrate=115200)
-
+    
     def generator(self):
         while True:
             if self.port == None:
                 continue
             data = self.adc_read()
+            #if data[0] < 0xD000: continue
             length = self.length_from_raw(data[0])
             force = self.force_from_raw(data[1])
             self.datalist[0].append(self.time())
-            self.datalist[1].append(self.length_from_raw(data[0]))
-            self.datalist[2].append(self.force_from_raw(data[1]))
-            self.datalist[3].append(self.stress(force))
-            self.datalist[4].append(self.strain(length))
+            self.datalist[1].append(self.time())
+            self.datalist[2].append(length)
+            self.datalist[3].append(self.time())
+            self.datalist[4].append(data[0])
             yield True
 
     def time(self):
         if self.timer_run:
-            return time.time() - self.time_zero
+            return time.time() - self.time_zero 
         return 0
 
     def reset_data(self):
-        self.datalist = [[], [], [], [], []]
+        self.datalist = [[],[],[],[],[]]
 
     def set_length_zero(self):
         self.lengt_zero = self.datalist[2][-1]
@@ -111,7 +111,7 @@ class com_obj:
 
     def stress(self, force):
         A0 = self.conf["E0"] * self.conf["H0"]
-        stress = force / A0
+        stress = force/A0
         return stress
 
     def strain(self, force, distance):  # Går ut ifra at metallene strekker seg lineært med påført kraft når elastiske.
@@ -123,6 +123,7 @@ class com_obj:
                         self.conf["H0"] / (self.conf["H0"] + 2 * (R0 * (1 + math.sin(math.radians(270.5 + i))))))
             linear_gauge_distance = distance * (self.conf["L0"] - R0) / ((self.conf["H0"] / self.conf["H1"]) * (
                     self.conf["L1"] - self.conf["L0"]) + (self.conf["L0"] - R0) + 2 * R0_L)
+
             # distance er strukket lengde dvs. forskjellen på prøvens lengde før og under spenning(ikke elektrisk men fysisk).
 
             def not_linear(Force_list, Length_list):
@@ -169,11 +170,12 @@ class com_obj:
     def export(self, loc):
         data = zip(*self.datalist)
         data = list(data)
-        sep = [map(str, l) for l in data]
+        sep = [map(str,l) for l in data]
         nl = [(';'.join(s)) for s in sep]
-        param = {key: self.conf[key] for key in ["L0", "L1", "H0", "H1", "E0"]}
-        sep2 = [map(str, l1) for l1 in param]
+        param = { key: self.conf[key] for key in ["L0","L1","H0","H1","E0"] }
+        param = param.items()
+        sep2 = [map(str,l1) for l1 in param]
         nl2 = [(';'.join(s2)) for s2 in sep2]
         tabell = ["Time; Force; Length; Stress; Strain;"]
         header = '"Reference;ISO 6892"\n"Identification;TENSTAND"\n"Specimen geometry;flat"\n"Specimen thickness = ao"\n"Specimen width = bo"\n"Data acquisition rate 10Hz"\n"File length N data rows"\n"File with 5 data columns"'
-        np.savetxt(loc, np.r_[nl2, tabell, nl], header=header, delimiter=";", fmt='% 4s', comments="")
+        np.savetxt(loc,np.r_[nl2,tabell,nl],header = header,delimiter =";",fmt ='% 4s',comments = "")
