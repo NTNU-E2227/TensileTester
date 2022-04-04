@@ -2,8 +2,8 @@ import math
 import serial
 import serial.tools.list_ports
 import time
-import service.config as config
 import json
+import numpy as np
 
 class com_obj:
     def __init__(self):
@@ -34,6 +34,7 @@ class com_obj:
         payload.extend(b'\n')
         self.port.write(payload)
         self.running = True
+        self.timer_run = True
 
     def motor_run_percent(self, speed_percent):
         PWM_MAX = 0x7530
@@ -69,23 +70,20 @@ class com_obj:
             if self.port == None:
                 continue
             data = self.adc_read()
-            self.time()
-            self.datalist[1].append(t)
-            self.datalist[2].append(self.length_from_raw(data[0]))
-            self.datalist[3].append(t)
-            self.datalist[4].append(self.force_from_raw(data[1]))
+            #if data[0] < 0xD000: continue
+            length = self.length_from_raw(data[0])
+            force = self.force_from_raw(data[1])
+            self.datalist[0].append(self.time())
+            self.datalist[1].append(self.time())
+            self.datalist[2].append(length)
+            self.datalist[3].append(self.time())
+            self.datalist[4].append(data[0])
             yield True
 
     def time(self):
-        global t #Tas bort når t i generator() er borte
-        if self.running == True:
-            self.timer_run = True
-               #Motor startet/ikke trykket reset (run), Motor stoppet/ikke trykket reset (run), Motor stoppet/og reset (reset, timer slutter å gå), Motor startet/trykker reset (reset, timer går) 
-        if self.timer_run == False and self.running == False:
-            self.set_time_zero()
-        t = time.time() - self.time_zero 
-        self.datalist[0].append(t)
-        #print(t)
+        if self.timer_run:
+            return time.time() - self.time_zero 
+        return 0
 
     def reset_data(self):
         self.datalist = [[],[],[],[],[]]
@@ -115,11 +113,61 @@ class com_obj:
         stress = force/A0
         return stress
 
-    def strain(self, distance):           #Går ut ifra at metallene strekker seg lineært med påført kraft når elastiske.
-        R0 = (self.conf["H1"] - self.conf["H0"])/2
-        R0_L = 0
-        for i in range(89):
-            R0_L += (R0/89)*(self.conf["H0"]/(self.conf["H0"]+2*(R0*(1+math.sin(math.radians(271+i))))))
-        gauge_distance = distance*(self.conf["L0"]-R0)/((self.conf["H0"]/self.conf["H1"])*(self.conf["L1"]-self.conf["L0"])+(self.conf["L0"]-R0)+2*R0_L) #distance er strukket lengde dvs. forskjellen på prøvens lengde før og under spenning(ikke elektrisk men fysisk).
-        strain = gauge_distance / (self.conf["L0"]-R0)
+    def strain(self, force, distance):  # Går ut ifra at metallene strekker seg lineært med påført kraft når elastiske.
+        if self.conf["L1"] - self.conf["L0"] > 0:  # Sjekker om utregninger er nødvendige
+            R0 = (self.conf["H1"] - self.conf["H0"]) / 2
+            R0_L = 0
+            for i in range(89):
+                R0_L += R0 * (math.cos(math.radians(271 + i)) - math.cos(math.radians(270 + i))) * (self.conf["H0"] / (self.conf["H0"] + 2 * (R0 * (1 + math.sin(math.radians(270.5 + i))))))
+            linear_gauge_distance = distance * (self.conf["L0"] - R0) / ((self.conf["H0"] / self.conf["H1"]) * (self.conf["L1"] - self.conf["L0"]) + (self.conf["L0"] - R0) + 2 * R0_L)  # distance er strukket lengde dvs. forskjellen på prøvens lengde før og under spenning(ikke elektrisk men fysisk).
+            def not_linear(Force_list, Length_list):
+                if (Force_list[-1] - Force_list[-11]) / (Length_list[-1] - Length_list[-11]) < 0.8:
+                    if (Force_list[-5] - Force_list[-15]) / (Length_list[-5] - Length_list[-15]) < 0.8:
+                        return False
+                    else:
+                        return True
+                else:
+                    return True
+            if len(self.datalist[1]) < 50:
+                if not_linear(self.datalist[2], self.datalist[1]): # Når metallet ikke lenger er i elastisk området
+                    distance_w_out_gauge = None
+                    def find_strain(A):
+                        prev_n = 0
+                        for n in range(len(self.datalist[3])):
+                            if self.datalist[3][n] >= force / A:
+                                if self.datalist[3][n] == force / A:
+                                    return self.datalist[4][-n]
+                                    break
+                                else:
+                                    a = (self.datalist[4][n] - self.datalist[4][-prev_n]) / (self.datalist[3][-n] - self.datalist[3][-prev_n])
+                                    b = self.datalist[4][-n] - a * self.datalist[3][-n]
+                                    return a * force / A + b
+                                    break
+                            prev_n = n
+                    for i in range(89):
+                        A = 2 * (R0 * (1 + math.sin(math.radians(271 + i)))) * self.conf["E0"]
+                        distance_w_out_gauge += 2 * find_strain(A) * R0 * (math.cos(math.radians(271 + i)) - math.cos(math.radians(270 + i)))
+                    A = self.conf["E0"] * self.conf["H1"]
+                    distance_w_out_gauge += find_strain(A) * (self.conf["L1"] - self.conf["L0"])
+                    gauge = distance - distance_w_out_gauge
+                    strain = gauge / (self.conf["L0"] - R0)
+                else:  # Når Metallet er elastisk
+                    strain = linear_gauge_distance / (self.conf["L0"] - R0)
+            else:  # Når Metallet er elastisk
+                strain = linear_gauge_distance / (self.conf["L0"] - R0)
+        else:
+            strain = distance / self.conf["L0"]
         return strain
+
+    def export(self, loc):
+        data = zip(*self.datalist)
+        data = list(data)
+        sep = [map(str,l) for l in data]
+        nl = [(';'.join(s)) for s in sep]
+        param = { key: self.conf[key] for key in ["L0","L1","H0","H1","E0"] }
+        param = param.items()
+        sep2 = [map(str,l1) for l1 in param]
+        nl2 = [(';'.join(s2)) for s2 in sep2]
+        tabell = ["Time; Force; Length; Stress; Strain;"]
+        header = '"Reference;ISO 6892"\n"Identification;TENSTAND"\n"Specimen geometry;flat"\n"Specimen thickness = ao"\n"Specimen width = bo"\n"Data acquisition rate 10Hz"\n"File length N data rows"\n"File with 5 data columns"'
+        np.savetxt(loc,np.r_[nl2,tabell,nl],header = header,delimiter =";",fmt ='% 4s',comments = "")

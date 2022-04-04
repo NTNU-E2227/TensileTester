@@ -1,0 +1,22 @@
+TODO:
+	- Fix geometri bilde
+	- Fyll geometri tekstbokser med verdier ved åpning av geo vindu
+	- Endre geo tekstbokser til mm
+	- Legg inn funksjonskall på export knapp
+	- Endre vindu tittel på hovedvindu (til engelsk)
+
+	- SVG export problem
+
+	- Mulig å fjerne ? knapp øverst til høyre i geo vindu?
+	- Legge inn tooltips på knapper?
+
+	- Oppdater COM porter hvis ikke tilkoblet?
+
+	- Lag endelig header i export
+	- Fix parameter seksjon i export
+
+	- Export vindu?
+
+	- Bytt ut epsilon med strain?
+
+	- Compress/tensile bug?

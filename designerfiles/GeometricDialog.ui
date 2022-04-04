@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>829</width>
-    <height>491</height>
+    <width>596</width>
+    <height>367</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -93,7 +93,13 @@
       <enum>QAbstractSpinBox::NoButtons</enum>
      </property>
      <property name="suffix">
-      <string> cm</string>
+      <string> mm</string>
+     </property>
+     <property name="decimals">
+      <number>1</number>
+     </property>
+     <property name="maximum">
+      <double>1000.000000000000000</double>
      </property>
     </widget>
    </item>
@@ -114,8 +120,8 @@
         </property>
         <property name="minimumSize">
          <size>
-          <width>780</width>
-          <height>320</height>
+          <width>560</width>
+          <height>280</height>
          </size>
         </property>
         <property name="maximumSize">
@@ -147,7 +153,13 @@
       <enum>QAbstractSpinBox::NoButtons</enum>
      </property>
      <property name="suffix">
-      <string> cm</string>
+      <string> mm</string>
+     </property>
+     <property name="decimals">
+      <number>1</number>
+     </property>
+     <property name="maximum">
+      <double>1000.000000000000000</double>
      </property>
     </widget>
    </item>
@@ -184,7 +196,13 @@
       <enum>QAbstractSpinBox::NoButtons</enum>
      </property>
      <property name="suffix">
-      <string> cm</string>
+      <string> mm</string>
+     </property>
+     <property name="decimals">
+      <number>1</number>
+     </property>
+     <property name="maximum">
+      <double>1000.000000000000000</double>
      </property>
     </widget>
    </item>
@@ -197,7 +215,13 @@
       <enum>QAbstractSpinBox::NoButtons</enum>
      </property>
      <property name="suffix">
-      <string> cm</string>
+      <string>mm</string>
+     </property>
+     <property name="decimals">
+      <number>1</number>
+     </property>
+     <property name="maximum">
+      <double>1000.000000000000000</double>
      </property>
     </widget>
    </item>
@@ -225,7 +249,13 @@
       <enum>QAbstractSpinBox::NoButtons</enum>
      </property>
      <property name="suffix">
-      <string> cm</string>
+      <string> mm</string>
+     </property>
+     <property name="decimals">
+      <number>1</number>
+     </property>
+     <property name="maximum">
+      <double>1000.000000000000000</double>
      </property>
     </widget>
    </item>
