@@ -121,7 +121,7 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
 
         ## --- Set program icon --- ##
         MainWindow.setWindowIcon(QtGui.QIcon("resources/icon.svg"))
-        MainWindow.setWindowTitle("Hovedvindu - Strekktest")    
+        MainWindow.setWindowTitle("Tensile testing")    
 
         ## --- Set COM-ports  --- ##
         self.action_group = QtWidgets.QActionGroup(self)
