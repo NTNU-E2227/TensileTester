@@ -44,7 +44,7 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         ## ------ GeometricData dialog init ------ ##
         self.geometricDialog = QtWidgets.QDialog()
         self.geo_Ui = geo_Ui_Dialog() # Ui_Dialog()
-        self.geometricDialog.setWindowFlag(QtCore.Qt.WindowStaysOnTopHint)
+        self.geometricDialog.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint | QtCore.Qt.WindowCloseButtonHint | QtCore.Qt.WindowTitleHint)
         self.geo_Ui.setupUi(self.geometricDialog)
         self.geometricDialog.setWindowTitle("Set Geometric Data")
         self.geometricDialog.setWindowIcon(QtGui.QIcon("resources/icon.svg"))
@@ -169,6 +169,12 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         self.mcu.set_speed(self.RWtensileSpeed.value())
 
     def geometricWindow(self):
+        self.geo_Ui.RWH0.setValue(self.mcu.conf["H0"])
+        self.geo_Ui.RWH1.setValue(self.mcu.conf["H1"])
+        self.geo_Ui.RWL0.setValue(self.mcu.conf["L0"])
+        self.geo_Ui.RWL1.setValue(self.mcu.conf["L1"])
+        self.geo_Ui.RWE0.setValue(self.mcu.conf["E0"])
+        
         self.geometricDialog.show()
     
     def geometric_updtate(self):
