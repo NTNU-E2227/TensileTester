@@ -768,7 +768,7 @@ class Ui_MainWindow(object):
         self.epsilonRead.setSuffix(_translate("MainWindow", " ɛ "))
         self.setZeroButton.setText(_translate("MainWindow", "Set zero"))
         self.stressRead.setSuffix(_translate("MainWindow", " Mpa"))
-        self.label_8.setText(_translate("MainWindow", "Epsilon"))
+        self.label_8.setText(_translate("MainWindow", "Strain"))
         self.label_9.setText(_translate("MainWindow", "Stress"))
         self.label_5.setText(_translate("MainWindow", "Force"))
         self.label_7.setText(_translate("MainWindow", "Time"))

@@ -118,46 +118,52 @@ class com_obj:
             R0 = (self.conf["H1"] - self.conf["H0"]) / 2
             R0_L = 0
             for i in range(89):
-                R0_L += R0 * (math.cos(math.radians(271 + i)) - math.cos(math.radians(270 + i))) * (self.conf["H0"] / (self.conf["H0"] + 2 * (R0 * (1 + math.sin(math.radians(270.5 + i))))))
-            linear_gauge_distance = distance * (self.conf["L0"] - R0) / ((self.conf["H0"] / self.conf["H1"]) * (self.conf["L1"] - self.conf["L0"]) + (self.conf["L0"] - R0) + 2 * R0_L)  # distance er strukket lengde dvs. forskjellen på prøvens lengde før og under spenning(ikke elektrisk men fysisk).
+                R0_L += R0 * (math.cos(math.radians(271 + i)) - math.cos(math.radians(270 + i))) * (
+                        self.conf["H0"] / (self.conf["H0"] + 2 * (R0 * (1 + math.sin(math.radians(270.5 + i))))))
+            linear_gauge_distance = distance * (self.conf["L0"] - R0) / ((self.conf["H0"] / self.conf["H1"]) * (
+                    self.conf["L1"] - self.conf["L0"]) + (self.conf["L0"] - R0) + 2 * R0_L)
+            # distance er strukket lengde dvs. forskjellen på prøvens lengde før og under spenning(ikke elektrisk men fysisk).
+
             def not_linear(Force_list, Length_list):
-                if (Force_list[-1] - Force_list[-11]) / (Length_list[-1] - Length_list[-11]) < 0.8:
-                    if (Force_list[-5] - Force_list[-15]) / (Length_list[-5] - Length_list[-15]) < 0.8:
+                if ((Force_list[-1] - Force_list[-11]) / (Length_list[-1] - Length_list[-11])) / (
+                        (Force_list[-11] - Force_list[-21]) / (Length_list[-11] - Length_list[-21])) < 0.8:
+                    if ((Force_list[-5] - Force_list[-15]) / (Length_list[-5] - Length_list[-15])) / (
+                            (Force_list[-15] - Force_list[-25]) / (Length_list[-15] - Length_list[-25])) < 0.8:
                         return False
                     else:
                         return True
                 else:
                     return True
+
             if len(self.datalist[1]) < 50:
-                if not_linear(self.datalist[2], self.datalist[1]): # Når metallet ikke lenger er i elastisk området
-                    distance_w_out_gauge = None
-                    def find_strain(A):
-                        prev_n = 0
-                        for n in range(len(self.datalist[3])):
-                            if self.datalist[3][n] >= force / A:
-                                if self.datalist[3][n] == force / A:
-                                    return self.datalist[4][-n]
-                                    break
-                                else:
-                                    a = (self.datalist[4][n] - self.datalist[4][-prev_n]) / (self.datalist[3][-n] - self.datalist[3][-prev_n])
-                                    b = self.datalist[4][-n] - a * self.datalist[3][-n]
-                                    return a * force / A + b
-                                    break
-                            prev_n = n
-                    for i in range(89):
-                        A = 2 * (R0 * (1 + math.sin(math.radians(271 + i)))) * self.conf["E0"]
-                        distance_w_out_gauge += 2 * find_strain(A) * R0 * (math.cos(math.radians(271 + i)) - math.cos(math.radians(270 + i)))
-                    A = self.conf["E0"] * self.conf["H1"]
-                    distance_w_out_gauge += find_strain(A) * (self.conf["L1"] - self.conf["L0"])
-                    gauge = distance - distance_w_out_gauge
-                    strain = gauge / (self.conf["L0"] - R0)
-                else:  # Når Metallet er elastisk
-                    strain = linear_gauge_distance / (self.conf["L0"] - R0)
+                return linear_gauge_distance / (self.conf["L0"] - R0)
+            elif not_linear(self.datalist[2], self.datalist[1]):  # Når metallet ikke lenger er i elastisk området
+                distance_w_out_gauge = None
+
+                def find_strain(A, Stresslist, Strainlist):
+                    prev_n = 0
+                    for n in range(len(Stresslist)):
+                        if Stresslist[n] >= force / A:
+                            if Stresslist[n] == force / A:
+                                return Strainlist[n]
+                            else:
+                                a = (Strainlist[n] - Strainlist[prev_n]) / (Stresslist[n] - Stresslist[prev_n])
+                                b = Strainlist[n] - a * Stresslist[n]
+                                return a * force / A + b
+                        prev_n = n
+
+                for i in range(89):
+                    A = 2 * (R0 * (1 + math.sin(math.radians(271 + i)))) * self.conf["E0"]
+                    distance_w_out_gauge += 2 * find_strain(A, self.datalist[3], self.datalist[4]) * R0 * (
+                            math.cos(math.radians(271 + i)) - math.cos(math.radians(270 + i)))
+                A = self.conf["E0"] * self.conf["H1"]
+                distance_w_out_gauge += (A, self.datalist[3], self.datalist[4]) * (self.conf["L1"] - self.conf["L0"])
+                gauge = distance - distance_w_out_gauge
+                return gauge / (self.conf["L0"] - R0)
             else:  # Når Metallet er elastisk
-                strain = linear_gauge_distance / (self.conf["L0"] - R0)
+                return linear_gauge_distance / (self.conf["L0"] - R0)
         else:
-            strain = distance / self.conf["L0"]
-        return strain
+            return distance / self.conf["L0"]
 
     def export(self, loc):
         data = zip(*self.datalist)

@@ -45,7 +45,7 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         self.geometricDialog = QtWidgets.QDialog()
         self.geometricDialog.setWindowFlag(QtCore.Qt.WindowContextHelpButtonHint,False)
         self.geo_Ui = geo_Ui_Dialog() # Ui_Dialog()
-        self.geometricDialog.setWindowFlag(QtCore.Qt.WindowStaysOnTopHint)
+        self.geometricDialog.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint | QtCore.Qt.WindowCloseButtonHint | QtCore.Qt.WindowTitleHint)
         self.geo_Ui.setupUi(self.geometricDialog)
         self.geometricDialog.setWindowTitle("Set Geometric Data")
         self.geometricDialog.setWindowIcon(QtGui.QIcon("resources/icon.svg"))
@@ -61,7 +61,8 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         self.reset_Ui.noButton.clicked.connect(self.resetgraphDialog.close)
         self.actionReset_ADC.triggered.connect(self.mcu.adc_reset)
         self.setZeroButton.clicked.connect(self.mcu.set_length_zero)
-        self.actionExport.triggered.connect(self.saveFile)
+        self.actionExport.triggered.connect(self.exportSave)
+        
         
 
         ## ------ Read/Write Data ------ ##
@@ -123,7 +124,7 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
 
         ## --- Set program icon --- ##
         MainWindow.setWindowIcon(QtGui.QIcon("resources/icon.svg"))
-        MainWindow.setWindowTitle("Hovedvindu - Strekktest")    
+        MainWindow.setWindowTitle("Tensile testing")    
 
         ## --- Set COM-ports  --- ##
         self.action_group = QtWidgets.QActionGroup(self)
@@ -148,17 +149,12 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
 
         ## --- Startup actions  --- ##
         self.stop_func() 
-        self.tensile_func() 
+        self.tensile_func()
+
+    def exportSave(self):
+        exportDialog = QtWidgets.QFileDialog.getSaveFileName(self, 'Save File','', 'CSV files (*.csv)')
+        self.mcu.export(exportDialog[0])
         
-
-    def saveFile(self):
-        self.saveFileDialog = QtWidgets.QFileDialog.getSaveFileName(
-            parent = self,
-            caption = 'Save File')
-        open(self.saveFileDialog, 'w')
-        
-
-
     def updateportSelect(self, action):
         self.mcu.set_port(action.text())
 
@@ -180,6 +176,12 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         self.mcu.set_speed(self.RWtensileSpeed.value())
 
     def geometricWindow(self):
+        self.geo_Ui.RWH0.setValue(self.mcu.conf["H0"])
+        self.geo_Ui.RWH1.setValue(self.mcu.conf["H1"])
+        self.geo_Ui.RWL0.setValue(self.mcu.conf["L0"])
+        self.geo_Ui.RWL1.setValue(self.mcu.conf["L1"])
+        self.geo_Ui.RWE0.setValue(self.mcu.conf["E0"])
+        
         self.geometricDialog.show()
     
     def geometric_updtate(self):
