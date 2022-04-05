@@ -20,3 +20,4 @@ TODO:
 	- Bytt ut epsilon med strain?
 
 	- Compress/tensile bug?
+	hh
