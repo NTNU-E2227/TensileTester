@@ -60,6 +60,8 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         self.reset_Ui.noButton.clicked.connect(self.resetgraphDialog.close)
         self.actionReset_ADC.triggered.connect(self.mcu.adc_reset)
         self.setZeroButton.clicked.connect(self.mcu.set_length_zero)
+        self.actionExport.triggered.connect(self.exportSave)
+        
         
 
         ## ------ Read/Write Data ------ ##
@@ -146,8 +148,12 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
 
         ## --- Startup actions  --- ##
         self.stop_func() 
-        self.tensile_func() 
+        self.tensile_func()
 
+    def exportSave(self):
+        exportDialog = QtWidgets.QFileDialog.getSaveFileName(self, 'Save File','', 'CSV files (*.csv)')
+        self.mcu.export(exportDialog[0])
+        
     def updateportSelect(self, action):
         self.mcu.set_port(action.text())
 
