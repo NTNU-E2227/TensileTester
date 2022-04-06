@@ -135,7 +135,7 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
             self.menuCOM_Port.addAction(action)
             self.action_group.addAction(action)
         self.action_group.triggered.connect(self.updateportSelect)
-
+ 
         self.sThread = QThread()
         self.generator = stressWorker(self.mcu)
         self.generator.moveToThread(self.sThread)
@@ -151,8 +151,7 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         exportDialog = QtWidgets.QFileDialog.getSaveFileName(MainWindow, 'Save File','', 'CSV files (*.csv)')
         if not exportDialog[0] == '':
             self.mcu.export(exportDialog[0])
-
-        
+              
     def updateportSelect(self, action):
         self.mcu.set_port(action.text())
 
