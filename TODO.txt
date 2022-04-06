@@ -1,0 +1,7 @@
+TODO:
+	- SVG export problem
+	- Lag endelig header i export
+
+	- Oppdater COM porter hvis ikke tilkoblet?
+	- Export vindu?
+	- Compress/tensile bug?
