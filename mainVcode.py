@@ -33,9 +33,10 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
 
         ## ------ ResetGraph dialog init ------ ##
         self.resetgraphDialog = QtWidgets.QDialog()
+        self.resetgraphDialog.setWindowFlag(QtCore.Qt.WindowContextHelpButtonHint,False)
         self.resetgraphDialog.setWindowFlag(QtCore.Qt.WindowStaysOnTopHint)
         self.resetgraphDialog.setWindowModality(QtCore.Qt.ApplicationModal)
-        self.reset_Ui = graph_Ui_Dialog() #Ui_Dialog()
+        self.reset_Ui = graph_Ui_Dialog() 
         self.reset_Ui.setupUi(self.resetgraphDialog)
         self.resetgraphDialog.setWindowTitle("Warning")
         self.resetgraphDialog.setWindowIcon(QtGui.QIcon("resources/icon.svg"))
@@ -43,8 +44,8 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         ## ------ GeometricData dialog init ------ ##
         self.geometricDialog = QtWidgets.QDialog()
         self.geometricDialog.setWindowFlag(QtCore.Qt.WindowContextHelpButtonHint,False)
-        self.geo_Ui = geo_Ui_Dialog() # Ui_Dialog()
         self.geometricDialog.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint | QtCore.Qt.WindowCloseButtonHint | QtCore.Qt.WindowTitleHint)
+        self.geo_Ui = geo_Ui_Dialog() 
         self.geo_Ui.setupUi(self.geometricDialog)
         self.geometricDialog.setWindowTitle("Set Geometric Data")
         self.geometricDialog.setWindowIcon(QtGui.QIcon("resources/icon.svg"))
@@ -69,11 +70,11 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         self.RWinitialForce.editingFinished.connect(self.writeUpdate)
 
         ## ------ Geometric Data ------- ##
-        self.geo_Ui.RWL0.editingFinished.connect(self.geometric_updtate)
-        self.geo_Ui.RWL1.editingFinished.connect(self.geometric_updtate)
-        self.geo_Ui.RWH0.editingFinished.connect(self.geometric_updtate)
-        self.geo_Ui.RWH1.editingFinished.connect(self.geometric_updtate)
-        self.geo_Ui.RWE0.editingFinished.connect(self.geometric_updtate)
+        self.geo_Ui.RWL0.editingFinished.connect(self.geometric_update)
+        self.geo_Ui.RWL1.editingFinished.connect(self.geometric_update)
+        self.geo_Ui.RWH0.editingFinished.connect(self.geometric_update)
+        self.geo_Ui.RWH1.editingFinished.connect(self.geometric_update)
+        self.geo_Ui.RWE0.editingFinished.connect(self.geometric_update)
 
         #### --- StressGraph setup --- ####
         self.stressPlothWidget = pg.PlotWidget()
@@ -148,7 +149,8 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
 
     def exportSave(self):
         exportDialog = QtWidgets.QFileDialog.getSaveFileName(MainWindow, 'Save File','', 'CSV files (*.csv)')
-        self.mcu.export(exportDialog[0])
+        if not exportDialog[0] == '':
+            self.mcu.export(exportDialog[0])
 
         
     def updateportSelect(self, action):
@@ -180,7 +182,7 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         
         self.geometricDialog.show()
     
-    def geometric_updtate(self):
+    def geometric_update(self):
         self.mcu.conf["H0"] = self.geo_Ui.RWH0.value()
         self.mcu.conf["H1"] = self.geo_Ui.RWH1.value()
         self.mcu.conf["L0"] = self.geo_Ui.RWL0.value()
