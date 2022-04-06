@@ -31,7 +31,6 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         self.setupUi(MainWindow)
         self.mcu = backend.com_obj()
 
-
         ## ------ ResetGraph dialog init ------ ##
         self.resetgraphDialog = QtWidgets.QDialog()
         self.resetgraphDialog.setWindowFlag(QtCore.Qt.WindowStaysOnTopHint)
@@ -55,16 +54,14 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         self.stopButton.clicked.connect(self.stop_func)
         self.tensileButton.clicked.connect(self.tensile_func)
         self.compressButton.clicked.connect(self.compress_func)
-        self.actionGeometry.triggered.connect(self.geometricWindow)
         self.resetGraphButton.clicked.connect(self.resetgraphWindow)
         self.reset_Ui.yesButton.clicked.connect(self.resetgraphPlot)
         self.reset_Ui.noButton.clicked.connect(self.resetgraphDialog.close)
-        self.actionReset_ADC.triggered.connect(self.mcu.adc_reset)
         self.setZeroButton.clicked.connect(self.mcu.set_length_zero)
+        self.actionGeometry.triggered.connect(self.geometricWindow)
+        self.actionReset_ADC.triggered.connect(self.mcu.adc_reset)
         self.actionExport.triggered.connect(self.exportSave)
         
-        
-
         ## ------ Read/Write Data ------ ##
         self.RWmaxForce.editingFinished.connect(self.writeUpdate)
         self.RWtensileSpeed.editingFinished.connect(self.writeUpdate)
@@ -120,8 +117,6 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         self.forcePlothWidget.addItem(self.forcePlotWidgetCurve)
         self.gridLayout_7.addWidget(self.forcePlothWidget,0,0,1,1)
         
-
-
         ## --- Set program icon --- ##
         MainWindow.setWindowIcon(QtGui.QIcon("resources/icon.svg"))
         MainWindow.setWindowTitle("Tensile testing")    
@@ -152,8 +147,9 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         self.tensile_func()
 
     def exportSave(self):
-        exportDialog = QtWidgets.QFileDialog.getSaveFileName(self, 'Save File','', 'CSV files (*.csv)')
+        exportDialog = QtWidgets.QFileDialog.getSaveFileName(MainWindow, 'Save File','', 'CSV files (*.csv)')
         self.mcu.export(exportDialog[0])
+
         
     def updateportSelect(self, action):
         self.mcu.set_port(action.text())
@@ -200,19 +196,19 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         self.mcu.motor_run_percent(self.RWtensileSpeed.value())
 
     def stop_func(self):
-        self.stopButton.setStyleSheet('background-color : #03818a')#rgb(60, 60, 60)')#color="#03818a"
+        self.stopButton.setStyleSheet('background-color : #03818a')
         self.startButton.setStyleSheet('background-color : rgb(70, 70, 70)')
         if self.mcu.port != None:
             self.mcu.motor_stop()
 
     def tensile_func(self):
         self.mcu.set_direction(b'l')
-        self.tensileButton.setStyleSheet('background-color : #03818a')#rgb(60, 60, 60)')#color="#03818a"
+        self.tensileButton.setStyleSheet('background-color : #03818a')
         self.compressButton.setStyleSheet('background-color : rgb(70, 70, 70)')
 
     def compress_func(self):
         self.mcu.set_direction(b'u')
-        self.compressButton.setStyleSheet('background-color : #03818a')#rgb(60, 60, 60)')#color="#03818a"
+        self.compressButton.setStyleSheet('background-color : #03818a')
         self.tensileButton.setStyleSheet('background-color : rgb(70, 70, 70)')
 
     
