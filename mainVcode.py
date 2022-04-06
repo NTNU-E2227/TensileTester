@@ -43,6 +43,7 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
 
         ## ------ GeometricData dialog init ------ ##
         self.geometricDialog = QtWidgets.QDialog()
+        self.geometricDialog.setWindowFlag(QtCore.Qt.WindowContextHelpButtonHint,False)
         self.geo_Ui = geo_Ui_Dialog() # Ui_Dialog()
         self.geometricDialog.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint | QtCore.Qt.WindowCloseButtonHint | QtCore.Qt.WindowTitleHint)
         self.geo_Ui.setupUi(self.geometricDialog)
