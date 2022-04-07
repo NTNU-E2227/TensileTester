@@ -73,9 +73,6 @@ class com_obj:
             data = self.adc_read()
             if data[0] < 100 or data[1] < 100: 
                 continue
-
-            print(data)
-
             length = self.length_from_raw(data[0])
             force = self.force_from_raw(data[1])
             self.datalist[0].append(self.time())
