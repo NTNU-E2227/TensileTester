@@ -78,8 +78,8 @@ class com_obj:
             self.datalist[0].append(self.time())
             self.datalist[1].append(length)
             self.datalist[2].append(force)
-            self.datalist[3].append(self.strain(force,length))
-            self.datalist[4].append(self.stress(force))
+            self.datalist[3].append(self.time())
+            self.datalist[4].append(length)
             yield True
 
     def time(self):
