@@ -68,12 +68,16 @@ class com_obj:
     def generator(self):
         while True:
             if self.port == None:
+                time.sleep(1)
                 continue
             data = self.adc_read()
             if data[0] < 100 or data[1] < 100: 
                 continue
-            length = self.length_from_raw(data[1])
-            force = self.force_from_raw(data[0])
+
+            print(data)
+
+            length = self.length_from_raw(data[0])
+            force = self.force_from_raw(data[1])
             self.datalist[0].append(self.time())
             self.datalist[1].append(self.time())
             self.datalist[2].append(length*100)
@@ -105,8 +109,8 @@ class com_obj:
 
     def force_from_raw(self, force_raw):
         force = 0
-        for a in range(0, 5):
-            force += self.conf["a" + str(a)] * (force_raw ** a)
+        for b in range(0, 5):
+            force += self.conf["b" + str(b)] * (force_raw ** b)
         return force
 
     def stress(self, force):
