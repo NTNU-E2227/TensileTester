@@ -71,8 +71,11 @@ class com_obj:
                 time.sleep(1)
                 continue
             data = self.adc_read()
-            if data[0] < 100 or data[1] < 100: 
-                continue
+            try:
+                offset = 0.5
+                if self.datalist[1][-1]*(1-offset) < length < self.datalist[1][-1]*(1+offset): continue
+                if self.datalist[2][-1]*(1-offset) < force < self.datalist[2][-1]*(1+offset): continue
+            except: pass
             length = self.length_from_raw(data[0])
             force = self.force_from_raw(data[1])
             self.datalist[0].append(self.time())
@@ -91,7 +94,7 @@ class com_obj:
         self.datalist = [[],[],[],[],[]]
 
     def set_length_zero(self):
-        self.lengt_zero = self.datalist[2][-1]
+        self.lengt_zero = self.datalist[2][-1] + self.lengt_zero
 
     def set_time_zero(self):
         self.time_zero = time.time()
