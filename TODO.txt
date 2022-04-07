@@ -1,9 +1,11 @@
 TODO:
 	- SVG export problem
 	- Lag endelig header i export
+	- SPI spike problem
+	- Auto zero og release
+	- Stress/strain error
+	- Strenght range velger
 
 	- Oppdater COM porter hvis ikke tilkoblet?
 	- Export vindu?
 	- Compress/tensile bug?
-
-	- Thread delen i MainVcode har lang oppstartstid & lagger vinduet (JBT)
