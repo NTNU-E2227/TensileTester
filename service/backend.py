@@ -77,7 +77,7 @@ class com_obj:
             force = self.force_from_raw(data[1])
             self.datalist[0].append(self.time())
             self.datalist[1].append(self.time())
-            self.datalist[2].append(length*100)
+            self.datalist[2].append(length)
             self.datalist[3].append(self.time())
             self.datalist[4].append(force)
             yield True
