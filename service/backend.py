@@ -76,10 +76,10 @@ class com_obj:
             length = self.length_from_raw(data[0])
             force = self.force_from_raw(data[1])
             self.datalist[0].append(self.time())
-            self.datalist[1].append(self.time())
-            self.datalist[2].append(length)
-            self.datalist[3].append(self.time())
-            self.datalist[4].append(force)
+            self.datalist[1].append(length)
+            self.datalist[2].append(force)
+            self.datalist[3].append(self.strain(force,length))
+            self.datalist[4].append(self.stress(force))
             yield True
 
     def time(self):

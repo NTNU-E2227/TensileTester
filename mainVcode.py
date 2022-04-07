@@ -156,11 +156,14 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         self.mcu.set_port(action.text())
 
     def graphPlot(self):
-        self.stressPlotWidgetCurve.setData(self.mcu.datalist[1],self.mcu.datalist[2])
-        self.forcePlotWidgetCurve.setData(self.mcu.datalist[3],self.mcu.datalist[4])
-        self.forceRead.setValue(int(self.mcu.datalist[4][-1]))
-        self.lengthRead.setValue(int(self.mcu.datalist[2][-1]))
+        self.forceRead.setValue(int(self.mcu.datalist[2][-1]))
+        self.lengthRead.setValue(int(self.mcu.datalist[1][-1]))
         self.timeRead.setValue(int(self.mcu.datalist[0][-1]))
+        self.stressRead.setValue(int(self.mcu.datalist[4][-1]))
+        self.epsilonRead.setValue(int(self.mcu.datalist[3][-1]))
+        if self.mcu.running:
+            self.stressPlotWidgetCurve.setData(self.mcu.datalist[1],self.mcu.datalist[2])
+            self.forcePlotWidgetCurve.setData(self.mcu.datalist[3],self.mcu.datalist[4])
 
     def resetgraphPlot(self):
         self.mcu.reset_data()
