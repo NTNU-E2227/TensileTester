@@ -639,6 +639,9 @@
                <property name="prefix">
                 <string/>
                </property>
+               <property name="minimum">
+                <number>-999999999</number>
+               </property>
                <property name="maximum">
                 <number>999999999</number>
                </property>
@@ -669,6 +672,9 @@
                </property>
                <property name="suffix">
                 <string> μm</string>
+               </property>
+               <property name="minimum">
+                <number>-999999999</number>
                </property>
                <property name="maximum">
                 <number>999999999</number>
@@ -713,6 +719,9 @@
                </property>
                <property name="suffix">
                 <string> ɛ </string>
+               </property>
+               <property name="minimum">
+                <number>-999999999</number>
                </property>
                <property name="maximum">
                 <number>999999999</number>
@@ -766,6 +775,9 @@
                </property>
                <property name="suffix">
                 <string> Mpa</string>
+               </property>
+               <property name="minimum">
+                <number>-999999999</number>
                </property>
                <property name="maximum">
                 <number>999999999</number>
@@ -986,6 +998,9 @@
                   </property>
                   <property name="suffix">
                    <string> μm</string>
+                  </property>
+                  <property name="maximum">
+                   <double>999999999.000000000000000</double>
                   </property>
                  </widget>
                 </item>
@@ -1258,6 +1273,9 @@
                   </property>
                   <property name="suffix">
                    <string> N</string>
+                  </property>
+                  <property name="maximum">
+                   <double>10000.000000000000000</double>
                   </property>
                  </widget>
                 </item>

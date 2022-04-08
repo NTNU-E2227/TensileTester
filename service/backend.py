@@ -183,5 +183,5 @@ class com_obj:
         sep2 = [map(str,l1) for l1 in param]
         nl2 = [(';'.join(s2)) for s2 in sep2]
         tabell = ["Time; Length; Force; Strain; Stress;\ns;um;N;None;MPa"]
-        header = '"Reference;ISO 6892"\n"Identification;TENSTAND"\n"Specimen geometry;flat"\n"Specimen thickness = ao"\n"Specimen width = bo"\n"Data acquisition rate 10Hz"\n"File length N data rows"\n"File with 5 data columns"'
+        header = '"Reference;ISO 6892"\n"Identification;TENSTAND"\n"Specimen geometry;flat"\n"Specimen thickness = E0"\n"Specimen width = H0\n"Data acquisition rate 10Hz"\n"File length N data rows"\n"File with 5 data columns"'
         np.savetxt(loc,np.r_[nl2,tabell,nl],header = header,delimiter =";",fmt ='% 4s',comments = "")
