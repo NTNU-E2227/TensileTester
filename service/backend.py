@@ -54,7 +54,7 @@ class com_obj:
 
     def set_direction(self, dir):
         self.direction = dir
-        if self.running: 
+        if self.running:
             self.motor_run()
 
     def set_speed(self, spd):
@@ -67,7 +67,7 @@ class com_obj:
             self.port.close()
         self.port = serial.Serial(port_name, baudrate=115200)
         self.adc_reset()
-    
+
     def generator(self):
         while True:
             if self.port == None:
@@ -90,7 +90,7 @@ class com_obj:
 
     def time(self):
         if self.timer_run:
-            return time.time() - self.time_zero 
+            return time.time() - self.time_zero
         return 0
 
     def reset_data(self):
@@ -146,7 +146,7 @@ class com_obj:
             if len(self.datalist[1]) < 50:
                 return linear_gauge_distance / (self.conf["L0"] - R0)
             elif not_linear(self.datalist[2], self.datalist[1]):  # Når metallet ikke lenger er i elastisk området
-                distance_w_out_gauge = None
+                distance_w_out_gauge = 0
 
                 def find_strain(A, Stresslist, Strainlist):
                     prev_n = 0
@@ -165,7 +165,7 @@ class com_obj:
                     distance_w_out_gauge += 2 * find_strain(A, self.datalist[3], self.datalist[4]) * R0 * (
                             math.cos(math.radians(271 + i)) - math.cos(math.radians(270 + i)))
                 A = self.conf["E0"] * self.conf["H1"]
-                distance_w_out_gauge += (A, self.datalist[3], self.datalist[4]) * (self.conf["L1"] - self.conf["L0"])
+                distance_w_out_gauge += find_strain(A, self.datalist[3], self.datalist[4]) * (self.conf["L1"] - self.conf["L0"])
                 gauge = distance - distance_w_out_gauge
                 return gauge / (self.conf["L0"] - R0)
             else:  # Når Metallet er elastisk
