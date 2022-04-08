@@ -60,7 +60,7 @@ class com_obj:
     def set_speed(self, spd):
         self.speed = spd
         if self.running:
-            self.motor_run()
+            self.motor_run_percent(self.speed)
 
     def set_port(self, port_name):
         if self.port != None:
