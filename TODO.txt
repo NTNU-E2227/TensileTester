@@ -1,10 +1,10 @@
 TODO:
-	- SVG export problem
 	- Lag endelig header i export
 	- SPI spike problem
 	- Auto zero og release
 	- Stress/strain error
 	- Strenght range velger
+	- Data logging av/på
 
 	- Oppdater COM porter hvis ikke tilkoblet?
 	- Export vindu?

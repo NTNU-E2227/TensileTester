@@ -162,8 +162,8 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         self.stressRead.setValue(int(self.mcu.datalist[4][-1]))
         self.epsilonRead.setValue(int(self.mcu.datalist[3][-1]))
         if self.mcu.running:
-            self.stressPlotWidgetCurve.setData(self.mcu.datalist[1],self.mcu.datalist[2])
-            self.forcePlotWidgetCurve.setData(self.mcu.datalist[3],self.mcu.datalist[4])
+            self.stressPlotWidgetCurve.setData(self.mcu.datalist[3],self.mcu.datalist[4])
+            self.forcePlotWidgetCurve.setData(self.mcu.datalist[1],self.mcu.datalist[2])
 
     def resetgraphPlot(self):
         self.mcu.reset_data()

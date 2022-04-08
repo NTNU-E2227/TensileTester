@@ -34,7 +34,9 @@ class com_obj:
         payload.extend(b'\n')
         self.port.write(payload)
         self.running = True
-        self.timer_run = True
+        if not self.timer_run:
+            self.reset_data()
+            self.timer_run = True
 
     def motor_run_percent(self, speed_percent):
         PWM_MAX = 0x7530
@@ -64,6 +66,7 @@ class com_obj:
         if self.port != None:
             self.port.close()
         self.port = serial.Serial(port_name, baudrate=115200)
+        self.adc_reset()
     
     def generator(self):
         while True:
@@ -82,7 +85,7 @@ class com_obj:
             self.datalist[1].append(length)
             self.datalist[2].append(force)
             self.datalist[3].append(self.time())
-            self.datalist[4].append(length)
+            self.datalist[4].append(self.stress(force))
             yield True
 
     def time(self):
@@ -94,7 +97,7 @@ class com_obj:
         self.datalist = [[],[],[],[],[]]
 
     def set_length_zero(self):
-        self.lengt_zero = self.datalist[2][-1] + self.lengt_zero
+        self.lengt_zero = self.datalist[1][-1] + self.lengt_zero
 
     def set_time_zero(self):
         self.time_zero = time.time()
@@ -179,6 +182,6 @@ class com_obj:
         param = param.items()
         sep2 = [map(str,l1) for l1 in param]
         nl2 = [(';'.join(s2)) for s2 in sep2]
-        tabell = ["Time; Force; Length; Stress; Strain;"]
+        tabell = ["Time; Length; Force; Strain; Stress;\ns;um;N;None;MPa"]
         header = '"Reference;ISO 6892"\n"Identification;TENSTAND"\n"Specimen geometry;flat"\n"Specimen thickness = ao"\n"Specimen width = bo"\n"Data acquisition rate 10Hz"\n"File length N data rows"\n"File with 5 data columns"'
         np.savetxt(loc,np.r_[nl2,tabell,nl],header = header,delimiter =";",fmt ='% 4s',comments = "")
