@@ -669,7 +669,7 @@ class Ui_MainWindow(object):
         self.strenghtRangeCbox = QtWidgets.QComboBox(self.widget_4)
         self.strenghtRangeCbox.setEnabled(True)
         self.strenghtRangeCbox.setMinimumSize(QtCore.QSize(0, 0))
-        self.strenghtRangeCbox.setMaximumSize(QtCore.QSize(100, 16777215))
+        self.strenghtRangeCbox.setMaximumSize(QtCore.QSize(16777215, 16777215))
         font = QtGui.QFont()
         font.setPointSize(12)
         self.strenghtRangeCbox.setFont(font)
