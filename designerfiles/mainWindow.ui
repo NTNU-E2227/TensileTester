@@ -914,8 +914,8 @@ QListView{
                 </size>
                </property>
                <layout class="QGridLayout" name="gridLayout_12">
-                <item row="0" column="0">
-                 <widget class="QLabel" name="label_2">
+                <item row="1" column="0">
+                 <widget class="QLabel" name="label">
                   <property name="font">
                    <font>
                     <family>MS Shell Dlg 2</family>
@@ -923,7 +923,7 @@ QListView{
                    </font>
                   </property>
                   <property name="text">
-                   <string>Max force:</string>
+                   <string>Tensile-speed:</string>
                   </property>
                  </widget>
                 </item>
@@ -949,8 +949,14 @@ QListView{
                   </property>
                  </widget>
                 </item>
-                <item row="1" column="1">
-                 <widget class="QDoubleSpinBox" name="RWtensileSpeed">
+                <item row="0" column="1">
+                 <widget class="QDoubleSpinBox" name="RWmaxForce">
+                  <property name="maximumSize">
+                   <size>
+                    <width>100</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
                   <property name="font">
                    <font>
                     <family>MS Shell Dlg 2</family>
@@ -964,33 +970,10 @@ QListView{
                    <enum>QAbstractSpinBox::NoButtons</enum>
                   </property>
                   <property name="suffix">
-                   <string> μm/s</string>
+                   <string> N</string>
                   </property>
-                 </widget>
-                </item>
-                <item row="1" column="0">
-                 <widget class="QLabel" name="label">
-                  <property name="font">
-                   <font>
-                    <family>MS Shell Dlg 2</family>
-                    <pointsize>14</pointsize>
-                   </font>
-                  </property>
-                  <property name="text">
-                   <string>Tensile-speed:</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="2" column="0">
-                 <widget class="QLabel" name="label_3">
-                  <property name="font">
-                   <font>
-                    <family>MS Shell Dlg 2</family>
-                    <pointsize>14</pointsize>
-                   </font>
-                  </property>
-                  <property name="text">
-                   <string>Set length range:</string>
+                  <property name="maximum">
+                   <double>2500.000000000000000</double>
                   </property>
                  </widget>
                 </item>
@@ -1224,6 +1207,19 @@ QListView{
                   </property>
                  </widget>
                 </item>
+                <item row="0" column="0">
+                 <widget class="QLabel" name="label_2">
+                  <property name="font">
+                   <font>
+                    <family>MS Shell Dlg 2</family>
+                    <pointsize>14</pointsize>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>Max force:</string>
+                  </property>
+                 </widget>
+                </item>
                 <item row="3" column="0">
                  <widget class="QLabel" name="label_4">
                   <property name="font">
@@ -1237,14 +1233,8 @@ QListView{
                   </property>
                  </widget>
                 </item>
-                <item row="0" column="1">
-                 <widget class="QDoubleSpinBox" name="RWmaxForce">
-                  <property name="maximumSize">
-                   <size>
-                    <width>100</width>
-                    <height>16777215</height>
-                   </size>
-                  </property>
+                <item row="1" column="1">
+                 <widget class="QDoubleSpinBox" name="RWtensileSpeed">
                   <property name="font">
                    <font>
                     <family>MS Shell Dlg 2</family>
@@ -1258,11 +1248,93 @@ QListView{
                    <enum>QAbstractSpinBox::NoButtons</enum>
                   </property>
                   <property name="suffix">
-                   <string> N</string>
+                   <string> μm/s</string>
                   </property>
-                  <property name="maximum">
-                   <double>2500.000000000000000</double>
+                 </widget>
+                </item>
+                <item row="2" column="0">
+                 <widget class="QLabel" name="label_3">
+                  <property name="font">
+                   <font>
+                    <family>MS Shell Dlg 2</family>
+                    <pointsize>14</pointsize>
+                   </font>
                   </property>
+                  <property name="text">
+                   <string>Length range:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="4" column="0">
+                 <widget class="QLabel" name="label_10">
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>14</pointsize>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>Strength range:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="4" column="1">
+                 <widget class="QComboBox" name="strenghtRangeCbox">
+                  <property name="enabled">
+                   <bool>true</bool>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>100</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>12</pointsize>
+                   </font>
+                  </property>
+                  <property name="autoFillBackground">
+                   <bool>false</bool>
+                  </property>
+                  <property name="duplicatesEnabled">
+                   <bool>false</bool>
+                  </property>
+                  <property name="frame">
+                   <bool>true</bool>
+                  </property>
+                  <item>
+                   <property name="text">
+                    <string>S1 - 3KN</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>S2 - 5KN</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>S3 - 10KN</string>
+                   </property>
+                  </item>
                  </widget>
                 </item>
                </layout>
@@ -1346,101 +1418,6 @@ QListView{
                   </property>
                   <property name="text">
                    <string>Reset graph</string>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </widget>
-             </item>
-             <item row="6" column="0" colspan="2">
-              <widget class="QWidget" name="widget_7" native="true">
-               <property name="minimumSize">
-                <size>
-                 <width>0</width>
-                 <height>50</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>16777215</width>
-                 <height>50</height>
-                </size>
-               </property>
-               <layout class="QGridLayout" name="gridLayout_13">
-                <item row="0" column="1">
-                 <widget class="QComboBox" name="strenghtRangeCbox">
-                  <property name="enabled">
-                   <bool>true</bool>
-                  </property>
-                  <property name="minimumSize">
-                   <size>
-                    <width>100</width>
-                    <height>0</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>100</width>
-                    <height>16777215</height>
-                   </size>
-                  </property>
-                  <property name="autoFillBackground">
-                   <bool>false</bool>
-                  </property>
-                  <property name="duplicatesEnabled">
-                   <bool>false</bool>
-                  </property>
-                  <property name="frame">
-                   <bool>true</bool>
-                  </property>
-                  <item>
-                   <property name="text">
-                    <string>S1 - 3KN</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>S2 - 5KN</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>S3 - 10KN</string>
-                   </property>
-                  </item>
-                 </widget>
-                </item>
-                <item row="0" column="0">
-                 <widget class="QLabel" name="label_10">
-                  <property name="minimumSize">
-                   <size>
-                    <width>150</width>
-                    <height>0</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>150</width>
-                    <height>16777215</height>
-                   </size>
-                  </property>
-                  <property name="font">
-                   <font>
-                    <pointsize>14</pointsize>
-                   </font>
-                  </property>
-                  <property name="text">
-                   <string>Strength range:</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="2">
-                 <widget class="QWidget" name="widget_5" native="true">
-                  <property name="maximumSize">
-                   <size>
-                    <width>150</width>
-                    <height>16777215</height>
-                   </size>
                   </property>
                  </widget>
                 </item>
