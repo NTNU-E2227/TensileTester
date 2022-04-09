@@ -15,6 +15,7 @@ QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True) #en
 QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True)    #use highdpi icons
 
 class stressWorker(QObject):
+    updatePort = pyqtSignal(bool)
     newData = pyqtSignal(bool)
     def __init__(self, s):
         super().__init__()
@@ -23,7 +24,10 @@ class stressWorker(QObject):
     def run(self):
         generator = self.source.generator()
         while True:
-            self.newData.emit( next(generator) )
+            if next(generator):
+                self.newData.emit(True)
+            else:
+                self.updatePort.emit(False)
 
 class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
     def __init__(self):
@@ -124,29 +128,33 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         MainWindow.setWindowTitle("Tensile testing")    
 
         ## --- Set COM-ports  --- ##
-        self.action_group = QtWidgets.QActionGroup(self)
-        self.action_group.setExclusive(True)
-        ports = serial.tools.list_ports.comports()
-        for port in sorted(ports):
-            p = format(port[0])
-            action = QtWidgets.QAction(p, self)
-            action.setCheckable(True)
-            if self.mcu.port != None and port.name == self.mcu.port.name:
-                action.setChecked(True)
-            self.menuCOM_Port.addAction(action)
-            self.action_group.addAction(action)
-        self.action_group.triggered.connect(self.updateportSelect)
+        self.updatePortSelector()
  
         self.sThread = QThread()
         self.generator = stressWorker(self.mcu)
         self.generator.moveToThread(self.sThread)
         self.sThread.started.connect(self.generator.run)
         self.generator.newData.connect(self.graphPlot)
+        self.generator.updatePort.connect(self.updatePortSelector)
         self.sThread.start()
 
         ## --- Startup actions  --- ##
         self.stop_func() 
         self.tensile_func()
+
+    def updatePortSelector(self):
+        if self.mcu.update_ports():
+            self.action_group = QtWidgets.QActionGroup(self)
+            self.action_group.setExclusive(True)
+            self.menuCOM_Port.clear()
+            for port in sorted(self.mcu.portList):
+                action = QtWidgets.QAction(port, self)
+                action.setCheckable(True)
+                if self.mcu.port != None and port == self.mcu.port.name:
+                    action.setChecked(True)
+                self.menuCOM_Port.addAction(action)
+                self.action_group.addAction(action)
+            self.action_group.triggered.connect(self.updateportSelect)
 
     def autoZero(self): ## start motor til den når Initial force
         pass

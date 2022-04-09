@@ -8,6 +8,7 @@ import numpy as np
 class com_obj:
     def __init__(self):
         self.port = None
+        self.portList = []
         self.direction = b"l"
         self.running = False
         self.timer_run = False
@@ -19,10 +20,18 @@ class com_obj:
         with open('config.txt') as f:
             data = f.read()
             self.conf = json.loads(data)
-            ports = serial.tools.list_ports.comports()
-            for port in ports:
-                if port.serial_number == self.conf["id"]:
-                    self.set_port(port.name)
+
+    def update_ports(self):
+        port_name_list = []
+        ports = serial.tools.list_ports.comports()
+        for port in ports:
+            if port.serial_number == self.conf["id"]:
+                self.set_port(port.name)
+            port_name_list.append(port.name)
+        if port_name_list == self.portList:
+            return False
+        self.portList = port_name_list
+        return True
 
     def motor_stop(self):
         self.port.write(b's\n')
@@ -71,9 +80,14 @@ class com_obj:
     def generator(self):
         while True:
             if self.port == None:
+                yield False
                 time.sleep(1)
                 continue
-            data = self.adc_read()
+            try:
+                data = self.adc_read()
+            except serial.serialutil.SerialException:
+                yield False
+                continue
             length = self.length_from_raw(data[0])
             force = self.force_from_raw(data[1])
             try:
