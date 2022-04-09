@@ -873,13 +873,13 @@ QListView{
             <property name="minimumSize">
              <size>
               <width>0</width>
-              <height>250</height>
+              <height>280</height>
              </size>
             </property>
             <property name="maximumSize">
              <size>
               <width>16777215</width>
-              <height>250</height>
+              <height>280</height>
              </size>
             </property>
             <layout class="QGridLayout" name="gridLayout_2">
@@ -888,7 +888,7 @@ QListView{
                <property name="minimumSize">
                 <size>
                  <width>0</width>
-                 <height>120</height>
+                 <height>140</height>
                 </size>
                </property>
                <property name="maximumSize">
@@ -904,7 +904,7 @@ QListView{
                <property name="minimumSize">
                 <size>
                  <width>0</width>
-                 <height>120</height>
+                 <height>140</height>
                 </size>
                </property>
                <property name="maximumSize">
@@ -1357,70 +1357,94 @@ QListView{
                <property name="minimumSize">
                 <size>
                  <width>0</width>
-                 <height>30</height>
+                 <height>50</height>
                 </size>
                </property>
                <property name="maximumSize">
                 <size>
                  <width>16777215</width>
-                 <height>30</height>
+                 <height>50</height>
                 </size>
                </property>
-               <widget class="QLabel" name="label_10">
-                <property name="geometry">
-                 <rect>
-                  <x>10</x>
-                  <y>0</y>
-                  <width>135</width>
-                  <height>23</height>
-                 </rect>
-                </property>
-                <property name="font">
-                 <font>
-                  <pointsize>14</pointsize>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>Strenght range:</string>
-                </property>
-               </widget>
-               <widget class="QComboBox" name="strenghtRangeCbox">
-                <property name="enabled">
-                 <bool>true</bool>
-                </property>
-                <property name="geometry">
-                 <rect>
-                  <x>151</x>
-                  <y>3</y>
-                  <width>81</width>
-                  <height>16</height>
-                 </rect>
-                </property>
-                <property name="autoFillBackground">
-                 <bool>false</bool>
-                </property>
-                <property name="duplicatesEnabled">
-                 <bool>false</bool>
-                </property>
-                <property name="frame">
-                 <bool>true</bool>
-                </property>
-                <item>
-                 <property name="text">
-                  <string>S1 - 3KN</string>
-                 </property>
+               <layout class="QGridLayout" name="gridLayout_13">
+                <item row="0" column="1">
+                 <widget class="QComboBox" name="strenghtRangeCbox">
+                  <property name="enabled">
+                   <bool>true</bool>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>100</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>100</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="autoFillBackground">
+                   <bool>false</bool>
+                  </property>
+                  <property name="duplicatesEnabled">
+                   <bool>false</bool>
+                  </property>
+                  <property name="frame">
+                   <bool>true</bool>
+                  </property>
+                  <item>
+                   <property name="text">
+                    <string>S1 - 3KN</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>S2 - 5KN</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>S3 - 10KN</string>
+                   </property>
+                  </item>
+                 </widget>
                 </item>
-                <item>
-                 <property name="text">
-                  <string>S2 - 5KN</string>
-                 </property>
+                <item row="0" column="0">
+                 <widget class="QLabel" name="label_10">
+                  <property name="minimumSize">
+                   <size>
+                    <width>150</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>150</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>14</pointsize>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>Strength range:</string>
+                  </property>
+                 </widget>
                 </item>
-                <item>
-                 <property name="text">
-                  <string>S3 - 10KN</string>
-                 </property>
+                <item row="0" column="2">
+                 <widget class="QWidget" name="widget_5" native="true">
+                  <property name="maximumSize">
+                   <size>
+                    <width>150</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                 </widget>
                 </item>
-               </widget>
+               </layout>
               </widget>
              </item>
             </layout>
