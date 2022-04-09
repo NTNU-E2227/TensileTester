@@ -6,6 +6,4 @@ TODO:
 	- Strenght range velger
 	- Data logging av/på
 
-	- Oppdater COM porter hvis ikke tilkoblet?
-	- Export vindu?
 	- Compress/tensile bug?
