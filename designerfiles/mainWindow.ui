@@ -91,7 +91,7 @@
 		color: rgb(249,249,249);
 }
 
-#strenghtRangeCbox{
+#strengthRangeCbox{
 		background-color: rgb(70,70,70);
 		border-radius: 4px;
 		color: rgb(249,249,249);
@@ -1290,7 +1290,7 @@ QListView{
                  </widget>
                 </item>
                 <item row="4" column="1">
-                 <widget class="QComboBox" name="strenghtRangeCbox">
+                 <widget class="QComboBox" name="strengthRangeCbox">
                   <property name="enabled">
                    <bool>true</bool>
                   </property>
