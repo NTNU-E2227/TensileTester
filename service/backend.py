@@ -14,7 +14,7 @@ class com_obj:
         self.timer_run = False
         self.speed = 0
         self.datalist = [[],[],[],[],[]]
-        self.lengt_zero = 0
+        self.length_zero = 0
         self.time_zero = time.time()
 
         with open('config.txt') as f:
@@ -74,8 +74,8 @@ class com_obj:
     def set_port(self, port_name):
         if self.port != None:
             self.port.close()
-        self.port = serial.Serial(port_name, baudrate=115200)
-        self.adc_reset()
+            self.port = serial.Serial(port_name, baudrate=115200)
+            self.adc_reset()
 
     def generator(self):
         while True:
@@ -111,7 +111,7 @@ class com_obj:
         self.datalist = [[],[],[],[],[]]
 
     def set_length_zero(self):
-        self.lengt_zero = self.datalist[1][-1] + self.lengt_zero
+        self.length_zero = self.datalist[1][-1] + self.length_zero 
 
     def set_time_zero(self):
         self.time_zero = time.time()
@@ -122,7 +122,7 @@ class com_obj:
         length = 0
         for a in range(0, 5):
             length += self.conf["a" + str(a)] * (length_raw ** a)
-        return length - self.lengt_zero
+        return length - self.length_zero
 
     def force_from_raw(self, force_raw):
         force = 0
