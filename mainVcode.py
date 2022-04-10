@@ -73,6 +73,7 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         self.RWtensileSpeed.editingFinished.connect(self.writeUpdate)
         self.RWlengthRange.editingFinished.connect(self.writeUpdate)
         self.RWinitialForce.editingFinished.connect(self.writeUpdate)
+        self.strengthRangeCbox.currentTextChanged.connect(self.strengthRange)
 
         ## ------ Geometric Data ------- ##
         self.geo_Ui.RWL0.editingFinished.connect(self.geometric_update)
@@ -141,6 +142,15 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         ## --- Startup actions  --- ##
         self.stop_func() 
         self.tensile_func()
+
+    def strengthRange(self):
+        d = self.strengthRangeCbox.currentText()
+        if d == "S1 - 3KN":
+            print(1)
+        if d == "S2 - 5KN":
+            print(2)
+        if d == "S3 - 10KN":
+            print(3)
 
     def updatePortSelector(self):
         if self.mcu.update_ports():

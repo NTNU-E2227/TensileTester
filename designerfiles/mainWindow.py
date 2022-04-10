@@ -86,7 +86,7 @@ class Ui_MainWindow(object):
 "        color: rgb(249,249,249);\n"
 "}\n"
 "\n"
-"#strenghtRangeCbox{\n"
+"#strengthRangeCbox{\n"
 "        background-color: rgb(70,70,70);\n"
 "        border-radius: 4px;\n"
 "        color: rgb(249,249,249);\n"
@@ -666,21 +666,21 @@ class Ui_MainWindow(object):
         self.label_10.setFont(font)
         self.label_10.setObjectName("label_10")
         self.gridLayout_12.addWidget(self.label_10, 4, 0, 1, 1)
-        self.strenghtRangeCbox = QtWidgets.QComboBox(self.widget_4)
-        self.strenghtRangeCbox.setEnabled(True)
-        self.strenghtRangeCbox.setMinimumSize(QtCore.QSize(0, 0))
-        self.strenghtRangeCbox.setMaximumSize(QtCore.QSize(16777215, 16777215))
+        self.strengthRangeCbox = QtWidgets.QComboBox(self.widget_4)
+        self.strengthRangeCbox.setEnabled(True)
+        self.strengthRangeCbox.setMinimumSize(QtCore.QSize(0, 0))
+        self.strengthRangeCbox.setMaximumSize(QtCore.QSize(16777215, 16777215))
         font = QtGui.QFont()
         font.setPointSize(12)
-        self.strenghtRangeCbox.setFont(font)
-        self.strenghtRangeCbox.setAutoFillBackground(False)
-        self.strenghtRangeCbox.setDuplicatesEnabled(False)
-        self.strenghtRangeCbox.setFrame(True)
-        self.strenghtRangeCbox.setObjectName("strenghtRangeCbox")
-        self.strenghtRangeCbox.addItem("")
-        self.strenghtRangeCbox.addItem("")
-        self.strenghtRangeCbox.addItem("")
-        self.gridLayout_12.addWidget(self.strenghtRangeCbox, 4, 1, 1, 1)
+        self.strengthRangeCbox.setFont(font)
+        self.strengthRangeCbox.setAutoFillBackground(False)
+        self.strengthRangeCbox.setDuplicatesEnabled(False)
+        self.strengthRangeCbox.setFrame(True)
+        self.strengthRangeCbox.setObjectName("strengthRangeCbox")
+        self.strengthRangeCbox.addItem("")
+        self.strengthRangeCbox.addItem("")
+        self.strengthRangeCbox.addItem("")
+        self.gridLayout_12.addWidget(self.strengthRangeCbox, 4, 1, 1, 1)
         self.gridLayout_2.addWidget(self.widget_4, 4, 0, 1, 1)
         self.widget_3 = QtWidgets.QWidget(self.sone1_1)
         self.widget_3.setMinimumSize(QtCore.QSize(0, 70))
@@ -823,9 +823,9 @@ class Ui_MainWindow(object):
         self.RWtensileSpeed.setSuffix(_translate("MainWindow", " μm/s"))
         self.label_3.setText(_translate("MainWindow", "Length range:"))
         self.label_10.setText(_translate("MainWindow", "Strength range:"))
-        self.strenghtRangeCbox.setItemText(0, _translate("MainWindow", "S1 - 3KN"))
-        self.strenghtRangeCbox.setItemText(1, _translate("MainWindow", "S2 - 5KN"))
-        self.strenghtRangeCbox.setItemText(2, _translate("MainWindow", "S3 - 10KN"))
+        self.strengthRangeCbox.setItemText(0, _translate("MainWindow", "S1 - 3KN"))
+        self.strengthRangeCbox.setItemText(1, _translate("MainWindow", "S2 - 5KN"))
+        self.strengthRangeCbox.setItemText(2, _translate("MainWindow", "S3 - 10KN"))
         self.releaseMatButton.setText(_translate("MainWindow", "Release"))
         self.autoZeroButton.setText(_translate("MainWindow", "Auto zero"))
         self.resetGraphButton.setText(_translate("MainWindow", "Reset graph"))
