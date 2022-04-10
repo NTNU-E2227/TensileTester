@@ -39,7 +39,9 @@ class com_obj:
 
     def motor_run(self):
         payload = bytearray(self.direction)
-        payload.extend(self.speed.to_bytes(2,'big'))
+        spd = hex(self.speed)[2:]
+        while len(spd) < 4: spd = "0" + spd
+        payload.extend(spd.encode())
         payload.extend(b'\n')
         self.port.write(payload)
         self.running = True
@@ -57,8 +59,8 @@ class com_obj:
 
     def adc_read(self):
         in_data = self.port.readline()
-        length = int.from_bytes(in_data[0:3],'big')
-        force = int.from_bytes(in_data[3:6],'big')
+        length = int(in_data[0:6],16)
+        force = int(in_data[6:12],16)
         return [length, force]
 
     def set_direction(self, dir):
