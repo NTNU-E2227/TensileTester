@@ -16,6 +16,7 @@ class com_obj:
         self.datalist = [[],[],[],[],[]]
         self.length_zero = 0
         self.time_zero = time.time()
+        self.latest_data = [0,0,0,0,0]
 
         with open('config.txt') as f:
             data = f.read()
@@ -47,6 +48,7 @@ class com_obj:
         self.running = True
         if not self.timer_run:
             self.reset_data()
+            self.set_time_zero()
             self.timer_run = True
 
     def motor_run_percent(self, speed_percent):
@@ -76,8 +78,8 @@ class com_obj:
     def set_port(self, port_name):
         if self.port != None:
             self.port.close()
-            self.port = serial.Serial(port_name, baudrate=115200)
-            self.adc_reset()
+        self.port = serial.Serial(port_name, baudrate=115200)
+        self.adc_reset()
 
     def generator(self):
         while True:
@@ -97,11 +99,12 @@ class com_obj:
                 if not (self.datalist[1][-1]-offset < length < self.datalist[1][-1]+offset): continue
                 if not (self.datalist[2][-1]-offset< force < self.datalist[2][-1]+offset): continue
             except: pass
-            self.datalist[0].append(self.time())
-            self.datalist[1].append(length)
-            self.datalist[2].append(force)
-            self.datalist[3].append(self.strain(force,length))
-            self.datalist[4].append(self.stress(force))
+            self.latest_data = [self.time(),length,force,self.time(),self.stress(force)]
+            self.datalist[0].append(self.latest_data[0])
+            self.datalist[1].append(self.latest_data[1])
+            self.datalist[2].append(self.latest_data[2])
+            self.datalist[3].append(self.latest_data[3])
+            self.datalist[4].append(self.latest_data[4])
             yield True
 
     def time(self):
@@ -199,5 +202,5 @@ class com_obj:
         sep2 = [map(str,l1) for l1 in param]
         nl2 = [(';'.join(s2)) for s2 in sep2]
         tabell = ["Time; Length; Force; Strain; Stress;\ns;um;N;None;MPa"]
-        header = '"Reference;ISO 6892"\n"Identification;TENSTAND"\n"Specimen geometry;flat"\n"Specimen thickness = E0"\n"Specimen width = H0\n"Data acquisition rate 10Hz"\n"File length N data rows"\n"File with 5 data columns"'
+        header = '"Reference;ISO 6892"\n"Specimen geometry;flat"\n"Specimen thickness = E0"\n"Specimen width = H0\n"Data acquisition rate 8Hz"\n"File length N data rows"\n"File width 5 data columns"'
         np.savetxt(loc,np.r_[nl2,tabell,nl],header = header,delimiter =";",fmt ='% 4s',comments = "")
