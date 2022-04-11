@@ -80,6 +80,7 @@ class com_obj:
             self.port.close()
         self.port = serial.Serial(port_name, baudrate=115200)
         self.adc_reset()
+        self.adc_read()
 
     def generator(self):
         while True:

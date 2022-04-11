@@ -3,5 +3,7 @@ TODO:
 	- Stress/strain error
 	- Strength range: Formel for hver konfigurasjon
 	- Data logging av/på
+	- Bytt tekst på reset graph til reset data
 
+	- Fjern graf titler?
 	- Programmet krasjer når man velger en tilfeldig comPort ? 
