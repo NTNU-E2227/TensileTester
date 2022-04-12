@@ -1,12 +1,9 @@
 TODO:
-	- Lag endelig header i export
-	- SPI spike problem
 	- Auto zero og release (Egen tråd)
 	- Stress/strain error
 	- Strength range: Formel for hver konfigurasjon
 	- Data logging av/på
-	- Maks force: Stopper motor når den er på maks 
-	- Length range: Stopper motor når length > length-range
+	- Bytt tekst på reset graph til reset data
 
-	- Compress/tensile bug?
+	- Fjern graf titler?
 	- Programmet krasjer når man velger en tilfeldig comPort ? 
