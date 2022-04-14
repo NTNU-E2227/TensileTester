@@ -11,8 +11,8 @@ class com_obj:
         self.port = None
         self.portList = []
         self.direction = b"l"
-        self.linear = True
-        self.youngs = 0
+        self.linear = [True,0,0]
+        self.youngs = [0,0]
         self.running = False
         self.timer_run = False
         self.speed = 0
@@ -30,7 +30,7 @@ class com_obj:
         ports = serial.tools.list_ports.comports()
         for port in ports:
             if port.serial_number == self.conf["id"]:
-                self.set_port("/dev/ttyACM0")
+                self.set_port(port.name)
             port_name_list.append(port.name)
         if port_name_list == self.portList:
             return False
@@ -179,7 +179,7 @@ class com_obj:
 
             if check_linear(self.datalist[2], self.datalist[1]) == False:
                 print("\n NONLINEAR\n")
-                if self.linear == True:
+                if self.linear[0] == True:
                     n_max = self.datalist[4][-1]
                     n_min = self.datalist[4][1]
                     for i in range((len(self.datalist[4]))):
@@ -197,16 +197,17 @@ class com_obj:
                     for i in range((len(self.datalist[4]))-y_min_n):
                         if self.datalist[4][i+y_min_n] > y_max:
                             y_max_n = i
-                    self.youngs = (self.datalist[4][y_max_n]-self.datalist[4][y_min_n])/(self.datalist[3][y_max_n]-self.datalist[3][y_min_n])
-                self.linear = False
+                    self.linear[1] = (self.datalist[4][y_max_n]-self.datalist[4][y_min_n])/(self.datalist[3][y_max_n]-self.datalist[3][y_min_n])
+                    self.linear[2] = self.datalist[4][y_max_n]-self.linear[1]*self.datalist[3][y_max_n]
+                self.linear[0] = False
 
-            if self.linear:  # Når Metallet er elastisk
+            if self.linear[0]:  # Når Metallet er elastisk
                 print("linear")
                 return (linear_gauge_distance/1000) / (self.conf["L0"] - 2 * R0)
             else:  # Når metallet ikke lenger er i elastisk området
                 print("nonlinear")
                 non_gauge_length = 1 - linear_gauge_distance/distance
-                non_gauge_distance = (non_gauge_length/(1-non_gauge_length))*1000*(self.conf["L0"] - 2 * R0)*((force/(self.conf["E0"]*self.conf["H0"]))/self.youngs)
+                non_gauge_distance = (non_gauge_length/(1-non_gauge_length))*1000*(self.conf["L0"] - 2 * R0)*(((force/(self.conf["E0"]*self.conf["H0"]))-self.linear[2])/self.linear[1])
                 return ((distance-non_gauge_distance)/1000) / (self.conf["L0"] - 2 * R0)
         else:
             return (distance/1000) / self.conf["L0"]
