@@ -206,8 +206,8 @@ class com_obj:
             else:  # Når metallet ikke lenger er i elastisk området
                 print("nonlinear")
                 non_gauge_length = 1 - linear_gauge_distance/distance
-                non_gauge_distance = (non_gauge_length/(1-non_gauge_length))((self.conf["L0"] - 2 * R0)*(force/(self.conf["E0"]*self.conf["H0"])))
-                return distance-non_gauge_distance
+                non_gauge_distance = (non_gauge_length/(1-non_gauge_length))*1000*(self.conf["L0"] - 2 * R0)*((force/(self.conf["E0"]*self.conf["H0"]))/self.youngs)
+                return ((distance-non_gauge_distance)/1000) / (self.conf["L0"] - 2 * R0)
         else:
             return (distance/1000) / self.conf["L0"]
 
