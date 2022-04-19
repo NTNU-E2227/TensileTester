@@ -1,5 +1,4 @@
 TODO:
 	- Strain error
-	- Tensile speed
 	- Comport: Unngå kræsj
 	- Set maks begrensning på length-range etter fullskala kalibrering

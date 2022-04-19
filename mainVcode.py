@@ -8,7 +8,6 @@ import service.config as config
 import pyqtgraph as pg
 import service.backend as backend
 from PyQt5.QtCore import QObject, QThread, pyqtSignal
-import serial.tools.list_ports
 
 
 QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True) #enable highdpi scaling
@@ -182,7 +181,7 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         self.forceRead.setValue(int(self.mcu.latest_data[2]))
         self.epsilonRead.setValue(int(self.mcu.latest_data[3]))
         self.stressRead.setValue(int(self.mcu.latest_data[4]))
-        if self.RWlengthRange.value() != 0 and (self.mcu.latest_data[1]) > self.RWlengthRange.value():
+        if self.RWlengthRange.value() != 0 and abs(self.mcu.latest_data[1]) > self.RWlengthRange.value():
             self.stop_func() 
         if self.RWmaxForce.value() != 0 and (self.mcu.latest_data[2]) > self.RWmaxForce.value():
             self.stop_func() 
