@@ -59,6 +59,7 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         self.stopButton.clicked.connect(self.stop_func)
         self.tensileButton.clicked.connect(self.tensile_func)
         self.compressButton.clicked.connect(self.compress_func)
+        self.resetGraphButton.clicked.connect(self.resetgraphWindow)
         self.reset_Ui.yesButton.clicked.connect(self.resetgraphPlot)
         self.reset_Ui.noButton.clicked.connect(self.resetgraphDialog.close)
         self.setZeroButton.clicked.connect(self.mcu.set_length_zero)
