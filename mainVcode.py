@@ -64,6 +64,7 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         self.reset_Ui.yesButton.clicked.connect(self.resetgraphPlot)
         self.reset_Ui.noButton.clicked.connect(self.resetgraphDialog.close)
         self.setZeroButton.clicked.connect(self.mcu.set_length_zero)
+        self.dataloggingButton.clicked.connect(self.dataLogging)
         self.actionGeometry.triggered.connect(self.geometricWindow)
         self.actionReset_ADC.triggered.connect(self.mcu.adc_reset)
         self.actionExport.triggered.connect(self.exportSave)
@@ -146,11 +147,12 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
     def strengthRange(self):
         d = self.strengthRangeCbox.currentText()
         if d == "S1 - 3KN":
-            print(1)
-        if d == "S2 - 5KN":
-            print(2)
-        if d == "S3 - 10KN":
-            print(3)
+            self.mcu.sRange = "1"
+        elif d == "S2 - 5KN":
+            self.mcu.sRange = "2"
+        elif d == "S3 - 10KN":
+            self.mcu.sRange = "3"
+        self.mcu.reset_data()
 
     def updatePortSelector(self):
         if self.mcu.update_ports():
@@ -188,7 +190,7 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
             self.stop_func() 
         if self.RWmaxForce.value() != 0 and (self.mcu.latest_data[2]) > self.RWmaxForce.value():
             self.stop_func() 
-        if self.mcu.timer_run:
+        if self.mcu.datalog:
             self.forcePlotWidgetCurve.setData(self.mcu.datalist[1],self.mcu.datalist[2])
             self.stressPlotWidgetCurve.setData(self.mcu.datalist[3],self.mcu.datalist[4])
             
@@ -217,6 +219,14 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         self.mcu.conf["L0"] = self.geo_Ui.RWL0.value()
         self.mcu.conf["L1"] = self.geo_Ui.RWL1.value()
         self.mcu.conf["E0"] = self.geo_Ui.RWE0.value()
+
+    def dataLogging(self):
+        if self.mcu.datalog:
+            self.mcu.datalog = False
+            self.dataloggingButton.setStyleSheet('background-color : rgb(70, 70, 70)')
+        else:
+            self.mcu.datalog = True
+            self.dataloggingButton.setStyleSheet('background-color :  #03818a')
 
     def resetgraphWindow(self):
         self.resetgraphDialog.show()

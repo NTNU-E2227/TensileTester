@@ -20,6 +20,8 @@ class com_obj:
         self.length_zero = 0
         self.time_zero = time.time()
         self.latest_data = [0,0,0,0,0]
+        self.sRange = "1"
+        self.datalog = False
 
         with open('config.txt') as f:
             data = f.read()
@@ -104,11 +106,12 @@ class com_obj:
                 if not (self.datalist[2][-1]-offset< force < self.datalist[2][-1]+offset): continue
             except: pass
             self.latest_data = [self.time(),length,force,self.time(),self.stress(force)]
-            self.datalist[0].append(self.latest_data[0])
-            self.datalist[1].append(self.latest_data[1])
-            self.datalist[2].append(self.latest_data[2])
-            self.datalist[3].append(self.latest_data[3])
-            self.datalist[4].append(self.latest_data[4])
+            if self.datalog:
+                self.datalist[0].append(self.latest_data[0])
+                self.datalist[1].append(self.latest_data[1])
+                self.datalist[2].append(self.latest_data[2])
+                self.datalist[3].append(self.latest_data[3])
+                self.datalist[4].append(self.latest_data[4])
             yield True
 
     def time(self):
@@ -120,7 +123,7 @@ class com_obj:
         self.datalist = [[],[],[],[],[]]
 
     def set_length_zero(self):
-        self.length_zero = self.datalist[1][-1] + self.length_zero 
+        self.length_zero = self.latest_data[1] + self.length_zero 
 
     def set_time_zero(self):
         self.time_zero = time.time()
@@ -130,13 +133,13 @@ class com_obj:
     def length_from_raw(self, length_raw):
         length = 0
         for a in range(0, 5):
-            length += self.conf["a" + str(a)] * (length_raw ** a)
+            length += self.conf["D" + str(a)] * (length_raw ** a)
         return length - self.length_zero
 
     def force_from_raw(self, force_raw):
         force = 0
         for b in range(0, 5):
-            force += self.conf["b" + str(b)] * (force_raw ** b)
+            force += self.conf["S" + self.sRange + str(b)] * (force_raw ** b)
         return force
 
     def stress(self, force):
