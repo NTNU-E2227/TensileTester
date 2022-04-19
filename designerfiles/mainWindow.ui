@@ -731,7 +731,7 @@ QListView{
 		border-radius: 4px;
 		color: rgb(249,249,249);
 }
-#epsilonRead{
+QDoubleSpinBox{
 		background-color: rgb(70,70,70); 
 		border-radius: 4px;
 		color: rgb(249,249,249);
@@ -792,7 +792,42 @@ QListView{
                 </size>
                </property>
                <layout class="QGridLayout" name="gridLayout_5">
-                <item row="2" column="1" alignment="Qt::AlignHCenter|Qt::AlignBottom">
+                <item row="0" column="3" alignment="Qt::AlignHCenter|Qt::AlignBottom">
+                 <widget class="QLabel" name="label_7">
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>25</height>
+                   </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <family>MS Shell Dlg 2</family>
+                    <pointsize>12</pointsize>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>Time</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="2">
+                 <spacer name="horizontalSpacer">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeType">
+                   <enum>QSizePolicy::Preferred</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>10</width>
+                    <height>10</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item row="3" column="1" alignment="Qt::AlignHCenter|Qt::AlignBottom">
                  <widget class="QLabel" name="label_6">
                   <property name="maximumSize">
                    <size>
@@ -811,26 +846,7 @@ QListView{
                   </property>
                  </widget>
                 </item>
-                <item row="2" column="0" alignment="Qt::AlignHCenter|Qt::AlignBottom">
-                 <widget class="QLabel" name="label_5">
-                  <property name="maximumSize">
-                   <size>
-                    <width>16777215</width>
-                    <height>25</height>
-                   </size>
-                  </property>
-                  <property name="font">
-                   <font>
-                    <family>MS Shell Dlg 2</family>
-                    <pointsize>12</pointsize>
-                   </font>
-                  </property>
-                  <property name="text">
-                   <string>Force</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="4" column="1">
+                <item row="5" column="1">
                  <widget class="QPushButton" name="setZeroButton">
                   <property name="minimumSize">
                    <size>
@@ -849,96 +865,6 @@ QListView{
                   </property>
                   <property name="text">
                    <string>Set zero</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="3" column="0">
-                 <widget class="QSpinBox" name="forceRead">
-                  <property name="minimumSize">
-                   <size>
-                    <width>0</width>
-                    <height>25</height>
-                   </size>
-                  </property>
-                  <property name="font">
-                   <font>
-                    <family>MS Shell Dlg 2</family>
-                    <pointsize>11</pointsize>
-                   </font>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignCenter</set>
-                  </property>
-                  <property name="readOnly">
-                   <bool>true</bool>
-                  </property>
-                  <property name="buttonSymbols">
-                   <enum>QAbstractSpinBox::NoButtons</enum>
-                  </property>
-                  <property name="suffix">
-                   <string> N</string>
-                  </property>
-                  <property name="prefix">
-                   <string/>
-                  </property>
-                  <property name="minimum">
-                   <number>-999999999</number>
-                  </property>
-                  <property name="maximum">
-                   <number>999999999</number>
-                  </property>
-                 </widget>
-                </item>
-                <item row="3" column="1">
-                 <widget class="QSpinBox" name="lengthRead">
-                  <property name="minimumSize">
-                   <size>
-                    <width>0</width>
-                    <height>25</height>
-                   </size>
-                  </property>
-                  <property name="font">
-                   <font>
-                    <family>MS Shell Dlg 2</family>
-                    <pointsize>11</pointsize>
-                   </font>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignCenter</set>
-                  </property>
-                  <property name="readOnly">
-                   <bool>true</bool>
-                  </property>
-                  <property name="buttonSymbols">
-                   <enum>QAbstractSpinBox::NoButtons</enum>
-                  </property>
-                  <property name="suffix">
-                   <string> μm</string>
-                  </property>
-                  <property name="minimum">
-                   <number>-999999999</number>
-                  </property>
-                  <property name="maximum">
-                   <number>999999999</number>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="3" alignment="Qt::AlignHCenter|Qt::AlignBottom">
-                 <widget class="QLabel" name="label_7">
-                  <property name="maximumSize">
-                   <size>
-                    <width>16777215</width>
-                    <height>25</height>
-                   </size>
-                  </property>
-                  <property name="font">
-                   <font>
-                    <family>MS Shell Dlg 2</family>
-                    <pointsize>12</pointsize>
-                   </font>
-                  </property>
-                  <property name="text">
-                   <string>Time</string>
                   </property>
                  </widget>
                 </item>
@@ -976,24 +902,46 @@ QListView{
                   </property>
                  </widget>
                 </item>
-                <item row="1" column="2">
-                 <spacer name="horizontalSpacer">
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                  <property name="sizeType">
-                   <enum>QSizePolicy::Preferred</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
+                <item row="0" column="0" alignment="Qt::AlignHCenter|Qt::AlignBottom">
+                 <widget class="QLabel" name="label_9">
+                  <property name="maximumSize">
                    <size>
-                    <width>10</width>
-                    <height>10</height>
+                    <width>16777215</width>
+                    <height>25</height>
                    </size>
                   </property>
-                 </spacer>
+                  <property name="font">
+                   <font>
+                    <family>MS Shell Dlg 2</family>
+                    <pointsize>12</pointsize>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>Stress (δ)</string>
+                  </property>
+                 </widget>
                 </item>
-                <item row="1" column="1">
-                 <widget class="QSpinBox" name="epsilonRead">
+                <item row="0" column="1" alignment="Qt::AlignHCenter|Qt::AlignBottom">
+                 <widget class="QLabel" name="label_8">
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>25</height>
+                   </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <family>MS Shell Dlg 2</family>
+                    <pointsize>12</pointsize>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>Strain (ɛ)</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="4" column="0">
+                 <widget class="QSpinBox" name="forceRead">
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
@@ -1016,7 +964,44 @@ QListView{
                    <enum>QAbstractSpinBox::NoButtons</enum>
                   </property>
                   <property name="suffix">
-                   <string> ɛ </string>
+                   <string> N</string>
+                  </property>
+                  <property name="prefix">
+                   <string/>
+                  </property>
+                  <property name="minimum">
+                   <number>-999999999</number>
+                  </property>
+                  <property name="maximum">
+                   <number>999999999</number>
+                  </property>
+                 </widget>
+                </item>
+                <item row="4" column="1">
+                 <widget class="QSpinBox" name="lengthRead">
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>25</height>
+                   </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <family>MS Shell Dlg 2</family>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
+                  </property>
+                  <property name="readOnly">
+                   <bool>true</bool>
+                  </property>
+                  <property name="buttonSymbols">
+                   <enum>QAbstractSpinBox::NoButtons</enum>
+                  </property>
+                  <property name="suffix">
+                   <string> μm</string>
                   </property>
                   <property name="minimum">
                    <number>-999999999</number>
@@ -1060,8 +1045,8 @@ QListView{
                   </property>
                  </widget>
                 </item>
-                <item row="0" column="1" alignment="Qt::AlignHCenter|Qt::AlignBottom">
-                 <widget class="QLabel" name="label_8">
+                <item row="3" column="0" alignment="Qt::AlignHCenter|Qt::AlignBottom">
+                 <widget class="QLabel" name="label_5">
                   <property name="maximumSize">
                    <size>
                     <width>16777215</width>
@@ -1075,26 +1060,37 @@ QListView{
                    </font>
                   </property>
                   <property name="text">
-                   <string>Strain</string>
+                   <string>Force</string>
                   </property>
                  </widget>
                 </item>
-                <item row="0" column="0" alignment="Qt::AlignHCenter|Qt::AlignBottom">
-                 <widget class="QLabel" name="label_9">
-                  <property name="maximumSize">
+                <item row="1" column="1">
+                 <widget class="QDoubleSpinBox" name="espilonRead">
+                  <property name="minimumSize">
                    <size>
-                    <width>16777215</width>
+                    <width>0</width>
                     <height>25</height>
                    </size>
                   </property>
                   <property name="font">
                    <font>
-                    <family>MS Shell Dlg 2</family>
-                    <pointsize>12</pointsize>
+                    <pointsize>11</pointsize>
                    </font>
                   </property>
-                  <property name="text">
-                   <string>Stress</string>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
+                  </property>
+                  <property name="readOnly">
+                   <bool>true</bool>
+                  </property>
+                  <property name="buttonSymbols">
+                   <enum>QAbstractSpinBox::NoButtons</enum>
+                  </property>
+                  <property name="suffix">
+                   <string/>
+                  </property>
+                  <property name="decimals">
+                   <number>3</number>
                   </property>
                  </widget>
                 </item>
