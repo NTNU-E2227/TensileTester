@@ -1,4 +1,4 @@
 TODO:
 	- Strain error
-	
-	- Programmet krasjer når man velger en tilfeldig comPort ? 
+	- Tensile speed
+	- Comport: Unngå kræsj
