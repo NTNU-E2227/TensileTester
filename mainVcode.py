@@ -230,7 +230,7 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
     def start_func(self):
         self.startButton.setStyleSheet('background-color :  #03818a')
         self.stopButton.setStyleSheet('background-color : rgb(70, 70, 70)')
-        self.mcu.motor_run_percent(self.RWtensileSpeed.value())
+        self.mcu.motor_run()
 
     def stop_func(self):
         self.stopButton.setStyleSheet('background-color : #03818a')

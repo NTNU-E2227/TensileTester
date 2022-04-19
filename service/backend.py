@@ -44,9 +44,14 @@ class com_obj:
         self.running = False
 
     def motor_run(self):
-        payload = bytearray(self.direction)
-        spd = hex(self.speed)[2:]
+        PWM_MAX = 0x6978
+        PWM_MIN = 0x0BB8
+        SPEED_MAX = 30.0
+        SPEED_MIN = 0.0
+        spd = int((self.speed - SPEED_MIN) * (PWM_MAX - PWM_MIN) / (SPEED_MAX - SPEED_MIN) + PWM_MIN)
+        spd = hex(spd)[2:]
         while len(spd) < 4: spd = "0" + spd
+        payload = bytearray(self.direction)
         payload.extend(spd.encode())
         payload.extend(b'\n')
         self.port.write(payload)
@@ -55,11 +60,6 @@ class com_obj:
             self.reset_data()
             self.set_time_zero()
             self.timer_run = True
-
-    def motor_run_percent(self, speed_percent):
-        PWM_MAX = 0x7530
-        self.speed = int(PWM_MAX * (0.8*speed_percent + 10) / 100)
-        self.motor_run()
 
     def adc_reset(self):
         self.port.write(b'r\n')
@@ -78,7 +78,7 @@ class com_obj:
     def set_speed(self, spd):
         self.speed = spd
         if self.running:
-            self.motor_run_percent(self.speed)
+            self.motor_run()
 
     def set_port(self, port_name):
         if self.port != None:
