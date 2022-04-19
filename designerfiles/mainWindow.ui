@@ -518,7 +518,7 @@ QListView{
                       <string> μm/s</string>
                      </property>
                      <property name="maximum">
-                      <double>100.000000000000000</double>
+                      <double>30.000000000000000</double>
                      </property>
                     </widget>
                    </item>
@@ -628,7 +628,7 @@ QListView{
                       <string> N</string>
                      </property>
                      <property name="maximum">
-                      <double>2500.000000000000000</double>
+                      <double>15000.000000000000000</double>
                      </property>
                     </widget>
                    </item>
