@@ -59,8 +59,6 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         self.stopButton.clicked.connect(self.stop_func)
         self.tensileButton.clicked.connect(self.tensile_func)
         self.compressButton.clicked.connect(self.compress_func)
-        self.resetGraphButton.clicked.connect(self.resetgraphWindow)
-        self.autoZeroButton.clicked.connect(self.autoZero)
         self.reset_Ui.yesButton.clicked.connect(self.resetgraphPlot)
         self.reset_Ui.noButton.clicked.connect(self.resetgraphDialog.close)
         self.setZeroButton.clicked.connect(self.mcu.set_length_zero)
@@ -73,7 +71,6 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         self.RWmaxForce.editingFinished.connect(self.writeUpdate)
         self.RWtensileSpeed.editingFinished.connect(self.writeUpdate)
         self.RWlengthRange.editingFinished.connect(self.writeUpdate)
-        self.RWinitialForce.editingFinished.connect(self.writeUpdate)
         self.strengthRangeCbox.currentTextChanged.connect(self.strengthRange)
 
         ## ------ Geometric Data ------- ##
@@ -98,7 +95,7 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         self.stressPlothWidget.setLabel('left', "<span style=\"color:#FFFFFF;font-size:20px\">"+"δ [MPa]"+"</span>")
         
         self.stressPlothWidget.showGrid(x=1,y=1,alpha=0.8)
-        self.stressPlothWidget.setTitle("<span style=\"color:#FFFFFF;font-size:20px\">"+"Stress Graph"+"</span>")
+        #self.stressPlothWidget.setTitle("<span style=\"color:#FFFFFF;font-size:20px\">"+"Stress Graph"+"</span>")
         # --------------------------------------------------------------------- #
         self.stressPlotWidgetCurve = pg.PlotCurveItem(pen=pg.mkPen(color="#03818a", width=2))
         self.stressPlothWidget.addItem(self.stressPlotWidgetCurve)
@@ -119,7 +116,7 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         self.forcePlothWidget.setLabel('left', "<span style=\"color:#FFFFFF;font-size:20px\">"+"F [N]"+"</span>")
         
         self.forcePlothWidget.showGrid(x=1,y=1,alpha=0.8)
-        self.forcePlothWidget.setTitle("<span style=\"color:#FFFFFF;font-size:20px\">"+"Force Graph"+"</span>")
+        #self.forcePlothWidget.setTitle("<span style=\"color:#FFFFFF;font-size:20px\">"+"Force Graph"+"</span>")
         # --------------------------------------------------------------------- #
         self.forcePlotWidgetCurve = pg.PlotCurveItem(pen=pg.mkPen(color="#03818a", width=2))
         self.forcePlothWidget.addItem(self.forcePlotWidgetCurve)
@@ -142,7 +139,7 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
 
         ## --- Startup actions  --- ##
         self.stop_func() 
-        self.tensile_func()
+        self.compress_func()
 
     def strengthRange(self):
         d = self.strengthRangeCbox.currentText()
@@ -168,8 +165,6 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
                 self.action_group.addAction(action)
             self.action_group.triggered.connect(self.updateportSelect)
 
-    def autoZero(self): ## start motor til den når Initial force
-        pass
 
 
     def exportSave(self):
