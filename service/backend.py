@@ -105,7 +105,7 @@ class com_obj:
                 if not (self.datalist[1][-1]-offset < length < self.datalist[1][-1]+offset): continue
                 if not (self.datalist[2][-1]-offset< force < self.datalist[2][-1]+offset): continue
             except: pass
-            self.latest_data = [self.time(),length,force,self.time(),self.stress(force)]
+            self.latest_data = [self.time(),length,force,self.engStrain(length),self.stress(force)]
             if self.datalog:
                 self.datalist[0].append(self.latest_data[0])
                 self.datalist[1].append(self.latest_data[1])
@@ -214,6 +214,9 @@ class com_obj:
                 return ((distance-non_gauge_distance)/1000) / (self.conf["L0"] - 2 * R0)
         else:
             return (distance/1000) / self.conf["L0"]
+
+    def engStrain(self, dist):
+        return dist / (self.conf["L0"] * 1e3)
 
     def export(self, loc):
         data = zip(*self.datalist)

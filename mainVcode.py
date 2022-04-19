@@ -179,7 +179,7 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         self.timeRead.setValue(int(self.mcu.latest_data[0]))
         self.lengthRead.setValue(int(self.mcu.latest_data[1]))
         self.forceRead.setValue(int(self.mcu.latest_data[2]))
-        self.epsilonRead.setValue(int(self.mcu.latest_data[3]))
+        self.espilonRead.setValue(self.mcu.latest_data[3])
         self.stressRead.setValue(int(self.mcu.latest_data[4]))
         if self.RWlengthRange.value() != 0 and abs(self.mcu.latest_data[1]) > self.RWlengthRange.value():
             self.stop_func() 
