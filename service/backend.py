@@ -178,8 +178,8 @@ class com_obj:
             if check_linear(self.datalist[2], self.datalist[1]) == False:
                 print("\n NONLINEAR\n")
                 if self.linear[0] == True:
-                    n_max = self.datalist[4][-1]
-                    n_min = self.datalist[4][1]
+                    n_max = len(self.datalist[4])-1
+                    n_min = 1
                     for i in range((len(self.datalist[4]))):
                         if self.datalist[4][i] > self.datalist[4][n_max]:
                             n_max = i
