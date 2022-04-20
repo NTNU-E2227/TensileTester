@@ -99,8 +99,8 @@ class com_obj:
                 yield False
                 continue
             length = self.length_from_raw(data[0])
-            force = self.force_from_raw(data[1])
-            self.latest_data = [self.time(),length,force,self.engStrain(length),self.stress(force)]
+            force = self.force_from_raw(data[1])              #engStrain
+            self.latest_data = [self.time(),length,force,self.strain(force,length),self.stress(force)]
             if self.datalog:
                 self.datalist[0].append(self.latest_data[0])
                 self.datalist[1].append(self.latest_data[1])
