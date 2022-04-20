@@ -95,8 +95,9 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         self.stressPlothWidget.setLabel('left', "<span style=\"color:#FFFFFF;font-size:20px\">"+"δ [MPa]"+"</span>")
         
         self.stressPlothWidget.showGrid(x=1,y=1,alpha=0.8)
-        #self.stressPlothWidget.setTitle("<span style=\"color:#FFFFFF;font-size:20px\">"+"Stress Graph"+"</span>")
-        # --------------------------------------------------------------------- #
+        self.stressPlothWidget.setYRange(0, 3000/(self.mcu.conf["E0"]*self.mcu.conf["H0"]), padding=0.03)
+        self.stressPlothWidget.setXRange(0, 1500 / (self.mcu.conf["L0"] * 1e3), padding=0.01)
+        
         self.stressPlotWidgetCurve = pg.PlotCurveItem(pen=pg.mkPen(color="#03818a", width=2))
         self.stressPlothWidget.addItem(self.stressPlotWidgetCurve)
         self.gridLayout_6.addWidget(self.stressPlothWidget,0,0,1,1)
@@ -116,8 +117,9 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         self.forcePlothWidget.setLabel('left', "<span style=\"color:#FFFFFF;font-size:20px\">"+"F [N]"+"</span>")
         
         self.forcePlothWidget.showGrid(x=1,y=1,alpha=0.8)
-        #self.forcePlothWidget.setTitle("<span style=\"color:#FFFFFF;font-size:20px\">"+"Force Graph"+"</span>")
-        # --------------------------------------------------------------------- #
+        self.forcePlothWidget.setXRange(0, 1500, padding=0.01)
+        self.forcePlothWidget.setYRange(0, 3000, padding=0.03)
+
         self.forcePlotWidgetCurve = pg.PlotCurveItem(pen=pg.mkPen(color="#03818a", width=2))
         self.forcePlothWidget.addItem(self.forcePlotWidgetCurve)
         self.gridLayout_7.addWidget(self.forcePlothWidget,0,0,1,1)
@@ -145,10 +147,16 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         d = self.strengthRangeCbox.currentText()
         if d == "S1 - 3KN":
             self.mcu.sRange = "1"
+            self.forcePlothWidget.setYRange(0, 3000, padding=0.03)
+            self.stressPlothWidget.setYRange(0, 3000/(self.mcu.conf["E0"]*self.mcu.conf["H0"]), padding=0.03)
         elif d == "S2 - 5KN":
             self.mcu.sRange = "2"
+            self.forcePlothWidget.setYRange(0, 5000, padding=0.03)
+            self.stressPlothWidget.setYRange(0, 5000/(self.mcu.conf["E0"]*self.mcu.conf["H0"]), padding=0.03)
         elif d == "S3 - 10KN":
             self.mcu.sRange = "3"
+            self.forcePlothWidget.setYRange(0, 10000, padding=0.03)
+            self.stressPlothWidget.setYRange(0, 10000/(self.mcu.conf["E0"]*self.mcu.conf["H0"]), padding=0.03)
         self.mcu.reset_data()
 
     def updatePortSelector(self):
