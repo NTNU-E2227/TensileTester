@@ -100,11 +100,6 @@ class com_obj:
                 continue
             length = self.length_from_raw(data[0])
             force = self.force_from_raw(data[1])
-            try:
-                offset = 1000
-                if not (self.datalist[1][-1]-offset < length < self.datalist[1][-1]+offset): continue
-                if not (self.datalist[2][-1]-offset< force < self.datalist[2][-1]+offset): continue
-            except: pass
             self.latest_data = [self.time(),length,force,self.engStrain(length),self.stress(force)]
             if self.datalog:
                 self.datalist[0].append(self.latest_data[0])
@@ -127,7 +122,7 @@ class com_obj:
 
     def set_time_zero(self):
         self.time_zero = time.time()
-        if not self.running:
+        if not self.datalog:
             self.timer_run = False
 
     def length_from_raw(self, length_raw):

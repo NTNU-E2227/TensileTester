@@ -4,7 +4,6 @@ from designerfiles.mainWindow import *
 from designerfiles.geometricDialog import Ui_Dialog as geo_Ui_Dialog
 from designerfiles.resetgraphDialog import Ui_Dialog as graph_Ui_Dialog
 from PyQt5 import QtCore, QtGui, QtWidgets
-import service.config as config
 import pyqtgraph as pg
 import service.backend as backend
 from PyQt5.QtCore import QObject, QThread, pyqtSignal
@@ -157,7 +156,6 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
             self.mcu.sRange = "3"
             self.forcePlothWidget.setYRange(0, 10000, padding=0.03)
             self.stressPlothWidget.setYRange(0, 10000/(self.mcu.conf["E0"]*self.mcu.conf["H0"]), padding=0.03)
-        self.mcu.reset_data()
 
     def updatePortSelector(self):
         if self.mcu.update_ports():
