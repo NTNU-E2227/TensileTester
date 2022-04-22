@@ -12,7 +12,6 @@ class com_obj:
         self.portList = []
         self.direction = b"l"
         self.linear = [True,0,0]
-        self.youngs = [0,0]
         self.running = False
         self.timer_run = False
         self.speed = 0
@@ -32,8 +31,8 @@ class com_obj:
         ports = serial.tools.list_ports.comports()
         for port in ports:
             if port.serial_number == self.conf["id"]:
-                self.set_port(port.name)
-            port_name_list.append(port.name)
+                self.set_port(port.device)
+            port_name_list.append(port.device)
         if port_name_list == self.portList:
             return False
         self.portList = port_name_list
@@ -100,7 +99,7 @@ class com_obj:
                 continue
             length = self.length_from_raw(data[0])
             force = self.force_from_raw(data[1])
-            self.latest_data = [self.time(),length,force,self.engStrain(length),self.stress(force)]
+            self.latest_data = [self.time(),length,force,self.strain(force, length),self.stress(force)]
             if self.datalog:
                 self.datalist[0].append(self.latest_data[0])
                 self.datalist[1].append(self.latest_data[1])
@@ -116,6 +115,7 @@ class com_obj:
 
     def reset_data(self):
         self.datalist = [[],[],[],[],[]]
+        self.linear = [True,0,0]
 
     def set_length_zero(self):
         self.length_zero = self.latest_data[1] + self.length_zero 
@@ -155,10 +155,10 @@ class com_obj:
 
             def check_linear(Force_list, Length_list):
                 if len(Force_list)<50:
-                    print("linear")
+                    print("linear1")
                     return True
                 elif Force_list[-50] < 0:
-                    print("linear")
+                    print("linear1")
                     return True
                 print("Force:", Force_list[-1], Force_list[-11], Force_list[-21], Force_list[-5], Force_list[-15])
                 print("Length:", Length_list[-1],Length_list[-11],Length_list[-21],Length_list[-5],Length_list[-15])
@@ -200,11 +200,14 @@ class com_obj:
                 self.linear[0] = False
 
             if self.linear[0]:  # Når Metallet er elastisk
-                print("linear")
+                print("linear2")
                 return (linear_gauge_distance/1000) / (self.conf["L0"] - 2 * R0)
             else:  # Når metallet ikke lenger er i elastisk området
-                print("nonlinear")
-                non_gauge_length = 1 - linear_gauge_distance/distance
+                print("nonlinear2")
+                try:
+                    non_gauge_length = 1 - linear_gauge_distance/distance
+                except ZeroDivisionError: #Hvis distance faktisk er null så er det ikke noe strain
+                    return 0
                 non_gauge_distance = (non_gauge_length/(1-non_gauge_length))*1000*(self.conf["L0"] - 2 * R0)*(((force/(self.conf["E0"]*self.conf["H0"]))-self.linear[2])/self.linear[1])
                 return ((distance-non_gauge_distance)/1000) / (self.conf["L0"] - 2 * R0)
         else:
