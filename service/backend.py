@@ -119,6 +119,7 @@ class com_obj:
 
     def set_length_zero(self):
         self.length_zero = self.latest_data[1] + self.length_zero 
+        self.reset_data()
 
     def set_time_zero(self):
         self.time_zero = time.time()
@@ -143,7 +144,9 @@ class com_obj:
         return stress
 
     def strain(self, force, distance):  # Går ut ifra at metallene strekker seg lineært med påført kraft når elastiske.
-        if self.conf["L1"] - self.conf["L0"] > 0 and self.speed != 0 :  # Sjekker om utregninger er nødvendige
+        if self.conf["L1"] == 0 or self.conf["H1"] == 0:
+            return (distance / 1000) / self.conf["L0"]
+        elif self.conf["L1"] - self.conf["L0"] > 0 and self.speed != 0 :  # Sjekker om utregninger er nødvendige
             R0 = (self.conf["H1"] - self.conf["H0"]) / 2
             R0_L = 0
             for i in range(89):
