@@ -137,6 +137,14 @@ class com_obj:
             force += self.conf["S" + self.sRange + str(b)] * (force_raw ** b)
         return force
 
+    def trueStressStrain(self,force,length):
+        A0 = self.conf["E0"] * self.conf["H0"]
+        estress = force/A0
+        estrain = length/(self.conf["L0"]*1e3)
+        tstress = estress*(1+estrain)
+        tstrain = math.log(1+estrain)
+        return tstress, tstrain
+    
     def stress(self, force):
         A0 = self.conf["E0"] * self.conf["H0"]
         stress = force/A0 #in MPa
