@@ -85,6 +85,12 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         
         font=QtGui.QFont()
         font.setPixelSize(12)
+        self.stressPlothWidget.getAxis('top').setStyle(showValues=False)
+        self.stressPlothWidget.setLabel('top', text=' ')
+        
+        self.stressPlothWidget.getAxis('right').setStyle(showValues=False)
+        self.stressPlothWidget.setLabel('right', text=' ')
+
         self.stressPlothWidget.getAxis("bottom").tickFont = font
         self.stressPlothWidget.getAxis("bottom").setStyle(tickTextOffset = 8)
         self.stressPlothWidget.setLabel('bottom', "<span style=\"color:#FFFFFF;font-size:20px\">"+"ɛ"+"</span>")
@@ -99,14 +105,20 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         
         self.stressPlotWidgetCurve = pg.PlotCurveItem(pen=pg.mkPen(color="#03818a", width=2))
         self.stressPlothWidget.addItem(self.stressPlotWidgetCurve)
-        self.gridLayout_6.addWidget(self.stressPlothWidget,0,0,1,1)
+        self.gridLayout_9.addWidget(self.stressPlothWidget,0,0,1,1)
         
         #### --- ForceGraph setup --- ####
         self.forcePlothWidget = pg.PlotWidget()
         self.forcePlothWidget.setBackground((33,33,33))
-        
+          
         font=QtGui.QFont()
         font.setPixelSize(12)
+        self.forcePlothWidget.getAxis('top').setStyle(showValues=False)
+        self.forcePlothWidget.setLabel('top', text=' ')
+        
+        self.forcePlothWidget.getAxis('right').setStyle(showValues=False)
+        self.forcePlothWidget.setLabel('right', text=' ')
+
         self.forcePlothWidget.getAxis("bottom").tickFont = font
         self.forcePlothWidget.getAxis("bottom").setStyle(tickTextOffset = 8)
         self.forcePlothWidget.setLabel('bottom', "<span style=\"color:#FFFFFF;font-size:20px\">"+"L [μm]"+"</span>")
@@ -121,7 +133,7 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
 
         self.forcePlotWidgetCurve = pg.PlotCurveItem(pen=pg.mkPen(color="#03818a", width=2))
         self.forcePlothWidget.addItem(self.forcePlotWidgetCurve)
-        self.gridLayout_7.addWidget(self.forcePlothWidget,0,0,1,1)
+        self.gridLayout_10.addWidget(self.forcePlothWidget,0,0,1,1)
         
         ## --- Set program icon --- ##
         MainWindow.setWindowIcon(QtGui.QIcon("resources/icon.svg"))

@@ -1123,15 +1123,7 @@ QDoubleSpinBox{
                <property name="cursor">
                 <cursorShape>ArrowCursor</cursorShape>
                </property>
-               <layout class="QGridLayout" name="gridLayout_10">
-                <item row="0" column="0">
-                 <widget class="QGraphicsView" name="graphicsView_2">
-                  <property name="cursor" stdset="0">
-                   <cursorShape>PointingHandCursor</cursorShape>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
+               <layout class="QGridLayout" name="gridLayout_10"/>
               </widget>
              </item>
             </layout>
@@ -1154,21 +1146,7 @@ QDoubleSpinBox{
                <property name="cursor">
                 <cursorShape>ArrowCursor</cursorShape>
                </property>
-               <layout class="QGridLayout" name="gridLayout_9">
-                <item row="0" column="0">
-                 <widget class="QGraphicsView" name="graphicsView">
-                  <property name="minimumSize">
-                   <size>
-                    <width>0</width>
-                    <height>0</height>
-                   </size>
-                  </property>
-                  <property name="cursor" stdset="0">
-                   <cursorShape>PointingHandCursor</cursorShape>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
+               <layout class="QGridLayout" name="gridLayout_9"/>
               </widget>
              </item>
             </layout>
