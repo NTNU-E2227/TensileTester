@@ -98,8 +98,8 @@ class com_obj:
                 yield False
                 continue
             length = self.length_from_raw(data[0])
-            force = self.force_from_raw(data[1])
-            self.latest_data = [self.time(),length,force,self.strain(force, length),self.stress(force)]
+            force = self.force_from_raw(data[1])              #engStrain
+            self.latest_data = [self.time(),length,force,self.strain(force,length),self.stress(force)]
             if self.datalog:
                 self.datalist[0].append(self.latest_data[0])
                 self.datalist[1].append(self.latest_data[1])
@@ -137,6 +137,14 @@ class com_obj:
         for b in range(0, 5):
             force += self.conf["S" + self.sRange + str(b)] * (force_raw ** b)
         return force
+
+    def trueStressStrain(self,force,length):
+        A0 = self.conf["E0"] * self.conf["H0"]
+        estress = force/A0
+        estrain = length/(self.conf["L0"]*1e3)
+        tstress = estress*(1+estrain)
+        tstrain = math.log(1+estrain)
+        return tstress, tstrain
 
     def stress(self, force):
         A0 = self.conf["E0"] * self.conf["H0"]
