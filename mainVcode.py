@@ -97,7 +97,7 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
               
         self.stressPlothWidget.getAxis("left").tickFont = font
         self.stressPlothWidget.getAxis("left").setStyle(tickTextOffset = 8)
-        self.stressPlothWidget.setLabel('left', "<span style=\"color:#FFFFFF;font-size:20px\">"+"δ [MPa]"+"</span>")
+        self.stressPlothWidget.setLabel('left', "<span style=\"color:#FFFFFF;font-size:20px\">"+"σ [MPa]"+"</span>")
         
         self.stressPlothWidget.showGrid(x=1,y=1,alpha=0.8)
         self.stressPlothWidget.setYRange(0, 3000/(self.mcu.conf["E0"]*self.mcu.conf["H0"]), padding=0.03)
