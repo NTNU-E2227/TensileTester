@@ -1,5 +1,3 @@
 TODO:
-	- Strain error
 	- Comport: Unngå kræsj
-	- Set maks begrensning på length-range etter fullskala kalibrering
 	- "espilonRead"

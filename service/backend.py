@@ -232,10 +232,11 @@ class com_obj:
         data = list(data)
         sep = [map(str,l) for l in data]
         nl = [(';'.join(s)) for s in sep]
-        param = { key: self.conf[key] for key in ["L0","L1","H0","H1","E0"] }
+        self.conf["DR"] = len(self.datalist[0])
+        param = { key: self.conf[key] for key in ["L0","L1","H0","H1","E0","DR"] }
         param = param.items()
         sep2 = [map(str,l1) for l1 in param]
         nl2 = [(';'.join(s2)) for s2 in sep2]
         tabell = ["Time; Length; Force; Strain; Stress;\ns;um;N;None;MPa"]
-        header = '"Reference;ISO 6892"\n"Specimen geometry;flat"\n"Specimen thickness = E0"\n"Specimen width = H0\n"Data acquisition rate 8Hz"\n"File length N data rows"\n"File width 5 data columns"'
+        header = '"Reference;ISO 6892"\n"Specimen geometry;flat"\n"Specimen thickness = E0"\n"Specimen width = H0\n"File length N data rows"\n"File width 5 data columns"'
         np.savetxt(loc,np.r_[nl2,tabell,nl],header = header,delimiter =";",fmt ='% 4s',comments = "")
