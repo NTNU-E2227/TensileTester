@@ -110,7 +110,7 @@ class com_obj:
 
     def time(self):
         if self.timer_run:
-            return time.time() - self.time_zero
+            return round(time.time() - self.time_zero, 2)
         return 0
 
     def reset_data(self):
@@ -130,13 +130,13 @@ class com_obj:
         length = 0
         for a in range(0, 5):
             length += self.conf["D" + str(a)] * (length_raw ** a)
-        return length - self.length_zero
+        return round(length - self.length_zero, 2)
 
     def force_from_raw(self, force_raw):
         force = 0
         for b in range(0, 5):
             force += self.conf["S" + self.sRange + str(b)] * (force_raw ** b)
-        return force
+        return round(force, 2)
 
     def trueStressStrain(self,force,length):
         A0 = self.conf["E0"] * self.conf["H0"]
@@ -149,7 +149,7 @@ class com_obj:
     def stress(self, force):
         A0 = self.conf["E0"] * self.conf["H0"]
         stress = force/A0 #in MPa
-        return stress
+        return round(stress, 2)
 
     def strain(self, force, distance):  # Går ut ifra at metallene strekker seg lineært med påført kraft når elastiske.
         if self.conf["L1"] == 0 or self.conf["H1"] == 0:
@@ -225,7 +225,7 @@ class com_obj:
             return (distance/1000) / self.conf["L0"]
 
     def engStrain(self, dist):
-        return dist / (self.conf["L0"] * 1e3)
+        return round(dist / (self.conf["L0"] * 1e3), 4)
 
     def export(self, loc):
         data = zip(*self.datalist)
