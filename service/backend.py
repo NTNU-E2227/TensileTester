@@ -157,7 +157,7 @@ class com_obj:
         data = list(data)
         sep = [map(str,l) for l in data]
         nl = [(';'.join(s)) for s in sep]
-        self.conf["DR"] = len(self.datalist[0])
+        self.conf["N"] = len(self.datalist[0])
         param = { key: self.conf[key] for key in ["L0","L1","H0","H1","E0","DR"] }
         param = param.items()
         sep2 = [map(str,l1) for l1 in param]
