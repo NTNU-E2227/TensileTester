@@ -1,3 +1,0 @@
-TODO:
-	- Comport: Unngå kræsj
-	- "espilonRead"
