@@ -7,7 +7,7 @@ import json
 import numpy as np
 
 class com_obj:
-    def __init__(self):
+    def __init__(self): #[ES]
         self.port = None
         self.portList = []
         self.direction = b"l"
@@ -25,7 +25,7 @@ class com_obj:
             data = f.read()
             self.conf = json.loads(data)
 
-    def update_ports(self):
+    def update_ports(self): #[ES]
         port_name_list = []
         ports = serial.tools.list_ports.comports()
         for port in ports:
@@ -37,11 +37,11 @@ class com_obj:
         self.portList = port_name_list
         return True
 
-    def motor_stop(self):
+    def motor_stop(self): #[ES]
         self.port.write(b's\n')
         self.running = False
 
-    def motor_run(self):
+    def motor_run(self): #[ES]
         PWM_MAX = 0x6978
         PWM_MIN = 0x0BB8
         SPEED_MAX = 30.0
@@ -59,33 +59,33 @@ class com_obj:
             self.set_time_zero()
             self.timer_run = True
 
-    def adc_reset(self):
+    def adc_reset(self): #[ES]
         self.port.write(b'r\n')
 
-    def adc_read(self):
+    def adc_read(self): #[ES]
         in_data = self.port.readline()
         length = int(in_data[0:6],16)
         force = int(in_data[6:12],16)
         return [length, force]
 
-    def set_direction(self, dir):
+    def set_direction(self, dir): #[ES]
         self.direction = dir
         if self.running:
             self.motor_run()
 
-    def set_speed(self, spd):
+    def set_speed(self, spd): #[ES]
         self.speed = spd
         if self.running:
             self.motor_run()
 
-    def set_port(self, port_name):
+    def set_port(self, port_name): #[ES]
         if self.port != None:
             self.port.close()
         self.port = serial.Serial(port_name, baudrate=115200)
         self.adc_reset()
         self.adc_read()
 
-    def generator(self):
+    def generator(self): #[ES]
         while True:
             if self.port == None:
                 yield False
@@ -107,36 +107,36 @@ class com_obj:
                 self.datalist[4].append(self.latest_data[4])
             yield True
 
-    def time(self):
+    def time(self): #[ØLS]
         if self.timer_run:
             return round(time.time() - self.time_zero, 2)
         return 0
 
-    def reset_data(self):
+    def reset_data(self): #[ES]
         self.datalist = [[],[],[],[],[]]
 
-    def set_length_zero(self):
+    def set_length_zero(self): #[ES]
         self.length_zero = self.latest_data[1] + self.length_zero 
         self.reset_data()
 
-    def set_time_zero(self):
+    def set_time_zero(self): #[ØLS]
         self.time_zero = time.time()
         if not self.datalog:
             self.timer_run = False
 
-    def length_from_raw(self, length_raw):
+    def length_from_raw(self, length_raw): #[ES]
         length = 0
         for a in range(0, 5):
             length += self.conf["D" + str(a)] * (length_raw ** a)
         return round(length - self.length_zero, 2)
 
-    def force_from_raw(self, force_raw):
+    def force_from_raw(self, force_raw): #[ES]
         force = 0
         for b in range(0, 5):
             force += self.conf["S" + self.sRange + str(b)] * (force_raw ** b)
         return round(force, 2)
 
-    def trueStressStrain(self,force,length):
+    def trueStressStrain(self,force,length): #[VS]
         A0 = self.conf["E0"] * self.conf["H0"]
         estress = force/A0
         estrain = length/(self.conf["L0"]*1e3)
@@ -144,15 +144,15 @@ class com_obj:
         tstrain = math.log(1+estrain)
         return tstress, tstrain
 
-    def stress(self, force):
+    def stress(self, force): #[VS]
         A0 = self.conf["E0"] * self.conf["H0"]
         stress = force/A0 #in MPa
         return round(stress, 2)
 
-    def strain(self, dist):
+    def strain(self, dist): #[ES]
         return round(dist / (self.conf["L0"] * 1e3), 4)
 
-    def export(self, loc):
+    def export(self, loc): #[BM]
         data = zip(*self.datalist)
         data = list(data)
         sep = [map(str,l) for l in data]
