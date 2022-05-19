@@ -11,7 +11,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from resources import geometric_img_rc
 
-class Ui_Dialog(object):
+class Ui_Dialog(object): #[JBT,ØLS]
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
         Dialog.resize(596, 367)

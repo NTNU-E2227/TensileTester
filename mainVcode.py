@@ -12,7 +12,7 @@ from PyQt5.QtCore import QObject, QThread, pyqtSignal
 QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True) #enable highdpi scaling
 QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True)    #use highdpi icons
 
-class stressWorker(QObject):
+class stressWorker(QObject):#[ES]
     updatePort = pyqtSignal(bool)
     newData = pyqtSignal(bool)
     def __init__(self, s):
@@ -28,12 +28,12 @@ class stressWorker(QObject):
                 self.updatePort.emit(False)
 
 class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
-    def __init__(self):
+    def __init__(self): #[JBT,ES,ØLS]
         super().__init__()     
         self.setupUi(MainWindow)
         self.mcu = backend.com_obj()
 
-        ## ------ ResetGraph dialog init ------ ##
+        ## ------ ResetGraph dialog init ------ ## 
         self.resetgraphDialog = QtWidgets.QDialog()
         self.resetgraphDialog.setWindowFlag(QtCore.Qt.WindowContextHelpButtonHint,False)
         self.resetgraphDialog.setWindowFlag(QtCore.Qt.WindowStaysOnTopHint)
@@ -154,7 +154,7 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         self.stop_func() 
         self.compress_func()
 
-    def strengthRange(self):
+    def strengthRange(self):#[JBT,ES]
         d = self.strengthRangeCbox.currentText()
         if d == "S1 - 3KN":
             self.mcu.sRange = "1"
@@ -169,7 +169,7 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
             self.forcePlothWidget.setYRange(0, 10000, padding=0.03)
             self.stressPlothWidget.setYRange(0, 10000/(self.mcu.conf["E0"]*self.mcu.conf["H0"]), padding=0.03)
 
-    def updatePortSelector(self):
+    def updatePortSelector(self):#[JBT,ES]
         if self.mcu.update_ports():
             self.action_group = QtWidgets.QActionGroup(self)
             self.action_group.setExclusive(True)
@@ -185,15 +185,15 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
 
 
 
-    def exportSave(self):
+    def exportSave(self):#[JBT]
         exportDialog = QtWidgets.QFileDialog.getSaveFileName(MainWindow, 'Save File','', 'CSV files (*.csv)')
         if not exportDialog[0] == '':
             self.mcu.export(exportDialog[0])
               
-    def updateportSelect(self, action):
+    def updateportSelect(self, action):#[JBT,ØLS]
         self.mcu.set_port(action.text())
 
-    def graphPlot(self):
+    def graphPlot(self):#[JBT,ES,ØLS]
         self.timeRead.setValue(int(self.mcu.latest_data[0]))
         self.lengthRead.setValue(int(self.mcu.latest_data[1]))
         self.forceRead.setValue(int(self.mcu.latest_data[2]))
@@ -207,17 +207,17 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
             self.forcePlotWidgetCurve.setData(self.mcu.datalist[1],self.mcu.datalist[2])
             self.stressPlotWidgetCurve.setData(self.mcu.datalist[3],self.mcu.datalist[4])
             
-    def resetgraphPlot(self):
+    def resetgraphPlot(self):#[JBT,ES,ØLS]
         self.mcu.reset_data()
         self.mcu.set_time_zero()
         self.stressPlotWidgetCurve.setData(self.mcu.datalist[1],self.mcu.datalist[2])
         self.forcePlotWidgetCurve.setData(self.mcu.datalist[3],self.mcu.datalist[4])
         self.resetgraphDialog.close()
 
-    def writeUpdate(self):
+    def writeUpdate(self):#[JBT]
         self.mcu.set_speed(self.RWtensileSpeed.value())
 
-    def geometricWindow(self):
+    def geometricWindow(self):#[JBT,ØLS]
         self.geo_Ui.RWH0.setValue(self.mcu.conf["H0"])
         self.geo_Ui.RWH1.setValue(self.mcu.conf["H1"])
         self.geo_Ui.RWL0.setValue(self.mcu.conf["L0"])
@@ -226,14 +226,14 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
         
         self.geometricDialog.show()
     
-    def geometric_update(self):
+    def geometric_update(self):#[JBT,ØLS]
         self.mcu.conf["H0"] = self.geo_Ui.RWH0.value()
         self.mcu.conf["H1"] = self.geo_Ui.RWH1.value()
         self.mcu.conf["L0"] = self.geo_Ui.RWL0.value()
         self.mcu.conf["L1"] = self.geo_Ui.RWL1.value()
         self.mcu.conf["E0"] = self.geo_Ui.RWE0.value()
 
-    def dataLogging(self):
+    def dataLogging(self):#[ES]
         if self.mcu.datalog:
             self.mcu.datalog = False
             self.dataloggingButton.setStyleSheet('background-color : rgb(70, 70, 70)')
@@ -241,32 +241,32 @@ class extendWindow(Ui_MainWindow,QtWidgets.QWidget):
             self.mcu.datalog = True
             self.dataloggingButton.setStyleSheet('background-color :  #03818a')
 
-    def resetgraphWindow(self):
+    def resetgraphWindow(self):#[JBT]
         self.resetgraphDialog.show()
         
-    def start_func(self):
+    def start_func(self):#[JBT,ES,ØLS]
         self.startButton.setStyleSheet('background-color :  #03818a')
         self.stopButton.setStyleSheet('background-color : rgb(70, 70, 70)')
         self.mcu.motor_run()
 
-    def stop_func(self):
+    def stop_func(self):#[JBT,ES,ØLS]
         self.stopButton.setStyleSheet('background-color : #03818a')
         self.startButton.setStyleSheet('background-color : rgb(70, 70, 70)')
         if self.mcu.port != None:
             self.mcu.motor_stop()
 
-    def tensile_func(self):
+    def tensile_func(self):#[JBT,ES,ØLS]
         self.mcu.set_direction(b'l')
         self.tensileButton.setStyleSheet('background-color : #03818a')
         self.compressButton.setStyleSheet('background-color : rgb(70, 70, 70)')
 
-    def compress_func(self):
+    def compress_func(self):#[JBT,ES,ØLS]
         self.mcu.set_direction(b'u')
         self.compressButton.setStyleSheet('background-color : #03818a')
         self.tensileButton.setStyleSheet('background-color : rgb(70, 70, 70)')
 
     
-if __name__ == "__main__":
+if __name__ == "__main__":#[JBT]
     import sys
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
